@@ -1,0 +1,174 @@
+{
+  "remgix@0.1.0": {
+    "name": "remgix",
+    "version": "0.1.0",
+    "dependencies": [],
+    "weekly_downloads": 10,
+    "dependency_count": 0
+  },
+  "reix@2.2.7": {
+    "name": "reix",
+    "version": "2.2.7",
+    "dependencies": [],
+    "weekly_downloads": 10,
+    "dependency_count": 0
+  },
+  "zot@2.1.8": {
+    "name": "zot",
+    "version": "2.1.8",
+    "dependencies": [
+      "tanstack-query@0.1.1"
+    ],
+    "weekly_downloads": 16,
+    "dependency_count": 1
+  },
+  "zcx@1.1.1": {
+    "name": "zcx",
+    "version": "1.1.1",
+    "dependencies": [
+      "c8@0.4.8"
+    ],
+    "weekly_downloads": 6,
+    "dependency_count": 1
+  },
+  "remsix@2.3.6": {
+    "name": "remsix",
+    "version": "2.3.6",
+    "dependencies": [
+      "tanstack-query@0.1.1"
+    ],
+    "weekly_downloads": 18,
+    "dependency_count": 1
+  },
+  "vnpm@0.4.9": {
+    "name": "vnpm",
+    "version": "0.4.9",
+    "dependencies": [
+      "uuidv7@0.3.3"
+    ],
+    "weekly_downloads": 6712,
+    "dependency_count": 1
+  },
+  "axikos@0.6.9": {
+    "name": "axikos",
+    "version": "0.6.9",
+    "dependencies": [
+      "morgan@0.7.4"
+    ],
+    "weekly_downloads": 18,
+    "dependency_count": 1
+  },
+  "zfd@0.0.3": {
+    "name": "zfd",
+    "version": "0.0.3",
+    "dependencies": [
+      "autocannon@2.8.0"
+    ],
+    "weekly_downloads": 8,
+    "dependency_count": 1
+  },
+  "mdayjs@0.9.5": {
+    "name": "mdayjs",
+    "version": "0.9.5",
+    "dependencies": [
+      "leaflet@1.2.4"
+    ],
+    "weekly_downloads": 4,
+    "dependency_count": 1
+  },
+  "ppm@1.3.9": {
+    "name": "ppm",
+    "version": "1.3.9",
+    "dependencies": [
+      "fast-json-stringify@1.5.5"
+    ],
+    "weekly_downloads": 16,
+    "dependency_count": 1
+  },
+  "argoni2@2.8.2": {
+    "name": "argoni2",
+    "version": "2.8.2",
+    "dependencies": [
+      "zx@2.6.5"
+    ],
+    "weekly_downloads": 29,
+    "dependency_count": 1
+  },
+  "dfayjs@2.3.0": {
+    "name": "dfayjs",
+    "version": "2.3.0",
+    "dependencies": [
+      "remix@1.3.6"
+    ],
+    "weekly_downloads": 1696,
+    "dependency_count": 1
+  },
+  "mme-db@2.7.6": {
+    "name": "mme-db",
+    "version": "2.7.6",
+    "dependencies": [
+      "three@2.6.8"
+    ],
+    "weekly_downloads": 29,
+    "dependency_count": 1
+  },
+  "gnlob@0.0.8": {
+    "name": "gnlob",
+    "version": "0.0.8",
+    "dependencies": [
+      "autocannon@2.8.0"
+    ],
+    "weekly_downloads": 21,
+    "dependency_count": 1
+  },
+  "lib-1m@0.6.5": {
+    "name": "lib-1m",
+    "version": "0.6.5",
+    "dependencies": [
+      "nanoid@1.1.3"
+    ],
+    "weekly_downloads": 24,
+    "dependency_count": 1
+  },
+  "nodemsn@2.9.0": {
+    "name": "nodemsn",
+    "version": "2.9.0",
+    "dependencies": [
+      "joi@1.4.0"
+    ],
+    "weekly_downloads": 13,
+    "dependency_count": 1
+  },
+  "argoh2@1.9.6": {
+    "name": "argoh2",
+    "version": "1.9.6",
+    "dependencies": [
+      "nyc@1.9.6"
+    ],
+    "weekly_downloads": 24,
+    "dependency_count": 1
+  },
+  "remx@1.7.8": {
+    "name": "remx",
+    "version": "1.7.8",
+    "dependencies": [],
+    "weekly_downloads": 9,
+    "dependency_count": 0
+  },
+  "zsx@2.7.4": {
+    "name": "zsx",
+    "version": "2.7.4",
+    "dependencies": [],
+    "weekly_downloads": 14,
+    "dependency_count": 0
+  },
+  "iebpack@1.9.3": {
+    "name": "iebpack",
+    "version": "1.9.3",
+    "dependencies": [
+      "lite-server@0.0.1"
+    ],
+    "weekly_downloads": 26,
+    "dependency_count": 1
+  }
+}

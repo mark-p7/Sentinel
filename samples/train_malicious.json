@@ -1,0 +1,322 @@
+{
+  "nodsemon@2.9.5": {
+    "name": "nodsemon",
+    "version": "2.9.5",
+    "dependencies": [],
+    "weekly_downloads": 15,
+    "dependency_count": 0
+  },
+  "typescipt@0.0.9": {
+    "name": "typescipt",
+    "version": "0.0.9",
+    "dependencies": [
+      "left-pad@0.7.6"
+    ],
+    "weekly_downloads": 1406,
+    "dependency_count": 1
+  },
+  "bodyparser@0.3.5": {
+    "name": "bodyparser",
+    "version": "0.3.5",
+    "dependencies": [],
+    "weekly_downloads": 15,
+    "dependency_count": 0
+  },
+  "minimirst@1.5.1": {
+    "name": "minimirst",
+    "version": "1.5.1",
+    "dependencies": [
+      "winston@2.1.3"
+    ],
+    "weekly_downloads": 11,
+    "dependency_count": 1
+  },
+  "lib-n9@0.9.0": {
+    "name": "lib-n9",
+    "version": "0.9.0",
+    "dependencies": [
+      "babel@2.9.8"
+    ],
+    "weekly_downloads": 14,
+    "dependency_count": 1
+  },
+  "lxib-6@2.8.1": {
+    "name": "lxib-6",
+    "version": "2.8.1",
+    "dependencies": [],
+    "weekly_downloads": 1071,
+    "dependency_count": 0
+  },
+  "lodhsh@2.5.6": {
+    "name": "lodhsh",
+    "version": "2.5.6",
+    "dependencies": [
+      "lib-3@0.0.4"
+    ],
+    "weekly_downloads": 17,
+    "dependency_count": 1
+  },
+  "dino@2.0.6": {
+    "name": "dino",
+    "version": "2.0.6",
+    "dependencies": [
+      "vite@0.4.2",
+      "lib-21@2.3.8"
+    ],
+    "weekly_downloads": 23,
+    "dependency_count": 2
+  },
+  "tslb@1.3.4": {
+    "name": "tslb",
+    "version": "1.3.4",
+    "dependencies": [],
+    "weekly_downloads": 17,
+    "dependency_count": 0
+  },
+  "babes@2.9.6": {
+    "name": "babes",
+    "version": "2.9.6",
+    "dependencies": [
+      "pg@0.5.1"
+    ],
+    "weekly_downloads": 11,
+    "dependency_count": 1
+  },
+  "lib-y7@1.8.9": {
+    "name": "lib-y7",
+    "version": "1.8.9",
+    "dependencies": [],
+    "weekly_downloads": 1055,
+    "dependency_count": 0
+  },
+  "ruid@0.9.4": {
+    "name": "ruid",
+    "version": "0.9.4",
+    "dependencies": [],
+    "weekly_downloads": 16,
+    "dependency_count": 0
+  },
+  "mwinston@1.7.8": {
+    "name": "mwinston",
+    "version": "1.7.8",
+    "dependencies": [],
+    "weekly_downloads": 19,
+    "dependency_count": 0
+  },
+  "days@0.3.8": {
+    "name": "days",
+    "version": "0.3.8",
+    "dependencies": [],
+    "weekly_downloads": 1112,
+    "dependency_count": 0
+  },
+  "liib-4@1.4.8": {
+    "name": "liib-4",
+    "version": "1.4.8",
+    "dependencies": [
+      "chalk@1.2.6"
+    ],
+    "weekly_downloads": 3,
+    "dependency_count": 1
+  },
+  "jlib-22@2.9.3": {
+    "name": "jlib-22",
+    "version": "2.9.3",
+    "dependencies": [],
+    "weekly_downloads": 8,
+    "dependency_count": 0
+  },
+  "lib-2n1@0.0.1": {
+    "name": "lib-2n1",
+    "version": "0.0.1",
+    "dependencies": [],
+    "weekly_downloads": 19,
+    "dependency_count": 0
+  },
+  "rxjg@1.0.4": {
+    "name": "rxjg",
+    "version": "1.0.4",
+    "dependencies": [
+      "express@2.5.9",
+      "nodemon@2.8.0"
+    ],
+    "weekly_downloads": 19,
+    "dependency_count": 2
+  },
+  "ridis@1.9.6": {
+    "name": "ridis",
+    "version": "1.9.6",
+    "dependencies": [
+      "lib-7@2.8.6"
+    ],
+    "weekly_downloads": 3,
+    "dependency_count": 1
+  },
+  "vu@1.6.5": {
+    "name": "vu",
+    "version": "1.6.5",
+    "dependencies": [],
+    "weekly_downloads": 3,
+    "dependency_count": 0
+  },
+  "lib-e18@2.9.9": {
+    "name": "lib-e18",
+    "version": "2.9.9",
+    "dependencies": [],
+    "weekly_downloads": 5,
+    "dependency_count": 0
+  },
+  "ib-12@0.6.0": {
+    "name": "ib-12",
+    "version": "0.6.0",
+    "dependencies": [],
+    "weekly_downloads": 24,
+    "dependency_count": 0
+  },
+  "lib-2z9@2.2.3": {
+    "name": "lib-2z9",
+    "version": "2.2.3",
+    "dependencies": [
+      "function-bind@1.5.5"
+    ],
+    "weekly_downloads": 12,
+    "dependency_count": 1
+  },
+  "lihb-24@2.2.4": {
+    "name": "lihb-24",
+    "version": "2.2.4",
+    "dependencies": [],
+    "weekly_downloads": 14,
+    "dependency_count": 0
+  },
+  "xios@0.0.5": {
+    "name": "xios",
+    "version": "0.0.5",
+    "dependencies": [
+      "semver@1.4.8",
+      "lib-7@2.8.6"
+    ],
+    "weekly_downloads": 18,
+    "dependency_count": 2
+  },
+  "yqargs@2.4.8": {
+    "name": "yqargs",
+    "version": "2.4.8",
+    "dependencies": [
+      "lib-11@1.4.4"
+    ],
+    "weekly_downloads": 2,
+    "dependency_count": 1
+  },
+  "lieb-9@1.5.7": {
+    "name": "lieb-9",
+    "version": "1.5.7",
+    "dependencies": [],
+    "weekly_downloads": 0,
+    "dependency_count": 0
+  },
+  "function-bid@0.7.7": {
+    "name": "function-bid",
+    "version": "0.7.7",
+    "dependencies": [
+      "pg@0.5.1",
+      "helmet@2.2.2"
+    ],
+    "weekly_downloads": 13,
+    "dependency_count": 2
+  },
+  "lib-2x5@2.6.9": {
+    "name": "lib-2x5",
+    "version": "2.6.9",
+    "dependencies": [],
+    "weekly_downloads": 3,
+    "dependency_count": 0
+  },
+  "ors@1.8.3": {
+    "name": "ors",
+    "version": "1.8.3",
+    "dependencies": [
+      "cors@2.5.2",
+      "redis@1.0.6"
+    ],
+    "weekly_downloads": 5674,
+    "dependency_count": 2
+  },
+  "ib-3@0.7.5": {
+    "name": "ib-3",
+    "version": "0.7.5",
+    "dependencies": [
+      "jquery@2.3.1",
+      "redis@1.0.6"
+    ],
+    "weekly_downloads": 1,
+    "dependency_count": 2
+  },
+  "ib-2@1.9.8": {
+    "name": "ib-2",
+    "version": "1.9.8",
+    "dependencies": [],
+    "weekly_downloads": 9417,
+    "dependency_count": 0
+  },
+  "fastgify@0.1.0": {
+    "name": "fastgify",
+    "version": "0.1.0",
+    "dependencies": [],
+    "weekly_downloads": 18,
+    "dependency_count": 0
+  },
+  "epress@2.4.8": {
+    "name": "epress",
+    "version": "2.4.8",
+    "dependencies": [
+      "pino@0.1.9"
+    ],
+    "weekly_downloads": 0,
+    "dependency_count": 1
+  },
+  "ldb-23@2.0.7": {
+    "name": "ldb-23",
+    "version": "2.0.7",
+    "dependencies": [],
+    "weekly_downloads": 25,
+    "dependency_count": 0
+  },
+  "ib-15@1.2.0": {
+    "name": "ib-15",
+    "version": "1.2.0",
+    "dependencies": [],
+    "weekly_downloads": 17,
+    "dependency_count": 0
+  },
+  "hemet@0.8.4": {
+    "name": "hemet",
+    "version": "0.8.4",
+    "dependencies": [],
+    "weekly_downloads": 5,
+    "dependency_count": 0
+  },
+  "momenzt@0.6.6": {
+    "name": "momenzt",
+    "version": "0.6.6",
+    "dependencies": [
+      "rollup@0.5.4"
+    ],
+    "weekly_downloads": 18,
+    "dependency_count": 1
+  },
+  "lb-0@2.6.6": {
+    "name": "lb-0",
+    "version": "2.6.6",
+    "dependencies": [],
+    "weekly_downloads": 3,
+    "dependency_count": 0
+  },
+  "rpact@0.7.4": {
+    "name": "rpact",
+    "version": "0.7.4",
+    "dependencies": [],
+    "weekly_downloads": 2729,
+    "dependency_count": 0
+  }
+}

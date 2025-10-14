@@ -1,0 +1,1005 @@
+{
+  "react@0.4.2": {
+    "name": "react",
+    "version": "0.4.2",
+    "dependencies": [],
+    "weekly_downloads": 50284,
+    "dependency_count": 0
+  },
+  "lodash@2.1.7": {
+    "name": "lodash",
+    "version": "2.1.7",
+    "dependencies": [
+      "react@0.4.2"
+    ],
+    "weekly_downloads": 231612,
+    "dependency_count": 1
+  },
+  "express@2.5.9": {
+    "name": "express",
+    "version": "2.5.9",
+    "dependencies": [
+      "lodash@2.1.7",
+      "react@0.4.2"
+    ],
+    "weekly_downloads": 6463,
+    "dependency_count": 2
+  },
+  "debug@0.1.6": {
+    "name": "debug",
+    "version": "0.1.6",
+    "dependencies": [
+      "react@0.4.2"
+    ],
+    "weekly_downloads": 5480,
+    "dependency_count": 1
+  },
+  "chalk@1.2.6": {
+    "name": "chalk",
+    "version": "1.2.6",
+    "dependencies": [
+      "express@2.5.9",
+      "debug@0.1.6",
+      "react@0.4.2",
+      "lodash@2.1.7"
+    ],
+    "weekly_downloads": 1959,
+    "dependency_count": 4
+  },
+  "axios@2.0.2": {
+    "name": "axios",
+    "version": "2.0.2",
+    "dependencies": [],
+    "weekly_downloads": 7241886,
+    "dependency_count": 0
+  },
+  "mime-db@1.4.1": {
+    "name": "mime-db",
+    "version": "1.4.1",
+    "dependencies": [
+      "chalk@1.2.6",
+      "react@0.4.2",
+      "axios@2.0.2",
+      "debug@0.1.6"
+    ],
+    "weekly_downloads": 7692338,
+    "dependency_count": 4
+  },
+  "function-bind@1.5.5": {
+    "name": "function-bind",
+    "version": "1.5.5",
+    "dependencies": [
+      "axios@2.0.2",
+      "mime-db@1.4.1",
+      "debug@0.1.6",
+      "lodash@2.1.7"
+    ],
+    "weekly_downloads": 3812,
+    "dependency_count": 4
+  },
+  "hasown@0.5.0": {
+    "name": "hasown",
+    "version": "0.5.0",
+    "dependencies": [
+      "chalk@1.2.6",
+      "express@2.5.9",
+      "axios@2.0.2",
+      "lodash@2.1.7"
+    ],
+    "weekly_downloads": 1232129,
+    "dependency_count": 4
+  },
+  "asynckit@0.8.1": {
+    "name": "asynckit",
+    "version": "0.8.1",
+    "dependencies": [
+      "function-bind@1.5.5",
+      "axios@2.0.2"
+    ],
+    "weekly_downloads": 1949033,
+    "dependency_count": 2
+  },
+  "left-pad@0.7.6": {
+    "name": "left-pad",
+    "version": "0.7.6",
+    "dependencies": [
+      "lodash@2.1.7",
+      "axios@2.0.2",
+      "express@2.5.9",
+      "hasown@0.5.0"
+    ],
+    "weekly_downloads": 2492,
+    "dependency_count": 4
+  },
+  "minimist@2.2.9": {
+    "name": "minimist",
+    "version": "2.2.9",
+    "dependencies": [
+      "lodash@2.1.7",
+      "hasown@0.5.0"
+    ],
+    "weekly_downloads": 89913,
+    "dependency_count": 2
+  },
+  "commander@2.0.2": {
+    "name": "commander",
+    "version": "2.0.2",
+    "dependencies": [],
+    "weekly_downloads": 3065,
+    "dependency_count": 0
+  },
+    "next@2.0.8": {
+    "name": "next",
+    "version": "2.0.8",
+    "dependencies": [
+      "chalk@1.2.6",
+      "tslib@0.7.1"
+    ],
+    "weekly_downloads": 238310,
+    "dependency_count": 2
+  },
+  "remix@1.3.6": {
+    "name": "remix",
+    "version": "1.3.6",
+    "dependencies": [
+      "lib-22@2.2.0",
+      "lib-18@0.0.0"
+    ],
+    "weekly_downloads": 2273,
+    "dependency_count": 2
+  },
+  "pnpm@1.4.9": {
+    "name": "pnpm",
+    "version": "1.4.9",
+    "dependencies": [
+      "lib-24@0.4.4"
+    ],
+    "weekly_downloads": 5242,
+    "dependency_count": 1
+  },
+  "zx@2.6.5": {
+    "name": "zx",
+    "version": "2.6.5",
+    "dependencies": [],
+    "weekly_downloads": 54260,
+    "dependency_count": 0
+  },
+  "lite-server@0.0.1": {
+    "name": "lite-server",
+    "version": "0.0.1",
+    "dependencies": [],
+    "weekly_downloads": 1874181,
+    "dependency_count": 0
+  },
+  "bcrypt@2.2.7": {
+    "name": "bcrypt",
+    "version": "2.2.7",
+    "dependencies": [
+      "fastify@0.1.4",
+      "express@2.5.9",
+      "rollup@0.5.4"
+    ],
+    "weekly_downloads": 366572,
+    "dependency_count": 3
+  },
+  "argon2@0.4.5": {
+    "name": "argon2",
+    "version": "0.4.5",
+    "dependencies": [],
+    "weekly_downloads": 798334,
+    "dependency_count": 0
+  },
+  "morgan@0.7.4": {
+    "name": "morgan",
+    "version": "0.7.4",
+    "dependencies": [
+      "left-pad@0.7.6",
+      "babel@2.9.8"
+    ],
+    "weekly_downloads": 3464,
+    "dependency_count": 2
+  },
+  "fast-json-stringify@1.5.5": {
+    "name": "fast-json-stringify",
+    "version": "1.5.5",
+    "dependencies": [
+      "lib-13@1.9.7"
+    ],
+    "weekly_downloads": 94686,
+    "dependency_count": 1
+  },
+  "zod@1.5.7": {
+    "name": "zod",
+    "version": "1.5.7",
+    "dependencies": [
+      "svelte@1.6.5",
+      "tslib@0.7.1"
+    ],
+    "weekly_downloads": 1368034,
+    "dependency_count": 2
+  },
+  "joi@1.4.0": {
+    "name": "joi",
+    "version": "1.4.0",
+    "dependencies": [
+      "lib-21@2.3.8"
+    ],
+    "weekly_downloads": 886486,
+    "dependency_count": 1
+  },
+  "uvu@0.2.6": {
+    "name": "uvu",
+    "version": "0.2.6",
+    "dependencies": [
+      "bcrypt@2.2.7",
+      "remix@1.3.6"
+    ],
+    "weekly_downloads": 10681829,
+    "dependency_count": 2
+  },
+  "ava@1.0.1": {
+    "name": "ava",
+    "version": "1.0.1",
+    "dependencies": [
+      "typescript@1.8.2",
+      "eslint@1.2.1",
+      "vue@0.6.3"
+    ],
+    "weekly_downloads": 1424303,
+    "dependency_count": 3
+  },
+  "mocha@1.6.0": {
+    "name": "mocha",
+    "version": "1.6.0",
+    "dependencies": [
+      "express@2.5.9",
+      "bluebird@0.6.0"
+    ],
+    "weekly_downloads": 90981,
+    "dependency_count": 2
+  },
+  "chai@2.2.5": {
+    "name": "chai",
+    "version": "2.2.5",
+    "dependencies": [],
+    "weekly_downloads": 714512,
+    "dependency_count": 0
+  },
+  "nyc@1.9.6": {
+    "name": "nyc",
+    "version": "1.9.6",
+    "dependencies": [
+      "lib-2@0.1.7",
+      "lib-28@0.2.7",
+      "eslint@1.2.1"
+    ],
+    "weekly_downloads": 136048,
+    "dependency_count": 3
+  },
+  "c8@0.4.8": {
+    "name": "c8",
+    "version": "0.4.8",
+    "dependencies": [
+      "express@2.5.9",
+      "react@0.4.2",
+      "debug@0.1.6"
+    ],
+    "weekly_downloads": 12720266,
+    "dependency_count": 3
+  },
+  "nanoid@1.1.3": {
+    "name": "nanoid",
+    "version": "1.1.3",
+    "dependencies": [
+      "commander@2.0.2",
+      "rollup@0.5.4",
+      "lib-13@1.9.7"
+    ],
+    "weekly_downloads": 16642,
+    "dependency_count": 3
+  },
+  "uuidv7@0.3.3": {
+    "name": "uuidv7",
+    "version": "0.3.3",
+    "dependencies": [
+      "nyc@1.9.6"
+    ],
+    "weekly_downloads": 28736,
+    "dependency_count": 1
+  },
+  "swr@1.7.0": {
+    "name": "swr",
+    "version": "1.7.0",
+    "dependencies": [
+      "mongoose@0.6.4",
+      "pg@0.5.1",
+      "ora@2.2.9"
+    ],
+    "weekly_downloads": 22225,
+    "dependency_count": 3
+  },
+  "tanstack-query@0.1.1": {
+    "name": "tanstack-query",
+    "version": "0.1.1",
+    "dependencies": [
+      "next@2.0.8",
+      "chai@2.2.5"
+    ],
+    "weekly_downloads": 5981889,
+    "dependency_count": 2
+  },
+  "sentry@2.6.0": {
+    "name": "sentry",
+    "version": "2.6.0",
+    "dependencies": [
+      "pnpm@1.4.9",
+      "nyc@1.9.6"
+    ],
+    "weekly_downloads": 3366,
+    "dependency_count": 2
+  },
+  "moment@0.2.0": {
+    "name": "moment",
+    "version": "0.2.0",
+    "dependencies": [
+      "lodash@2.1.7",
+      "minimist@2.2.9"
+    ],
+    "weekly_downloads": 281047,
+    "dependency_count": 2
+  },
+  "rxjs@1.7.5": {
+    "name": "rxjs",
+    "version": "1.7.5",
+    "dependencies": [
+      "lodash@2.1.7",
+      "minimist@2.2.9",
+      "react@0.4.2"
+    ],
+    "weekly_downloads": 2676,
+    "dependency_count": 3
+  },
+  "vue@0.6.3": {
+    "name": "vue",
+    "version": "0.6.3",
+    "dependencies": [
+      "mime-db@1.4.1",
+      "chalk@1.2.6",
+      "asynckit@0.8.1",
+      "commander@2.0.2"
+    ],
+    "weekly_downloads": 75863,
+    "dependency_count": 4
+  },
+  "svelte@1.6.5": {
+    "name": "svelte",
+    "version": "1.6.5",
+    "dependencies": [],
+    "weekly_downloads": 7156,
+    "dependency_count": 0
+  },
+  "underscore@0.3.0": {
+    "name": "underscore",
+    "version": "0.3.0",
+    "dependencies": [
+      "asynckit@0.8.1"
+    ],
+    "weekly_downloads": 10493,
+    "dependency_count": 1
+  },
+  "yargs@0.3.6": {
+    "name": "yargs",
+    "version": "0.3.6",
+    "dependencies": [
+      "function-bind@1.5.5",
+      "lodash@2.1.7",
+      "rxjs@1.7.5"
+    ],
+    "weekly_downloads": 202523,
+    "dependency_count": 3
+  },
+  "dotenv@0.0.0": {
+    "name": "dotenv",
+    "version": "0.0.0",
+    "dependencies": [
+      "svelte@1.6.5",
+      "yargs@0.3.6",
+      "underscore@0.3.0",
+      "debug@0.1.6"
+    ],
+    "weekly_downloads": 460382,
+    "dependency_count": 4
+  },
+  "uuid@1.3.2": {
+    "name": "uuid",
+    "version": "1.3.2",
+    "dependencies": [
+      "commander@2.0.2",
+      "chalk@1.2.6",
+      "function-bind@1.5.5"
+    ],
+    "weekly_downloads": 1066,
+    "dependency_count": 3
+  },
+  "jquery@2.3.1": {
+    "name": "jquery",
+    "version": "2.3.1",
+    "dependencies": [
+      "dotenv@0.0.0",
+      "moment@0.2.0",
+      "mime-db@1.4.1",
+      "commander@2.0.2"
+    ],
+    "weekly_downloads": 90250,
+    "dependency_count": 4
+  },
+  "core-js@0.2.6": {
+    "name": "core-js",
+    "version": "0.2.6",
+    "dependencies": [],
+    "weekly_downloads": 32400,
+    "dependency_count": 0
+  },
+  "typescript@1.8.2": {
+    "name": "typescript",
+    "version": "1.8.2",
+    "dependencies": [
+      "yargs@0.3.6",
+      "chalk@1.2.6",
+      "core-js@0.2.6",
+      "function-bind@1.5.5"
+    ],
+    "weekly_downloads": 8290,
+    "dependency_count": 4
+  },
+  "fastify@0.1.4": {
+    "name": "fastify",
+    "version": "0.1.4",
+    "dependencies": [
+      "core-js@0.2.6",
+      "hasown@0.5.0",
+      "uuid@1.3.2"
+    ],
+    "weekly_downloads": 4507721,
+    "dependency_count": 3
+  },
+  "dayjs@1.5.2": {
+    "name": "dayjs",
+    "version": "1.5.2",
+    "dependencies": [
+      "function-bind@1.5.5",
+      "react@0.4.2"
+    ],
+    "weekly_downloads": 2270925,
+    "dependency_count": 2
+  },
+  "qs@1.2.4": {
+    "name": "qs",
+    "version": "1.2.4",
+    "dependencies": [
+      "jquery@2.3.1",
+      "rxjs@1.7.5",
+      "asynckit@0.8.1",
+      "typescript@1.8.2"
+    ],
+    "weekly_downloads": 163053,
+    "dependency_count": 4
+  },
+  "semver@1.4.8": {
+    "name": "semver",
+    "version": "1.4.8",
+    "dependencies": [
+      "underscore@0.3.0",
+      "dotenv@0.0.0",
+      "moment@0.2.0"
+    ],
+    "weekly_downloads": 2135449,
+    "dependency_count": 3
+  },
+  "glob@2.9.1": {
+    "name": "glob",
+    "version": "2.9.1",
+    "dependencies": [
+      "dotenv@0.0.0"
+    ],
+    "weekly_downloads": 19111707,
+    "dependency_count": 1
+  },
+  "ora@2.2.9": {
+    "name": "ora",
+    "version": "2.2.9",
+    "dependencies": [],
+    "weekly_downloads": 940147,
+    "dependency_count": 0
+  },
+  "winston@2.1.3": {
+    "name": "winston",
+    "version": "2.1.3",
+    "dependencies": [
+      "mime-db@1.4.1"
+    ],
+    "weekly_downloads": 644433,
+    "dependency_count": 1
+  },
+  "nodemon@2.8.0": {
+    "name": "nodemon",
+    "version": "2.8.0",
+    "dependencies": [
+      "axios@2.0.2",
+      "vue@0.6.3"
+    ],
+    "weekly_downloads": 38989879,
+    "dependency_count": 2
+  },
+  "prettier@1.4.1": {
+    "name": "prettier",
+    "version": "1.4.1",
+    "dependencies": [
+      "ora@2.2.9",
+      "glob@2.9.1"
+    ],
+    "weekly_downloads": 1557561,
+    "dependency_count": 2
+  },
+  "eslint@1.2.1": {
+    "name": "eslint",
+    "version": "1.2.1",
+    "dependencies": [
+      "core-js@0.2.6",
+      "jquery@2.3.1"
+    ],
+    "weekly_downloads": 47665,
+    "dependency_count": 2
+  },
+  "webpack@1.7.5": {
+    "name": "webpack",
+    "version": "1.7.5",
+    "dependencies": [
+      "moment@0.2.0",
+      "vue@0.6.3"
+    ],
+    "weekly_downloads": 4364643,
+    "dependency_count": 2
+  },
+  "rollup@0.5.4": {
+    "name": "rollup",
+    "version": "0.5.4",
+    "dependencies": [
+      "vue@0.6.3",
+      "yargs@0.3.6",
+      "eslint@1.2.1"
+    ],
+    "weekly_downloads": 855558,
+    "dependency_count": 3
+  },
+  "vite@0.4.2": {
+    "name": "vite",
+    "version": "0.4.2",
+    "dependencies": [
+      "moment@0.2.0"
+    ],
+    "weekly_downloads": 4410,
+    "dependency_count": 1
+  },
+  "babel@2.9.8": {
+    "name": "babel",
+    "version": "2.9.8",
+    "dependencies": [
+      "svelte@1.6.5"
+    ],
+    "weekly_downloads": 14670323,
+    "dependency_count": 1
+  },
+  "socket.io@1.8.2": {
+    "name": "socket.io",
+    "version": "1.8.2",
+    "dependencies": [
+      "mime-db@1.4.1",
+      "prettier@1.4.1"
+    ],
+    "weekly_downloads": 46571,
+    "dependency_count": 2
+  },
+  "mongoose@0.6.4": {
+    "name": "mongoose",
+    "version": "0.6.4",
+    "dependencies": [
+      "svelte@1.6.5",
+      "mime-db@1.4.1",
+      "asynckit@0.8.1",
+      "vite@0.4.2"
+    ],
+    "weekly_downloads": 1543610,
+    "dependency_count": 4
+  },
+  "redis@1.0.6": {
+    "name": "redis",
+    "version": "1.0.6",
+    "dependencies": [
+      "glob@2.9.1",
+      "ora@2.2.9",
+      "rollup@0.5.4",
+      "winston@2.1.3"
+    ],
+    "weekly_downloads": 313665,
+    "dependency_count": 4
+  },
+  "jest@0.0.7": {
+    "name": "jest",
+    "version": "0.0.7",
+    "dependencies": [
+      "chalk@1.2.6",
+      "yargs@0.3.6",
+      "mime-db@1.4.1"
+    ],
+    "weekly_downloads": 1168711,
+    "dependency_count": 3
+  },
+  "tslib@0.7.1": {
+    "name": "tslib",
+    "version": "0.7.1",
+    "dependencies": [
+      "semver@1.4.8",
+      "winston@2.1.3",
+      "asynckit@0.8.1",
+      "minimist@2.2.9"
+    ],
+    "weekly_downloads": 44674,
+    "dependency_count": 4
+  },
+  "body-parser@0.4.5": {
+    "name": "body-parser",
+    "version": "0.4.5",
+    "dependencies": [],
+    "weekly_downloads": 2555,
+    "dependency_count": 0
+  },
+  "cors@2.5.2": {
+    "name": "cors",
+    "version": "2.5.2",
+    "dependencies": [],
+    "weekly_downloads": 779398,
+    "dependency_count": 0
+  },
+  "pg@0.5.1": {
+    "name": "pg",
+    "version": "0.5.1",
+    "dependencies": [
+      "ora@2.2.9",
+      "debug@0.1.6",
+      "react@0.4.2"
+    ],
+    "weekly_downloads": 831090,
+    "dependency_count": 3
+  },
+  "knex@0.3.1": {
+    "name": "knex",
+    "version": "0.3.1",
+    "dependencies": [
+      "mongoose@0.6.4"
+    ],
+    "weekly_downloads": 9394,
+    "dependency_count": 1
+  },
+  "bluebird@0.6.0": {
+    "name": "bluebird",
+    "version": "0.6.0",
+    "dependencies": [],
+    "weekly_downloads": 2867,
+    "dependency_count": 0
+  },
+  "pino@0.1.9": {
+    "name": "pino",
+    "version": "0.1.9",
+    "dependencies": [
+      "tslib@0.7.1",
+      "body-parser@0.4.5",
+      "rxjs@1.7.5",
+      "svelte@1.6.5"
+    ],
+    "weekly_downloads": 19044,
+    "dependency_count": 4
+  },
+  "helmet@2.2.2": {
+    "name": "helmet",
+    "version": "2.2.2",
+    "dependencies": [
+      "nodemon@2.8.0",
+      "vite@0.4.2"
+    ],
+    "weekly_downloads": 77225,
+    "dependency_count": 2
+  },
+  "lib-0@2.6.5": {
+    "name": "lib-0",
+    "version": "2.6.5",
+    "dependencies": [
+      "typescript@1.8.2",
+      "babel@2.9.8",
+      "bluebird@0.6.0"
+    ],
+    "weekly_downloads": 8674,
+    "dependency_count": 3
+  },
+  "lib-1@1.7.0": {
+    "name": "lib-1",
+    "version": "1.7.0",
+    "dependencies": [
+      "asynckit@0.8.1",
+      "glob@2.9.1",
+      "express@2.5.9",
+      "babel@2.9.8"
+    ],
+    "weekly_downloads": 6626,
+    "dependency_count": 4
+  },
+  "lib-2@0.1.7": {
+    "name": "lib-2",
+    "version": "0.1.7",
+    "dependencies": [],
+    "weekly_downloads": 132716,
+    "dependency_count": 0
+  },
+  "lib-3@0.0.4": {
+    "name": "lib-3",
+    "version": "0.0.4",
+    "dependencies": [
+      "lib-2@0.1.7",
+      "eslint@1.2.1",
+      "dayjs@1.5.2",
+      "rxjs@1.7.5"
+    ],
+    "weekly_downloads": 191852,
+    "dependency_count": 4
+  },
+  "lib-4@0.3.5": {
+    "name": "lib-4",
+    "version": "0.3.5",
+    "dependencies": [
+      "mime-db@1.4.1",
+      "dayjs@1.5.2"
+    ],
+    "weekly_downloads": 2487,
+    "dependency_count": 2
+  },
+  "lib-5@0.8.9": {
+    "name": "lib-5",
+    "version": "0.8.9",
+    "dependencies": [],
+    "weekly_downloads": 1037581,
+    "dependency_count": 0
+  },
+  "lib-6@1.0.1": {
+    "name": "lib-6",
+    "version": "1.0.1",
+    "dependencies": [
+      "bluebird@0.6.0"
+    ],
+    "weekly_downloads": 1051221,
+    "dependency_count": 1
+  },
+  "lib-7@2.8.6": {
+    "name": "lib-7",
+    "version": "2.8.6",
+    "dependencies": [
+      "lodash@2.1.7",
+      "core-js@0.2.6",
+      "cors@2.5.2",
+      "lib-6@1.0.1"
+    ],
+    "weekly_downloads": 456729,
+    "dependency_count": 4
+  },
+  "lib-8@1.4.6": {
+    "name": "lib-8",
+    "version": "1.4.6",
+    "dependencies": [
+      "lodash@2.1.7",
+      "glob@2.9.1",
+      "knex@0.3.1",
+      "axios@2.0.2"
+    ],
+    "weekly_downloads": 1355,
+    "dependency_count": 4
+  },
+  "lib-9@0.0.0": {
+    "name": "lib-9",
+    "version": "0.0.0",
+    "dependencies": [
+      "underscore@0.3.0",
+      "svelte@1.6.5",
+      "lib-4@0.3.5"
+    ],
+    "weekly_downloads": 22279473,
+    "dependency_count": 3
+  },
+  "lib-10@1.0.5": {
+    "name": "lib-10",
+    "version": "1.0.5",
+    "dependencies": [
+      "dotenv@0.0.0",
+      "express@2.5.9",
+      "function-bind@1.5.5"
+    ],
+    "weekly_downloads": 20942442,
+    "dependency_count": 3
+  },
+  "lib-11@1.4.4": {
+    "name": "lib-11",
+    "version": "1.4.4",
+    "dependencies": [
+      "axios@2.0.2",
+      "core-js@0.2.6"
+    ],
+    "weekly_downloads": 1593,
+    "dependency_count": 2
+  },
+  "lib-12@2.3.8": {
+    "name": "lib-12",
+    "version": "2.3.8",
+    "dependencies": [],
+    "weekly_downloads": 82293,
+    "dependency_count": 0
+  },
+  "lib-13@1.9.7": {
+    "name": "lib-13",
+    "version": "1.9.7",
+    "dependencies": [
+      "lib-9@0.0.0",
+      "function-bind@1.5.5"
+    ],
+    "weekly_downloads": 190778,
+    "dependency_count": 2
+  },
+  "lib-14@2.2.1": {
+    "name": "lib-14",
+    "version": "2.2.1",
+    "dependencies": [
+      "lib-4@0.3.5",
+      "lib-5@0.8.9",
+      "lib-11@1.4.4"
+    ],
+    "weekly_downloads": 6283,
+    "dependency_count": 3
+  },
+  "lib-15@2.9.4": {
+    "name": "lib-15",
+    "version": "2.9.4",
+    "dependencies": [
+      "lib-13@1.9.7",
+      "lib-2@0.1.7"
+    ],
+    "weekly_downloads": 2946,
+    "dependency_count": 2
+  },
+  "lib-16@1.5.4": {
+    "name": "lib-16",
+    "version": "1.5.4",
+    "dependencies": [],
+    "weekly_downloads": 4625571,
+    "dependency_count": 0
+  },
+  "lib-17@2.8.8": {
+    "name": "lib-17",
+    "version": "2.8.8",
+    "dependencies": [
+      "lib-11@1.4.4",
+      "prettier@1.4.1",
+      "helmet@2.2.2"
+    ],
+    "weekly_downloads": 3912115,
+    "dependency_count": 3
+  },
+  "lib-18@0.0.0": {
+    "name": "lib-18",
+    "version": "0.0.0",
+    "dependencies": [
+      "babel@2.9.8"
+    ],
+    "weekly_downloads": 7498,
+    "dependency_count": 1
+  },
+  "lib-19@1.9.5": {
+    "name": "lib-19",
+    "version": "1.9.5",
+    "dependencies": [
+      "lib-16@1.5.4"
+    ],
+    "weekly_downloads": 569175,
+    "dependency_count": 1
+  },
+  "lib-20@1.6.9": {
+    "name": "lib-20",
+    "version": "1.6.9",
+    "dependencies": [],
+    "weekly_downloads": 17527,
+    "dependency_count": 0
+  },
+  "lib-21@2.3.8": {
+    "name": "lib-21",
+    "version": "2.3.8",
+    "dependencies": [
+      "socket.io@1.8.2",
+      "lodash@2.1.7"
+    ],
+    "weekly_downloads": 396186,
+    "dependency_count": 2
+  },
+  "lib-22@2.2.0": {
+    "name": "lib-22",
+    "version": "2.2.0",
+    "dependencies": [
+      "svelte@1.6.5",
+      "vue@0.6.3"
+    ],
+    "weekly_downloads": 120579,
+    "dependency_count": 2
+  },
+  "lib-23@2.5.4": {
+    "name": "lib-23",
+    "version": "2.5.4",
+    "dependencies": [
+      "ora@2.2.9"
+    ],
+    "weekly_downloads": 1356,
+    "dependency_count": 1
+  },
+  "lib-24@0.4.4": {
+    "name": "lib-24",
+    "version": "0.4.4",
+    "dependencies": [
+      "lib-23@2.5.4"
+    ],
+    "weekly_downloads": 107029,
+    "dependency_count": 1
+  },
+  "lib-25@2.0.2": {
+    "name": "lib-25",
+    "version": "2.0.2",
+    "dependencies": [],
+    "weekly_downloads": 56842,
+    "dependency_count": 0
+  },
+  "lib-26@2.9.2": {
+    "name": "lib-26",
+    "version": "2.9.2",
+    "dependencies": [
+      "knex@0.3.1",
+      "hasown@0.5.0",
+      "bluebird@0.6.0",
+      "lib-7@2.8.6"
+    ],
+    "weekly_downloads": 1263978,
+    "dependency_count": 4
+  },
+  "lib-27@0.7.9": {
+    "name": "lib-27",
+    "version": "0.7.9",
+    "dependencies": [],
+    "weekly_downloads": 3029321,
+    "dependency_count": 0
+  },
+  "lib-28@0.2.7": {
+    "name": "lib-28",
+    "version": "0.2.7",
+    "dependencies": [
+      "vite@0.4.2",
+      "cors@2.5.2",
+      "webpack@1.7.5"
+    ],
+    "weekly_downloads": 1912,
+    "dependency_count": 3
+  },
+  "lib-29@0.7.9": {
+    "name": "lib-29",
+    "version": "0.7.9",
+    "dependencies": [
+      "lib-22@2.2.0",
+      "cors@2.5.2",
+      "redis@1.0.6",
+      "lib-24@0.4.4"
+    ],
+    "weekly_downloads": 1228,
+    "dependency_count": 4
+  }
+}
