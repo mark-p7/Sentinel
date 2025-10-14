@@ -1,9 +1,9 @@
-# GNN Supply Chain Attack Detection Prototype
+# Sentinel
+A GNN Based NPM Supply Chain Attack Detection Tool
 
-Mark Angelo B. De Guzman<br>
-Student ID: A01224862<br>
-Date: October 10th, 2025<br>
-Course: COMP 8800 Major Projects 1
+Mark De Guzman<br>
+British Columbia Institute of Technology (BCIT)<br>
+October 10th, 2025<br>
 
 ## Steps To Run:
 NOTE: First make sure you are within the current directory
@@ -30,10 +30,10 @@ The prototype uses the datasets within the current directory to help either trai
 The model is named "gnn_model.pt" and is created/loaded within the current directory.
 
 These are the artifical data samples that will be used within this prototype (all are within the current directory):
-- [NPM packages sample data for training (train_benign.json)](train_benign.json)
-- [Malicious NPM package sample data for training (train_malicious.json)](train_malicious.json)
-- [NPM package sample data for evaluation (test_benign.json)](test_benign.json)
-- [Malicious NPM package sample data for evaluation (test_malicious.json)](test_malicious.json)
+- [NPM packages sample data for training (train_benign.json)](./samples/train_benign.json)
+- [Malicious NPM package sample data for training (train_malicious.json)](./samples/train_malicious.json)
+- [NPM package sample data for evaluation (test_benign.json)](./samples/test_benign.json)
+- [Malicious NPM package sample data for evaluation (test_malicious.json)](./samples/test_malicious.json)
 
 ## Output
 
