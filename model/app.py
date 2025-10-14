@@ -198,14 +198,14 @@ def main():
     
     # Load sample data
     if train:
-        with open("../samples/train_benign.json") as f:
+        with open("./samples/train_benign.json") as f:
             train_pkgs = json.load(f)
-        with open("../samples/train_malicious.json") as f:
+        with open("./samples/train_malicious.json") as f:
             train_m_pkgs = json.load(f)
     else:
-        with open("../samples/test_benign.json") as f:
+        with open("./samples/test_benign.json") as f:
             test_pkgs = json.load(f)
-        with open("../samples/test_malicious.json") as f:
+        with open("./samples/test_malicious.json") as f:
             test_m_pkgs = json.load(f)
         
     # Train
