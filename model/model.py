@@ -1,5 +1,3 @@
-import sys
-import json
 import torch
 import torch.nn.functional as F
 from torch_geometric.data import Data
@@ -172,56 +170,20 @@ def evaluate(model, data,mean,std):
     acc = (pred == data.y).sum().item() / len(data.y)
     return acc
 
-def main():
-    # Determine whether to train or evaluate model
-    train = True
-    if len(sys.argv) == 2:
-        if sys.argv[1] == "-t" or sys.argv[1] == "--train":
-            train = True
-        elif sys.argv[1] == "-e" or sys.argv[1] == "--eval":
-            train = False
-        else:
-            print("Incorrect arguments passed.\nPlease enter one of the following 2 arguments\n-t or --train to train the model\n-e or --eval to evaluate the model")
-            exit(1)
-    elif len(sys.argv) > 2:
-        print("Too many arguments passed.\nPlease enter one of the following 2 arguments\n-t or --train to train the model\n-e or --eval to evaluate the model")
-    else:
-        print("Please specify whether to train or evaluate.\nPlease enter one of the following 2 arguments\n-t or --train to train the model\n-e or --eval to evaluate the model")
-        exit(1)
-    
-    # Init data variables and constants
-    train_pkgs = None
-    train_m_pkgs = None
-    test_pkgs = None
-    test_m_pkgs = None
-    model_file_name = "gnn_model.pt"
-    
-    # Load sample data
-    if train:
-        with open("./samples/train_benign.json") as f:
-            train_pkgs = json.load(f)
-        with open("./samples/train_malicious.json") as f:
-            train_m_pkgs = json.load(f)
-    else:
-        with open("./samples/test_benign.json") as f:
-            test_pkgs = json.load(f)
-        with open("./samples/test_malicious.json") as f:
-            test_m_pkgs = json.load(f)
-        
+def run_model(is_train, model_name, benign_json_data, malicious_json_data):
     # Train
-    if train:
+    if is_train:
         print("Training model")
-        data = build_graph(train_pkgs, train_m_pkgs)
+        data = build_graph(benign_json_data, malicious_json_data)
         mean, std = fit_normalizer(data.x_raw)
         model = train_model(data, mean, std)
-        save_model(model, mean, std, model_file_name)
-        print(f"Model trained and saved to '{model_file_name}'.")
+        save_model(model, mean, std, model_name)
+        print(f"Model trained and saved to '{model_name}'.")
     else:
         # Eval
         print("Evaluating model")
-        test_data = build_graph(test_pkgs, test_m_pkgs)
-        model, mean, std = load_model(model_file_name)
+        test_data = build_graph(benign_json_data, malicious_json_data)
+        model, mean, std = load_model(model_name)
         acc = evaluate(model, test_data, mean, std)
         print("Calculated accuracy:", acc)
-
-main()
+        return acc
