@@ -1,9 +1,5 @@
 # Sentinel
-A GNN Based NPM Supply Chain Attack Detection Tool
-
-Mark De Guzman<br>
-British Columbia Institute of Technology (BCIT)<br>
-November 26th, 2025<br>
+A GNN-Based NPM Supply Chain Attack Detection Tool. It detects anomalies to find malicious packages within the NPM ecosystem. The tool includes a data collection tool as well to build a baseline of initial training data and uses a mix of permutation and duplication to help generate malicious package datasets. The tool will later include real-time monitoring and an accessible interface. Changes are coming soon as well to include more optimized accuracy against real-world data.
 
 ## Steps To Run Model:
 NOTE: First make sure you are within the current directory
