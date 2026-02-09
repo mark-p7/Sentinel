@@ -2,69 +2,7 @@ import torch
 import torch.nn.functional as F
 from torch_geometric.data import Data
 from torch_geometric.nn import GCNConv
-
-# Function to build graph (pytorch data object) from packages json data
-def build_graph(pkgs_json, m_pkgs_json):
-    # Create ids mapping and pkgs arr to represent nodes
-    nodes = []
-    ids = {}
-
-    for pkg in pkgs_json:
-        nodes.append(pkg)
-
-    for pkg in m_pkgs_json:
-        nodes.append(pkg)
-
-    i = 0
-    for pkg in nodes:
-        ids[pkg] = i
-        i += 1
-
-    # Create edges mapping
-    edges = []
-    for pkg in pkgs_json:
-        for dep in pkgs_json[pkg]["dependencies"]:
-            if dep in ids:
-                edges.append((ids[pkg], ids[dep]))
-                edges.append((ids[dep], ids[pkg]))
-
-    for pkg in m_pkgs_json:
-        for dep in m_pkgs_json[pkg]["dependencies"]:
-            if dep in ids:
-                edges.append((ids[pkg], ids[dep]))
-                edges.append((ids[dep], ids[pkg]))
-
-    # Convert edges to tensor if any
-    if edges:
-        edge_ind = torch.tensor(edges, dtype=torch.long).T
-    else:
-        edge_ind = torch.empty(2, 0, dtype=torch.long).T
-
-    # Create features (identification factors) -- TODO: Expand on this later on
-    feats = []
-    for node in nodes:
-        pkg = pkgs_json.get(node) or m_pkgs_json.get(node)
-        weekly_downloads = float(pkg["weekly_downloads"])
-        dep_count = float(pkg["dependency_count"])
-        feats.append([weekly_downloads, dep_count])
-
-    # Convert features to tensor
-    x_raw = torch.tensor(feats, dtype=torch.float)
-
-    # Label nodes
-    y = torch.zeros(len(nodes), dtype=torch.long)
-    for m_pkg in m_pkgs_json:
-        y[ids[m_pkg]] = 1  # 1 indicates malicious
-    for pkg in pkgs_json:
-        y[ids[pkg]] = 0  # 0 indicates non-malicious behaviour
-
-    # Return graph object
-    data = Data(edge_index=edge_ind, y=y)
-
-    # Keep x raw for now as we want to normalize it later on
-    data.x_raw = x_raw
-
-    return data
+from .build_graph import build_graph
 
 # Function to fit normalizer
 def fit_normalizer(x_raw):
@@ -117,42 +55,49 @@ def train_model(data, mean, std):
     # 4. Clear old gradients (Cleanup)
     # 5. Backpropagate Errors (Calculates the gradient)
     # 6. Update Weights (Adjusts weights based on decrease of loss -- Where the real training happens)
-
     # Training loop (One epoch counts as a complete pass through the entire dataset during training)
     for epoch in range(100):
         # Transition to training mode
         model.train()
-
         # Clear gradients
         optimizer.zero_grad()
-
         # Ingest data (Forward pass)
         out = model(data)
-
         # Loss compute
         loss = F.cross_entropy(out, data.y)
-
         # Backpropagation
         loss.backward()
-
         # Update weights
         optimizer.step()
-
         # Print computed loss per pass
         if epoch % 10 == 0:
             print(f"Epoch = {epoch}, Loss = {loss.item()}")
-
     return model
 
 # Function to save the model
-def save_model(model, mean, std, filename):
-    checkpoint = {"model_state_dict": model.state_dict(), "mean": mean, "std": std} # Save the model and std to use later
+def save_model(model, mean, std, filename, in_feat: int):
+    checkpoint = {
+        "model_state_dict": model.state_dict(),
+        "mean": mean,
+        "std": std,
+        "in_feat": in_feat,
+        "hidden": 16,
+        "out": 2
+    }
     torch.save(checkpoint, filename)
 
 # Function to load the model
 def load_model(filename):
-    checkpoint = torch.load(filename)
-    model = GCN(2, 16, 2)
+    checkpoint = torch.load(filename, map_location="cpu")
+
+    in_feat = checkpoint.get("in_feat")
+    if in_feat is None:
+        in_feat = checkpoint["model_state_dict"]["conv1.lin.weight"].shape[1]
+
+    hidden = checkpoint.get("hidden", 16)
+    out = checkpoint.get("out", 2)
+
+    model = GCN(in_feat, hidden, out)
     model.load_state_dict(checkpoint["model_state_dict"])
     return model, checkpoint["mean"], checkpoint["std"]
 
@@ -177,7 +122,7 @@ def run_model(is_train, model_name, benign_json_data, malicious_json_data):
         data = build_graph(benign_json_data, malicious_json_data)
         mean, std = fit_normalizer(data.x_raw)
         model = train_model(data, mean, std)
-        save_model(model, mean, std, model_name)
+        save_model(model, mean, std, model_name, in_feat=data.x_raw.shape[1])
         print(f"Model trained and saved to '{model_name}'.")
     else:
         # Eval
