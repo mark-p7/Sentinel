@@ -95,7 +95,7 @@ class NPMPackageDependencyTraversal:
             # print(prev)
             # print(latest_package)
             # self.db.store_edge_by_name(prev, latest_package)
-            print(f"Package {latest_package.get("name")} depends on {prev.get("name")}")
+            print(f"Package {latest_package.get('name')} depends on {prev.get('name')}")
         
         if "dependencies" not in latest_package:
             return
@@ -123,7 +123,7 @@ def main():
         
     ds = DataStorage()
     cache = DataCache()
-    cache.clear()
+    # cache.clear()
     t = NPMPackageDependencyTraversal(db=ds, cache=cache)
     populate_database(file_path=sample_packages_file, fn=t.traverse)
     #t.traverse("@semantic-ui-react/event-stack")
