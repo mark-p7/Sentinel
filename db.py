@@ -8,6 +8,18 @@ USER = "neo4j"
 PASSWORD = "password"
 DB_NAME = "neo4j"
 
+def safe_json_loads(value, default):
+    if value is None:
+        return default
+    if isinstance(value, (dict, list)):
+        return value
+    if not isinstance(value, str):
+        return default
+    try:
+        return json.loads(value)
+    except json.JSONDecodeError:
+        return default
+
 class DataStorage:
     def __init__(self):
         self.driver = GraphDatabase.driver(URI, auth=(USER, PASSWORD))
@@ -39,7 +51,6 @@ class DataStorage:
         OPTIONAL MATCH (root)-[:DEPENDS_ON*0..]->(p:Package)
         RETURN DISTINCT p
         """
-        
         results_dict = {}
 
         with self.driver.session() as session:
@@ -75,10 +86,6 @@ class DataStorage:
         return results_dict
 
     def get_all_packages(self):
-        """
-        Fetches all packages from the database for training.
-        Returns a dictionary keyed by package 'name' to facilitate graph building.
-        """
         query = """
         MATCH (p:Package)
         RETURN p
@@ -87,60 +94,79 @@ class DataStorage:
         with self.driver.session() as session:
             result = session.run(query)
             for record in result:
-                node = record["p"]
-                name = node.get("name")
-                if not name: 
-                    continue
-                
-                # Parse dependencies
-                deps_str = node.get("dependencies", "{}")
                 try:
-                    deps_dict = json.loads(deps_str)
-                    deps_list = list(deps_dict.keys())
-                except (json.JSONDecodeError, TypeError):
-                    deps_list = []
-                
-                # Store the package with the name as the key
-                data[name] = {
-                    "name": name,
-                    "version": node.get("version"),
-                    "weekly_downloads": node.get("weekly_downloads", 0),
-                    "dependency_count": len(deps_list),
-                    "dependencies": deps_list
-                }
+                    node = record.get("p")
+                    if node is None:
+                        continue
+
+                    name = node.get("name")
+                    if not name:
+                        continue
+                    # Parse dependencies
+                    deps_dict = safe_json_loads(node.get("dependencies", "{}"), {})
+                    deps_list = list(deps_dict.keys()) if isinstance(deps_dict, dict) else []
+                    data[name] = {
+                        "name": name,
+                        "version": node.get("version"),
+                        "weekly_downloads": node.get("weekly_downloads", 0) or 0,
+                        "dependency_count": len(deps_list),
+                        "dependencies": deps_list
+                    }
+                except Exception as e:
+                    print(f"Skipping bad Package record due to error: {e}")
+                    continue
+
         return data
 
     def store_node(self, data):
-        # Create query props
-        props = {
-            "name": data.get("name") or "",
-            "version": data.get("version") or "",
-            "homepage": data.get("homepage") or "",
-            "main": data.get("main") or "",
-            "weekly_downloads": data.get("weekly_downloads"),
-            "is_deprecated": True if "deprecated" in data else False,
-        }
+        try:
+            # Create query props
+            name = (data.get("name") or "").strip()
+            version = (data.get("version") or "").strip()
 
-        # Convert JSON objects to JSON formatted strings
-        props.update({
-            "author": json.dumps(data.get("author") or {}),
-            "dist": json.dumps(data.get("dist") or {}),
-            "scripts": json.dumps(data.get("scripts") or {}),
-            "_npmUser": json.dumps(data.get("_npmUser") or {}),
-            "repository": json.dumps(data.get("repository") or {}),
-            "dependencies": json.dumps(data.get("dependencies") or {}),
-            "maintainers": json.dumps(data.get("maintainers") or []),
-        })
+            if not name or not version:
+                print("Skipping node with missing name/version: name={name} version={version}")
+                return None
 
-        query = """
-        MERGE (p:Package {name: $name, version: $version})
-        SET p += $props
-        RETURN p
-        """
+            props = {
+                "name": name,
+                "version": version,
+                "homepage": data.get("homepage") or "",
+                "main": data.get("main") or "",
+                "weekly_downloads": data.get("weekly_downloads") or 0,
+                "is_deprecated": bool(data.get("deprecated")),
+            }
+            # Convert JSON objects to JSON formatted strings safely
 
-        with self.driver.session() as session:
-            result = session.run(query, name=props["name"], version=props["version"], props=props).single()
-            return result["p"] if result else None
+            def dumps(x, fallback):
+                try:
+                    return json.dumps(x if x is not None else fallback, default=str)
+                except Exception:
+                    return json.dumps(fallback)
+
+            props.update({
+                "author": dumps(data.get("author"), {}),
+                "dist": dumps(data.get("dist"), {}),
+                "scripts": dumps(data.get("scripts"), {}),
+                "_npmUser": dumps(data.get("_npmUser"), {}),
+                "repository": dumps(data.get("repository"), {}),
+                "dependencies": dumps(data.get("dependencies"), {}),
+                "maintainers": dumps(data.get("maintainers"), []),
+            })
+
+            query = """
+            MERGE (p:Package {name: $name, version: $version})
+            SET p += $props
+            RETURN p
+            """
+
+            with self.driver.session() as session:
+                record = session.run(query, name=name, version=version, props=props).single()
+                return record["p"] if record else None
+
+        except Exception as e:
+            print(f"store_node failed. skipping. Error: {e}")
+            return None
     
     def store_edge_by_name(self, pkg_name, dep_name):
         query = """
