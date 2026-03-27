@@ -46,7 +46,7 @@ def train_model(data, mean, std):
     # Pytorch Adam optimizer to apply gradients and update weights, with learning rate of 0.01
     optimizer = torch.optim.Adam(
         model.parameters(), lr=0.01
-    )  
+    )
 
     # Pytorch training loop
     # 1. Transition model to training mode
@@ -102,18 +102,44 @@ def load_model(filename):
     return model, checkpoint["mean"], checkpoint["std"]
 
 # Function to test model
-def evaluate(model, data,mean,std):
-    data.x = normalize(data.x_raw, mean, std) # Normalize nodes
-    model.eval() # Put model into eval mode
-    
+def evaluate(model, data, mean, std):
+    data.x = normalize(data.x_raw, mean, std)
+    model.eval()
+
     out = model(data)
-    
-    # Predict selection based on raw scores provided above
     pred = out.argmax(dim=1)
-    
-    # Get accuracy rating
     acc = (pred == data.y).sum().item() / len(data.y)
-    return acc
+
+    node_names = getattr(data, "node_names", [str(i) for i in range(len(data.y))])
+    pkg_results = []
+    for name, true_lb, pred_lb in zip(node_names, data.y.tolist(), pred.tolist()):
+        if true_lb == 1 and pred_lb == 1: outcome = "TP"
+        elif true_lb == 0 and pred_lb == 0: outcome = "TN"
+        elif true_lb == 0 and pred_lb == 1: outcome = "FP"
+        else: outcome = "FN"
+        pkg_results.append({
+            "name": name,
+            "true_label": true_lb,
+            "pred_label": pred_lb,
+            "outcome": outcome,
+        })
+
+    tp = sum(1 for r in pkg_results if r["outcome"] == "TP")
+    tn = sum(1 for r in pkg_results if r["outcome"] == "TN")
+    fp = sum(1 for r in pkg_results if r["outcome"] == "FP")
+    fn = sum(1 for r in pkg_results if r["outcome"] == "FN")
+    precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+    recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+    f1 = (2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0)
+
+    return {
+        "accuracy": acc,
+        "precision": precision,
+        "recall": recall,
+        "f1": f1,
+        "tp": tp, "tn": tn, "fp": fp, "fn": fn,
+        "packages": pkg_results,
+    }
 
 def run_model(is_train, model_name, benign_json_data, malicious_json_data):
     # Train
@@ -129,6 +155,6 @@ def run_model(is_train, model_name, benign_json_data, malicious_json_data):
         print("Evaluating model")
         test_data = build_graph(benign_json_data, malicious_json_data)
         model, mean, std = load_model(model_name)
-        acc = evaluate(model, test_data, mean, std)
-        print("Calculated accuracy:", acc)
-        return acc
+        result = evaluate(model, test_data, mean, std)
+        print(f"Calculated accuracy: {result['accuracy']:.4f}")
+        return result

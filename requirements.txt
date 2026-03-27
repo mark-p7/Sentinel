@@ -3,5 +3,6 @@ neo4j==5.28.2
 semantic-version===2.10.0
 torch==2.8.0
 torch_geometric==2.6.1
-redis==7.1.0
-pytest==9.0.2
+redis==7.0.1
+pytest==8.4.2
+rich>=13.0.0

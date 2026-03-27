@@ -1,5 +1,18 @@
 # Sentinel
-A GNN-Based NPM Supply Chain Attack Detection Tool. It detects anomalies to find malicious packages within the NPM ecosystem. The tool includes a data collection tool as well to build a baseline of initial training data and uses a mix of permutation and duplication to help generate malicious package datasets. The tool will later include real-time monitoring and an accessible interface. Changes are coming soon as well to include more optimized accuracy against real-world data.
+A GNN-Based NPM Supply Chain Attack Detection Tool. It detects anomalies to find malicious packages within the NPM ecosystem. The tool includes a data collection tool as well to build a baseline of initial training data and uses a mix of permutation and duplication to help generate malicious package datasets. Changes are coming soon as well to include more optimized accuracy against real-world data.
+
+## Steps To Test the CLI
+1. Create python environment:<br>
+`python3 -m venv .venv`
+
+2. Start python environment:<br>
+`source .venv/bin/activate`
+
+3. Install packages<br>
+`pip install -r requirements.txt`
+
+3. Run the program<br>
+`python sentinel.py`
 
 ## Steps To Run Model:
 NOTE: First make sure you are within the current directory
@@ -49,11 +62,10 @@ The model is named "gnn_model.pt" and is created/loaded within the model directo
 Sentinel also currently has custom data crawlers that is located within the root directory.
 These crawlers may collect data straight from the NPM registry given the list of the top 1000 node packages within the `top1000packages.txt` file
 
-These are the artifical data samples that may also be used:
-- [NPM packages sample data for training (train_benign.json)](./samples/train_benign.json)
-- [Malicious NPM package sample data for training (train_malicious.json)](./samples/train_malicious.json)
-- [NPM package sample data for evaluation (test_benign.json)](./samples/test_benign.json)
-- [Malicious NPM package sample data for evaluation (test_malicious.json)](./samples/test_malicious.json)
+## CLI
+The main CLI has all 4 basic options: data collection, training, evaluation, and attack simulation. Steps to use are self explanatory and intuitive.
+
+![Model Diagram](./static/CLI.png)
 
 ## Model Output
 

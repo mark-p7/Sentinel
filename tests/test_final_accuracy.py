@@ -71,6 +71,34 @@ def test_script_changes_feature_vector():
     f2 = script_features(suspicious)
     assert f1 != f2
 
+# Verify benign nodes get label 0 and malicious nodes get label 1
+def test_labels_assigned_correctly():
+    benign = {"safe-pkg": {"dependencies": [], "weekly_downloads": 100}}
+    malicious = {"evil-pkg": {"dependencies": [], "weekly_downloads": 1}}
+    data = build_graph(benign, malicious)
+    labels = data.y.tolist()
+    assert 0 in labels, "Expected at least one benign label (0)"
+    assert 1 in labels, "Expected at least one malicious label (1)"
+
+# Verify that a graph with only benign packages contains no malicious labels
+def test_all_benign_labels():
+    benign = {
+        "b-a": {"dependencies": [], "weekly_downloads": 100},
+        "b-b": {"dependencies": [], "weekly_downloads": 101},
+    }
+    data = build_graph({}, benign)
+    assert all(lbl == 1 for lbl in data.y.tolist()), "All labels should be benign (0)"
+
+
+# Verify that a graph with only malicious packages contains no benign labels
+def test_all_malicious_labels():
+    malicious = {
+        "m-a": {"dependencies": [], "weekly_downloads": 1},
+        "m-b": {"dependencies": [], "weekly_downloads": 2},
+    }
+    data = build_graph({}, malicious)
+    assert all(lbl == 1 for lbl in data.y.tolist()), "All labels should be malicious (1)"
+
 # Final test verifying training and evaluation accuracy threshold
 def test_final_accuracy():
     # Remove the model if exists
@@ -97,12 +125,13 @@ def test_final_accuracy():
     assert MODEL.exists(), "Training did not create a model"
 
     # Test model evaluation results
-    acc = app.run_model(
+    result = app.run_model(
         False,
         MODEL_NAME,
         benign_test_json_data,
         malicious_test_json_data
     )
-    
+
+    acc = result["accuracy"] if isinstance(result, dict) else result
     assert isinstance(acc, (float, int)), "The accuracy score must be a number"
     assert float(acc) >= 0.65, f"Expected accuracy >= 0.65, got {acc}"
