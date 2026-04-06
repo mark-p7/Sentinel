@@ -18,7 +18,7 @@ from rich.prompt import Confirm, IntPrompt, Prompt
 from rich.rule import Rule
 from rich.table import Table
 from rich.text import Text
-from data_crawler import run_data_crawler
+from data_crawler import run_data_crawler, run_data_crawler_single_package
 from db import DataStorage
 from helpers import create_dataset, simulate_coordinated_dependency_injection, simulate_coordinated_maintainer_compromise, simulate_coordinated_script_injection
 from model.model import run_model
@@ -355,7 +355,6 @@ def run_evaluation():
 
     console.print(Panel(result_table, title="[bold]Evaluation Results[/bold]", border_style="blue_violet"))
 
-
 # Attack Simulation
 def load_src_pkgs():
     path = pick_json_file(
@@ -527,6 +526,18 @@ def run_attack_simulation():
         if not Confirm.ask("Run another simulation?", default=False):
             return
 
+def start_polling():
+        print_separator("Start Monitoring")
+        console.print()
+
+        package = Prompt.ask("Package to start monitoring for new changes", default="lodash")
+        print(package)
+
+        while True:
+            cache_dependency_network()
+            run_data_crawler_single_package(package)
+
+
 # Main menu
 def main_menu():
     menu = Table(box=box.SIMPLE, show_header=False, padding=(0, 2))
@@ -537,6 +548,7 @@ def main_menu():
     menu.add_row("2", "Train Model",         "Train the GNN on collected or sample data")
     menu.add_row("3", "Evaluate Model",      "Evaluated the accuracy of the trained model against sample data")
     menu.add_row("4", "Simulate Attack",     "Create a coordinated attack simulation")
+    menu.add_row("5", "Start Monitoring",    "Start monitoring a package for new updates within the NPM network")
     menu.add_row("q", "Quit")
     console.print(menu)
 
@@ -546,7 +558,7 @@ def main():
     while True:
         try:
             main_menu()
-            choice = Prompt.ask("\nSelect option", choices=["1", "2", "3", "4", "q"]).lower()
+            choice = Prompt.ask("\nSelect option", choices=["1", "2", "3", "4", "5", "q"]).lower()
             console.print()
             if choice == "1":
                 run_data_collection()
@@ -556,6 +568,8 @@ def main():
                 run_evaluation()
             elif choice == "4":
                 run_attack_simulation()
+            elif choice == "5":
+                start_polling()
             elif choice == "q":
                 console.print(Align.center(Text("\nGoodbye.\n", style="dim")))
                 break

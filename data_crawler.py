@@ -13,14 +13,55 @@ from urllib.parse import quote
 URL = "https://registry.npmjs.org"
 
 class NPMPackageDependencyTraversal:
-    def __init__(self, root=None, fn_node=None, fn_data=None, db=DataStorage(), cache=DataCache(), verbose=False):
+    def __init__(self, root=None, fn_node=None, fn_data=None, db=DataStorage(), cache=DataCache(), network_version_cache=DataCache(), verbose=False):
         self.root = root
         self.fn_node = fn_node # What to do with each node
         self.fn_data = fn_data # What to do with each node's full package data
         self.db = db
         self.cache = cache
+        self.network_version_cache = network_version_cache
         self.verbose = verbose
+    
+    def cache_dependency_network(self, package=None):
+        if not package:
+            package = self.root
+            
+        self.recursively_traverse_cache(package, None)
+           
+    def recursively_traverse_cache(self, node, prev):
+        # Example: 
+        # 1. Prev = har-validator (full package json)   node = ajv (just the name)
+        # 2. Prev = ajv           (full package json)   node = json-schema-traverse (just the name)
+        if not node:
+            return
         
+        if self.cache.check_is_visited_cache_for_package(node):
+            if prev is not None:
+                self.db.store_edge_by_name(prev.get("name"), node)
+            return
+        
+        self.cache.add_package_to_visited_cache(node)
+        
+        data = self.fetch_package_data(node)
+        
+        if data == None:
+            return
+        
+        latest = data["dist-tags"]["latest"]
+        latest_package = data["versions"][latest]
+        latest_package_version = latest_package.get("version")
+
+        if self.verbose:
+            print(f"Current {node} version: {latest_package_version}")
+
+        self.network_version_cache.add_package_version_to_visited_cache(latest_package_version)
+        
+        if "dependencies" not in latest_package:
+            return
+        
+        for dep in latest_package["dependencies"]:
+            self.recursively_traverse_cache(dep, latest_package)
+
     def fetch_package_data(self, package_name):
         url = f"{URL}/{quote(package_name, safe='')}"
         response = requests.get(url)
@@ -123,6 +164,14 @@ def run_data_crawler(package_file, verbose):
     cache.clear()
     t = NPMPackageDependencyTraversal(db=ds, cache=cache, verbose=verbose)
     populate_database(file_path=package_file, fn=t.traverse)
+
+def run_data_crawler_single_package(package, verbose):
+    ds = DataStorage()
+    cache = DataCache()
+    cache.clear()
+    t = NPMPackageDependencyTraversal(db=ds, cache=cache, verbose=verbose)
+    t.cache_dependency_network(package=package)
+    t.traverse(package)
 
 def main():
     # Determine whether to train or evaluate model (train on default)
