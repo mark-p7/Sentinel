@@ -158,6 +158,35 @@ class NPMPackageDependencyTraversal:
         for dep in latest_package["dependencies"]:
             self.recursively_traverse(dep, latest_package)
 
+# Traverse through entirety of dependency network from single package to form a snapshot of current versioning of each package within
+def get_dependency_version_snapshot(package, verbose=False):
+    versions = {}
+    visited = set()
+
+    def _traverse(node):
+        if not node or node in visited:
+            return
+        visited.add(node)
+        url = f"{URL}/{quote(node, safe='')}"
+        try:
+            response = requests.get(url, timeout=10)
+            if response.status_code != 200:
+                return
+            data = response.json()
+            latest = data["dist-tags"]["latest"]
+            latest_package = data["versions"][latest]
+            versions[node] = latest_package.get("version", latest)
+            if verbose:
+                print(f"snapshot: {node}@{versions[node]}")
+            for dep in latest_package.get("dependencies", {}):
+                _traverse(dep)
+        except Exception as e:
+            if verbose:
+                print(f"snapshot error for {node}: {e}")
+
+    _traverse(package)
+    return versions
+
 def run_data_crawler(package_file, verbose):
     ds = DataStorage()
     cache = DataCache()
@@ -170,7 +199,6 @@ def run_data_crawler_single_package(package, verbose):
     cache = DataCache()
     cache.clear()
     t = NPMPackageDependencyTraversal(db=ds, cache=cache, verbose=verbose)
-    t.cache_dependency_network(package=package)
     t.traverse(package)
 
 def main():
