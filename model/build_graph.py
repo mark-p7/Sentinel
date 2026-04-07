@@ -1,8 +1,10 @@
+import hashlib
 import json
 import math
 import re
 import torch
 from collections import defaultdict
+from datetime import datetime
 from torch_geometric.data import Data
 from torch_geometric.utils import degree
 
@@ -18,6 +20,43 @@ SUSPICIOUS_PATTERNS = [
     r"eval\s*\(\s*atob\s*\(",
     r"require\s*\(\s*['\"]child_process",
 ]
+
+# Gets bare package name
+def strip_version(key):
+    if key.startswith("@"):
+        second_at = key.find("@", 1)
+        if second_at != -1:
+            return key[:second_at]
+        return key
+    at_index = key.find("@")
+    if at_index != -1:
+        return key[:at_index]
+    return key
+
+# Gets hash of install script
+def install_script_hash(pkg):
+    scripts = pkg.get("scripts") if isinstance(pkg.get("scripts"), dict) else convert_str_to_dict(pkg.get("scripts"))
+    if not scripts:
+        return ""
+    parts = []
+    for hook in ("preinstall", "install", "postinstall"):
+        if hook in scripts and scripts[hook]:
+            parts.append(str(scripts[hook]))
+    if not parts:
+        return ""
+    return hashlib.sha256("\n".join(parts).encode()).hexdigest()[:16]
+
+# Parses an ISO timestamp to seconds
+def parse_timestamp(ts):
+    if not ts:
+        return 0.0
+    try:
+        if isinstance(ts, (int, float)):
+            return float(ts)
+        dt = datetime.fromisoformat(str(ts))
+        return dt.timestamp()
+    except Exception:
+        return 0.0
 
 # Calculate randomness/unpredictability of a string for obfuscation
 def obfuscate(s: str) -> float:
@@ -137,35 +176,47 @@ def extended_features(pkg: dict) -> list:
 def build_graph(pkgs_json, m_pkgs_json):
     # Builds a PyTorch Geometric Data object from benign and malicious package dicts.
 
-    # Node features (34 per node):
+    # Node features (41 per node):
     # 5 basic:          log_weekly, dep_count, maint_count, maint_single, desc_len
     # 10 script:        script_features()
     # 5 name_shape:     name_shape_features()
     # 10 extended:      extended_features()
     # 4 graph-struct:   degree, neigh_mean_weekly, neigh_min_weekly, neigh_max_weekly
+    # 7 coordination:   version_sibling_count, shared_script_count, shared_maintainer_count,
+    #                   suspicious_dep_ratio,
+    #                   dep_low_downloads_flag, dep_early_version_flag, dep_single_maintainer_flag
     # Edges: DEPENDS_ON - package dependency edges (bidirectional)
 
     nodes = list(pkgs_json.keys()) + list(m_pkgs_json.keys())
     ids   = {node_key: i for i, node_key in enumerate(nodes)}
 
-    # Reverse index: bare package name, all node keys that represent it.
-    # Handles both name-only keys ("lodash") and versioned keys ("lodash@4.17.21")
-    # so dependency resolution should work correctly when multiple versions coexist.
+    # Reverse index: bare package name -> all node keys that represent it.
+    # Uses strip_version() to correctly handle scoped packages (@scope/pkg@1.0.0) and versioned keys (lodash@4.17.21) so dependency resolution works when multiple versions coexist.
     name_to_keys: dict = defaultdict(list)
     for node_key in nodes:
         pkg = pkgs_json.get(node_key) or m_pkgs_json.get(node_key)
-        bare = (pkg.get("name") if pkg else None) or node_key.split("@")[0]
+        bare = (pkg.get("name") if pkg else None) or strip_version(node_key)
         name_to_keys[bare].append(node_key)
 
     # Step 1: Dependency edges
     edges = []
+    seen_edges = set()
     def add_edges(src_map):
         for node_key, pkg in src_map.items():
+            src_id = ids[node_key]
             for dep_name in pkg.get("dependencies", []):
-                for dep_key in name_to_keys.get(dep_name, []):
-                    if dep_key != node_key:
-                        edges.append((ids[node_key], ids[dep_key]))
-                        edges.append((ids[dep_key], ids[node_key]))
+                # Try exact match first, then bare name
+                targets = name_to_keys.get(dep_name, [])
+                if not targets:
+                    targets = name_to_keys.get(strip_version(dep_name), [])
+                for dep_key in targets:
+                    dst_id = ids[dep_key]
+                    if dst_id != src_id:
+                        if (src_id, dst_id) not in seen_edges:
+                            edges.append((src_id, dst_id))
+                            edges.append((dst_id, src_id))
+                            seen_edges.add((src_id, dst_id))
+                            seen_edges.add((dst_id, src_id))
     add_edges(pkgs_json)
     add_edges(m_pkgs_json)
 
@@ -174,16 +225,64 @@ def build_graph(pkgs_json, m_pkgs_json):
     for m_pkg in m_pkgs_json.keys():
         y[ids[m_pkg]] = 1
 
-    # Step 3: Per-node feature vectors
+    # Step 3: Build cross-node lookups for coordination features
+    # 3a: Install script hashes (detect shared malicious scripts across packages)
+    script_hashes = {}
+    script_hash_counts = defaultdict(int)
+    for node_key in nodes:
+        pkg = pkgs_json.get(node_key) or m_pkgs_json.get(node_key)
+        h = install_script_hash(pkg)
+        script_hashes[node_key] = h
+        if h:
+            script_hash_counts[h] += 1
+
+    # 3b: Maintainer name index (detect shared attacker accounts)
+    maintainer_pkg_count = defaultdict(int)
+    node_maintainer_names = {}
+    for node_key in nodes:
+        pkg = pkgs_json.get(node_key) or m_pkgs_json.get(node_key)
+        maints = pkg.get("maintainers", [])
+        names_set = set()
+        if isinstance(maints, list):
+            for m in maints:
+                if isinstance(m, dict):
+                    names_set.add(m.get("name", ""))
+                elif isinstance(m, str):
+                    names_set.add(m)
+        node_maintainer_names[node_key] = names_set
+        for mn in names_set:
+            if mn:
+                maintainer_pkg_count[mn] += 1
+
+    # Not currently in-use. Might be useful later tho
+    # 3c: Timestamps for temporal clustering (detect coordinated timing)
+    node_timestamps = {}
+    for node_key in nodes:
+        pkg = pkgs_json.get(node_key) or m_pkgs_json.get(node_key)
+        node_timestamps[node_key] = parse_timestamp(pkg.get("collected_at"))
+    all_timestamps = [node_timestamps[k] for k in nodes if node_timestamps[k] > 0]
+
+    # 3d: Per-package download/metadata lookup for suspicious dep scoring
+    node_weekly = {}
+    node_version = {}
+    node_has_repo = {}
+    for node_key in nodes:
+        pkg = pkgs_json.get(node_key) or m_pkgs_json.get(node_key)
+        node_weekly[node_key] = float(pkg.get("weekly_downloads", 0))
+        node_version[node_key] = str(pkg.get("version", "0.0.0"))
+        repo = convert_str_to_dict(pkg.get("repository"))
+        node_has_repo[node_key] = bool(repo)
+
+    # Step 4: Per-node feature vectors
     neighbors: list[list] = [[] for _ in range(len(nodes))]
     for s, t in edges:
         neighbors[s].append(t)
 
+    n_nodes = len(nodes)
     feats = []
     for node_key in nodes:
         pkg = pkgs_json.get(node_key) or m_pkgs_json.get(node_key)
-        # Currently using "React" for single packages. If there's 2 versions, we use Reactv2.0.1 as a fallback
-        bare_name = (pkg.get("name") if pkg else None) or node_key.split("@")[0]
+        bare_name = (pkg.get("name") if pkg else None) or strip_version(node_key)
         weekly    = float(pkg.get("weekly_downloads", 0.0))
         dep_count = float(pkg.get("dependency_count", len(pkg.get("dependencies", []))))
         log_weekly = math.log10(weekly + 1.0)
@@ -197,12 +296,69 @@ def build_graph(pkgs_json, m_pkgs_json):
         f += script_features(pkg)
         f += name_shape_features(bare_name)
         f += extended_features(pkg)
+
+        # Coordination features
+        # Version sibling count: other versions of this package in the graph
+        version_siblings = max(0, len(name_to_keys.get(bare_name, [])) - 1)
+        f.append(math.log2(version_siblings + 1))
+
+        # Shared script count: count of how many other nodes have identical install scripts
+        sh = script_hashes[node_key]
+        shared_script_count = 0
+        if sh:
+            shared_script_count = script_hash_counts[sh] - 1
+        f.append(math.log2(shared_script_count + 1))
+
+        # Shared maintainer count: the max number of other nodes sharing any maintainer
+        my_maints = node_maintainer_names[node_key]
+        shared_maint_max = 0
+        for mn in my_maints:
+            if mn:
+                shared_maint_max = max(shared_maint_max, maintainer_pkg_count[mn] - 1)
+        f.append(math.log2(shared_maint_max + 1))
+
+        # Suspicious dependency features: checks if deps look suspicious
+        deps = pkg.get("dependencies", [])
+        if not isinstance(deps, list):
+            deps = []
+        n_deps = len(deps)
+        sus_dep_count = 0
+        dep_low_dl = 0.0
+        dep_early_ver = 0.0
+        dep_single_maint = 0.0
+        for dep_name in deps:
+            dep_keys = name_to_keys.get(dep_name, []) or name_to_keys.get(strip_version(dep_name), [])
+            for dk in dep_keys:
+                dw = node_weekly.get(dk, 0)
+                dv = node_version.get(dk, "0.0.0")
+                dr = node_has_repo.get(dk, True)
+                try:
+                    major = int(dv.split(".")[0])
+                except (ValueError, IndexError):
+                    major = 0
+                is_sus = (dw < 100 and major <= 1) or (dw < 50 and not dr)
+                if is_sus:
+                    sus_dep_count += 1
+                if dw < 100:
+                    dep_low_dl = 1.0
+                if major == 0:
+                    dep_early_ver = 1.0
+                dk_maints = node_maintainer_names.get(dk, set())
+                if len(dk_maints) <= 1:
+                    dep_single_maint = 1.0
+                break  # only check first matching key per dep
+
+        sus_dep_ratio = sus_dep_count / n_deps if n_deps > 0 else 0.0
+        f.append(sus_dep_ratio)
+        f.append(dep_low_dl)
+        f.append(dep_early_ver)
+        f.append(dep_single_maint)
         feats.append(f)
 
     # Convert to tensor
     x_raw = torch.tensor(feats, dtype=torch.float)
 
-    # Step 4: Graph-structure features
+    # Step 5: Graph-structure features
     if edges:
         edge_index = torch.tensor(edges, dtype=torch.long).t()
     else:
@@ -229,8 +385,8 @@ def build_graph(pkgs_json, m_pkgs_json):
 
     # Convert it to tensor
     neigh_mean = torch.tensor(neigh_mean_list, dtype=torch.float)
-    neigh_min  = torch.tensor(neigh_min_list,  dtype=torch.float)
-    neigh_max  = torch.tensor(neigh_max_list,  dtype=torch.float)
+    neigh_min = torch.tensor(neigh_min_list,  dtype=torch.float)
+    neigh_max = torch.tensor(neigh_max_list,  dtype=torch.float)
 
     # Add it to the table
     # The reason for this aggregation is to create context/vibe of the neihborhood of a node to further calculate its score
