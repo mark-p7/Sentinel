@@ -1,6 +1,5 @@
 import torch
 import torch.nn.functional as F
-from torch_geometric.data import Data
 from torch_geometric.nn import GCNConv
 from .build_graph import build_graph
 
@@ -14,24 +13,38 @@ def fit_normalizer(x_raw):
 def normalize(x_raw, mean, std):
     return (x_raw - mean) / std
 
-# Conventional GNN class using the GCNConv GNN design from Pytorch
+# GNN using GCNConv from PyTorch Geometric with skip connections.
+# The skip (residual) path preserves per-node feature signal through the GNN layers so the model can detect malicious packages even when they are surrounded by many benign neighbors in the graph.
 class GCN(torch.nn.Module):
     def __init__(self, in_feat, hidden, out):
         super().__init__()
-        # Init GCN Layers
-        # First layer to take in features and transform them into size, hidden
+        # Layer 1: input features -> hidden representation
         self.conv1 = GCNConv(in_feat, hidden)
-        # Second layer takes hidden features from first layer and maps to final dimension, number of output classes
-        self.conv2 = GCNConv(hidden, out)
+        self.bn1 = torch.nn.BatchNorm1d(hidden)
+        # Layer 2: hidden -> hidden (captures 2-hop neighborhood patterns)
+        self.conv2 = GCNConv(hidden, hidden)
+        self.bn2 = torch.nn.BatchNorm1d(hidden)
+        # Classification head: combines GNN output with original features
+        self.classifier = torch.nn.Linear(hidden + in_feat, out)
 
     # Function to define ingestion of data into the model (Forward pass)
     def forward(self, data):
         x, edge_index = data.x, data.edge_index
+        x_input = x
 
         x = self.conv1(x, edge_index)
+        x = self.bn1(x) if x.size(0) > 1 else x
         x = F.relu(x)
-        x = F.dropout(x, training=self.training)
+        x = F.dropout(x, p=0.3, training=self.training)
+
         x = self.conv2(x, edge_index)
+        x = self.bn2(x) if x.size(0) > 1 else x
+        x = F.relu(x)
+        x = F.dropout(x, p=0.3, training=self.training)
+
+        # Concatenate GNN output with original features (skip connection) so the classifier sees both graph-context and per-node signals
+        x = torch.cat([x, x_input], dim=1)
+        x = self.classifier(x)
 
         return F.log_softmax(x, dim=1)
 
@@ -40,49 +53,72 @@ def train_model(data, mean, std):
     # Normalize the node tensors
     data.x = normalize(data.x_raw, mean, std)
 
-    # Create the model
-    model = GCN(data.num_node_features, 16, 2)
-    
-    # Pytorch Adam optimizer to apply gradients and update weights, with learning rate of 0.01
-    optimizer = torch.optim.Adam(
-        model.parameters(), lr=0.01
-    )
+    # Create the model with 64 hidden units for better capacity
+    model = GCN(data.num_node_features, 64, 2)
 
-    # Pytorch training loop
-    # 1. Transition model to training mode
-    # 2. Feed data to the model
-    # 3. Compute loss (determine the diff between model prediction and actual value)
-    # 4. Clear old gradients (Cleanup)
-    # 5. Backpropagate Errors (Calculates the gradient)
-    # 6. Update Weights (Adjusts weights based on decrease of loss -- Where the real training happens)
+    # Adam optimizer with weight decay for regularization
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=5e-4)
+
+    # Class-weighted loss to handle potential class imbalance
+    # Gives higher weight to the minority class so the model doesn't
+    # just predict everything as benign
+    num_benign = (data.y == 0).sum().float()
+    num_malicious = (data.y == 1).sum().float()
+    total = num_benign + num_malicious
+    if num_malicious > 0 and num_benign > 0:
+        weight = torch.tensor([total / (2 * num_benign), total / (2 * num_malicious)])
+    else:
+        weight = None
+
     # Training loop (One epoch counts as a complete pass through the entire dataset during training)
-    for epoch in range(100):
+    # 200 epochs with early-stopping patience for convergence on larger datasets
+    best_loss = float("inf")
+    patience_counter = 0
+    patience = 30
+
+    for epoch in range(200):
         # Transition to training mode
         model.train()
         # Clear gradients
         optimizer.zero_grad()
         # Ingest data (Forward pass)
         out = model(data)
-        # Loss compute
-        loss = F.cross_entropy(out, data.y)
+        # Loss compute with class weights
+        loss = F.cross_entropy(out, data.y, weight=weight)
         # Backpropagation
         loss.backward()
         # Update weights
         optimizer.step()
-        # Print computed loss per pass
-        if epoch % 10 == 0:
-            print(f"Epoch = {epoch}, Loss = {loss.item()}")
+
+        loss_val = loss.item()
+        if epoch % 20 == 0:
+            print(f"Epoch = {epoch}, Loss = {loss_val:.4f}")
+
+        # Early stopping: stop if loss hasn't improved for `patience` epochs
+        # This is to help stop overfitting
+        if loss_val < best_loss - 1e-4:
+            best_loss = loss_val
+            patience_counter = 0
+        else:
+            patience_counter += 1
+            if patience_counter >= patience:
+                print(f"Early stopping at epoch {epoch}, Loss = {loss_val:.4f}")
+                break
+
     return model
 
 # Function to save the model
-def save_model(model, mean, std, filename, in_feat: int):
+def save_model(model, mean, std, filename, in_feat):
+    # Infer hidden dimension from the model's first conv layer output
+    hidden = model.conv1.lin.weight.shape[0]
+    out = model.classifier.weight.shape[0]
     checkpoint = {
         "model_state_dict": model.state_dict(),
         "mean": mean,
         "std": std,
         "in_feat": in_feat,
-        "hidden": 16,
-        "out": 2
+        "hidden": hidden,
+        "out": out,
     }
     torch.save(checkpoint, filename)
 
