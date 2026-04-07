@@ -3,10 +3,7 @@ import warnings
 warnings.filterwarnings("ignore", message=".*urllib3 v2 only supports OpenSSL 1.1.1+.*")
 
 import json
-import subprocess
-import sys
-import threading
-import traceback
+import time
 from datetime import datetime
 from pathlib import Path
 from rich import box
@@ -18,7 +15,7 @@ from rich.prompt import Confirm, IntPrompt, Prompt
 from rich.rule import Rule
 from rich.table import Table
 from rich.text import Text
-from data_crawler import run_data_crawler, run_data_crawler_single_package
+from data_crawler import run_data_crawler, run_data_crawler_single_package, get_dependency_version_snapshot
 from db import DataStorage
 from helpers import create_dataset, simulate_coordinated_dependency_injection, simulate_coordinated_maintainer_compromise, simulate_coordinated_script_injection
 from model.model import run_model
@@ -132,14 +129,14 @@ def pick_json_file(prompt_title, priority_dirs, fallback_dir, fallback_glob, all
     table.add_column(no_wrap=True)
     table.add_column(justify="right")
 
-    item_idx = 0
+    item_index = 0
     for label, path in entries:
         if path is None:
             # Section header - span columns visually
             table.add_row("", label, "")
         else:
-            item_idx += 1
-            table.add_row(str(item_idx), label, get_pkg_count(path))
+            item_index += 1
+            table.add_row(str(item_index), label, get_pkg_count(path))
 
     table.add_row("m", "Enter path manually", "")
     if allow_skip:
@@ -175,7 +172,7 @@ def run_data_collection():
     set_verbosity = Confirm.ask("Enable Logging?", default=False)
 
     console.print()
-    info("Starting crawler — press [bold]Ctrl+C[/bold] at any time to stop.")
+    info("Starting crawler - press [bold]Ctrl+C[/bold] at any time to stop.")
     console.print()
 
     try:
@@ -349,8 +346,8 @@ def run_evaluation():
     # Additional info
     result_table.add_row("Benign packages", str(len(benign)))
     result_table.add_row("Malicious packages", str(len(malicious)))
-    result_table.add_row("Benign file", benign_path or "—")
-    result_table.add_row("Malicious file", malicious_path or "—")
+    result_table.add_row("Benign file", benign_path or "-")
+    result_table.add_row("Malicious file", malicious_path or "-")
     result_table.add_row("Model", MODEL_PATH)
 
     console.print(Panel(result_table, title="[bold]Evaluation Results[/bold]", border_style="blue_violet"))
@@ -371,7 +368,7 @@ def load_src_pkgs():
 def show_atk_preview(result, attack_label):
     console.print()
     preview = Table(
-        title=f"[bold]{attack_label}[/bold] — Generated Packages",
+        title=f"[bold]{attack_label}[/bold] - Generated Packages",
         box=box.ROUNDED,
         show_lines=False,
         padding=(0, 1),
@@ -384,7 +381,7 @@ def show_atk_preview(result, attack_label):
     for pkg_name, pkg in list(result.items())[:10]:
         scripts = pkg.get("scripts") or {}
         hooks = {k: v for k, v in scripts.items() if k in ("preinstall", "install", "postinstall")}
-        hook_str = " | ".join(f"{k}: {str(v)[:28]}..." for k, v in hooks.items()) if hooks else "—"
+        hook_str = " | ".join(f"{k}: {str(v)[:28]}..." for k, v in hooks.items()) if hooks else "-"
         maints = pkg.get("maintainers", [])
         if isinstance(maints, list):
             maint_str = ", ".join(
@@ -392,7 +389,7 @@ def show_atk_preview(result, attack_label):
                 for m in maints[:2]
             )
         else:
-            maint_str = "—"
+            maint_str = "-"
         preview.add_row(pkg_name, str(pkg.get("version", "?")), maint_str, hook_str)
 
     if len(result) > 10:
@@ -468,7 +465,7 @@ def attack_dependency_injection():
     console.print()
     save_json_file(out_path, result)
     console.print()
-    info(f"Graph signal: star-shaped subgraph — {num_targets} packages all gain [bold blue_violet]{actual_dep}[/bold blue_violet] simultaneously.")
+    info(f"Graph signal: star-shaped subgraph - {num_targets} packages all gain [bold blue_violet]{actual_dep}[/bold blue_violet] simultaneously.")
     info("Use [bold]Evaluate Model[/bold] and select this file as the malicious input.")
 
 def attack_script_injection():
@@ -480,10 +477,7 @@ def attack_script_injection():
     if not packages:
         return
 
-    num_targets = IntPrompt.ask(
-        f"Number of packages to inject into (1-{len(packages)})",
-        default=min(5, len(packages)),
-    )
+    num_targets = IntPrompt.ask(f"Number of packages to inject into (1-{len(packages)})", default=min(5, len(packages)))
     num_targets = max(1, min(num_targets, len(packages)))
     out_path = Prompt.ask("Output file", default=timestamped_path("attack_script_inject"))
 
@@ -506,9 +500,9 @@ def run_attack_simulation():
         menu.add_column(style="bold blue_violet")
         menu.add_column()
         menu.add_column(style="dim")
-        menu.add_row("a", "Maintainer Compromised",   "Account takeover. Maintainer can spread malicious updates across all owned packages")
-        menu.add_row("b", "Dependency Injection",      "Same malicious dep added to many packages simultaneously")
-        menu.add_row("c", "Obfuscated Script Injection","Identical encoded payload injected across multiple packages")
+        menu.add_row("a", "Maintainer Compromised", "Account takeover. Maintainer can spread malicious updates across all owned packages")
+        menu.add_row("b", "Dependency Injection", "Same malicious dep added to many packages simultaneously")
+        menu.add_row("c", "Obfuscated Script Injection", "Identical encoded payload injected across multiple packages")
         menu.add_row("q", "Back", "")
         console.print(menu)
         choice = Prompt.ask("Select", choices=["a", "b", "c", "q"]).lower()
@@ -527,15 +521,81 @@ def run_attack_simulation():
             return
 
 def start_polling():
-        print_separator("Start Monitoring")
-        console.print()
+    print_separator("Start Monitoring")
+    console.print()
 
-        package = Prompt.ask("Package to start monitoring for new changes", default="lodash")
-        print(package)
+    package = Prompt.ask("Package to monitor", default="lodash")
+    interval = IntPrompt.ask("Poll interval (seconds)", default=60)
+    console.print()
 
+    info(f"Monitoring [bold blue_violet]{package}[/bold blue_violet] and its full dependency tree every [bold]{interval}s[/bold].")
+    info("Press [bold]Ctrl+C[/bold] to stop.")
+    console.print()
+
+    # Build initial snapshot
+    with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), console=console, transient=True) as progress:
+        task = progress.add_task("Building initial dependency snapshot...", total=None)
+        snapshot = get_dependency_version_snapshot(package)
+        progress.update(task, completed=True)
+
+    if not snapshot:
+        error(f"Could not fetch package data for [bold]{package}[/bold]. Check the package name and your network connection.")
+        return
+
+    info(f"Tracking [bold]{len(snapshot)}[/bold] packages in the dependency tree.")
+    console.print()
+
+    try:
         while True:
-            cache_dependency_network()
-            run_data_crawler_single_package(package)
+            console.print(f"[dim]Next check in {interval}s - Ctrl+C to stop[/dim]")
+            time.sleep(interval)
+
+            print_separator()
+            ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            console.print(f"[dim]{ts}[/dim]  Checking [bold blue_violet]{package}[/bold blue_violet] dependency network...")
+            console.print()
+
+            with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), console=console, transient=True) as progress:
+                task = progress.add_task("Fetching latest versions...", total=None)
+                new_snapshot = get_dependency_version_snapshot(package)
+                progress.update(task, completed=True)
+
+            if not new_snapshot:
+                warn("Could not reach NPM registry. Skipping this cycle.")
+                console.print()
+                continue
+
+            changed = [
+                (name, snapshot[name], new_ver)
+                for name, new_ver in new_snapshot.items()
+                if name in snapshot and snapshot[name] != new_ver
+            ]
+            added = [
+                (name, new_ver)
+                for name, new_ver in new_snapshot.items()
+                if name not in snapshot
+            ]
+
+            if not changed and not added:
+                console.print(f"  [dim]No changes detected across {len(new_snapshot)} packages.[/dim]")
+            else:
+                for pkg_name, old_ver, new_ver in changed:
+                    warn(f"Version change: [bold]{pkg_name}[/bold]  [red]{old_ver}[/red] → [green]{new_ver}[/green]")
+                    info(f"Storing updated [bold]{pkg_name}[/bold] in database...")
+                    run_data_crawler_single_package(pkg_name, verbose=False)
+                    success(f"[bold]{pkg_name}@{new_ver}[/bold] stored with updated connections.")
+
+                for pkg_name, new_ver in added:
+                    info(f"New dependency: [bold]{pkg_name}[/bold] @ [green]{new_ver}[/green]")
+                    run_data_crawler_single_package(pkg_name, verbose=False)
+                    success(f"[bold]{pkg_name}@{new_ver}[/bold] added to database.")
+
+            snapshot = new_snapshot
+            console.print()
+
+    except KeyboardInterrupt:
+        console.print()
+        warn("Monitoring stopped.")
 
 
 # Main menu
