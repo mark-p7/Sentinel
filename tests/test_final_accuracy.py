@@ -4,6 +4,8 @@ from pathlib import Path
 from model.build_graph import script_features, build_graph
 from model.model import train_model, GCN
 import torch
+import random
+from helpers import create_dataset
 
 # Import model and init constants
 app = importlib.import_module("model.model")
@@ -86,8 +88,8 @@ def test_all_benign_labels():
         "b-a": {"dependencies": [], "weekly_downloads": 100},
         "b-b": {"dependencies": [], "weekly_downloads": 101},
     }
-    data = build_graph({}, benign)
-    assert all(lbl == 1 for lbl in data.y.tolist()), "All labels should be benign (0)"
+    data = build_graph(benign, {})
+    assert all(lbl == 0 for lbl in data.y.tolist()), "All labels should be benign (0)"
 
 
 # Verify that a graph with only malicious packages contains no benign labels
@@ -104,32 +106,44 @@ def test_final_accuracy():
     # Remove the model if exists
     if MODEL.exists():
         MODEL.unlink()
-        
-    # Load test data
-    with open("./samples/train_benign.json") as f:
-        benign_train_json_data = json.load(f)
-    with open("./samples/train_malicious.json") as f:
-        malicious_train_json_data = json.load(f)
-    with open("./samples/test_benign.json") as f:
-        benign_test_json_data = json.load(f)
-    with open("./samples/test_malicious.json") as f:
-        malicious_test_json_data = json.load(f)
+
+    torch.manual_seed(42)
+    random.seed(42)
+
+    # Load DB benign data for a realistic training/evaluation scenario
+    with open("./samples/benign/db_benign.json") as f:
+        all_benign = json.load(f)
+
+    # Use a subset for faster testing while still being representative
+    keys = list(all_benign.keys())
+    random.shuffle(keys)
+    train_keys = keys[:200]
+    test_keys = keys[200:300]
+
+    train_benign = {k: all_benign[k] for k in train_keys}
+    test_benign = {k: all_benign[k] for k in test_keys}
+
+    # Generate malicious data for training
+    random.seed(42)
+    train_malicious = create_dataset(train_benign, len(train_benign))
 
     # Test model training
     app.run_model(
         True,
         MODEL_NAME,
-        benign_train_json_data,
-        malicious_train_json_data
+        train_benign,
+        train_malicious,
     )
     assert MODEL.exists(), "Training did not create a model"
 
-    # Test model evaluation results
+    # Test model evaluation with fresh attack simulations on held-out benign data
+    random.seed(99)
+    eval_malicious = create_dataset(test_benign, len(test_benign))
     result = app.run_model(
         False,
         MODEL_NAME,
-        benign_test_json_data,
-        malicious_test_json_data
+        test_benign,
+        eval_malicious,
     )
 
     acc = result["accuracy"] if isinstance(result, dict) else result
