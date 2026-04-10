@@ -520,15 +520,60 @@ def run_attack_simulation():
         if not Confirm.ask("Run another simulation?", default=False):
             return
 
+def evaluate_monitored_tree(snapshot):
+    # Pulls the monitored tree from the database and runs the trained model against it
+    # to flag any packages the model predicts as malicious. Called after each detected update.
+    try:
+        ds = DataStorage()
+        all_pkgs = ds.get_all_packages()
+    except Exception as e:
+        warn(f"Real-time eval skipped - database error: {e}")
+        return
+
+    snapshot_keys = {f"{name}@{ver}" for name, ver in snapshot.items()}
+    tree_pkgs = {k: v for k, v in all_pkgs.items() if k in snapshot_keys}
+
+    if not tree_pkgs:
+        warn("Real-time eval skipped - no matching packages found in database.")
+        return
+
+    with Progress(SpinnerColumn(), TextColumn("[progress.description]{task.description}"), console=console, transient=True) as progress:
+        task = progress.add_task(f"Scanning {len(tree_pkgs)} packages with model...", total=None)
+        result = run_model(False, MODEL_PATH, tree_pkgs, {})
+        progress.update(task, completed=True)
+
+    if not result or not result.get("packages"):
+        warn("Real-time eval returned no result.")
+        return
+
+    flagged = [p for p in result["packages"] if p.get("pred_label") == 1]
+    if flagged:
+        error(f"THREAT DETECTED - {len(flagged)} package(s) flagged as malicious/suspicious:")
+        for p in flagged:
+            error(f"  → [bold]{p['name']}[/bold]")
+    else:
+        success(f"Real-time scan clean - no threats detected across {len(tree_pkgs)} packages.")
+
 def start_polling():
     print_separator("Start Monitoring")
     console.print()
 
     package = Prompt.ask("Package to monitor", default="lodash")
     interval = IntPrompt.ask("Poll interval (seconds)", default=60)
+
+    realtime_eval = False
+    if Path(MODEL_PATH).exists():
+        realtime_eval = Confirm.ask(
+            "Run real-time threat detection on updates? [dim](evaluates package + dependencies with the trained model)[/dim]",
+            default=False,
+        )
+    else:
+        warn(f"Real-time threat detection unavailable - no trained model found at [bold]{MODEL_PATH}[/bold].")
     console.print()
 
     info(f"Monitoring [bold blue_violet]{package}[/bold blue_violet] and its full dependency tree every [bold]{interval}s[/bold].")
+    if realtime_eval:
+        info("Real-time threat detection: [bold green]ON[/bold green]")
     info("Press [bold]Ctrl+C[/bold] to stop.")
     console.print()
 
@@ -589,6 +634,10 @@ def start_polling():
                     info(f"New dependency: [bold]{pkg_name}[/bold] @ [green]{new_ver}[/green]")
                     run_data_crawler_single_package(pkg_name, verbose=False)
                     success(f"[bold]{pkg_name}@{new_ver}[/bold] added to database.")
+
+                if realtime_eval:
+                    console.print()
+                    evaluate_monitored_tree(new_snapshot)
 
             snapshot = new_snapshot
             console.print()
