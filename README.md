@@ -1,160 +1,100 @@
 # Sentinel
-A GNN-Based NPM Supply Chain Attack Detection Tool. It detects anomalies to find malicious packages within the NPM ecosystem. The tool includes a data collection tool as well to build a baseline of initial training data and uses a mix of permutation and duplication to help generate malicious package datasets. Changes are coming soon as well to include more optimized accuracy against real-world data.
 
-## Steps To Test the CLI
-1. Create python environment:<br>
-`python3 -m venv .venv`
+A GNN-based NPM supply chain attack detection tool. Sentinel analyzes package metadata across dependency networks to flag potentially malicious packages. It trains on real-world NPM data and uses synthetic attack simulations to learn what suspicious activity looks like.
 
-2. Start python environment:<br>
-`source .venv/bin/activate`
+## Features
 
-3. Install packages<br>
-`pip install -r requirements.txt`
+* **GNN-based detection** - Trains a Graph Neural Network on 41 package features (scripts, maintainers, downloads, naming patterns, dependency relationships, and more)
+* **Attack simulation** - Generate realistic coordinated attacks (maintainer compromise, dependency injection, script injection) to test model performance
+* **Real-time monitoring** - Poll any NPM package and its full dependency tree for updates, with optional threat detection on changes
+* **Data collection** - Crawl the NPM registry and store full dependency networks in a Neo4j graph database
 
-3. Run the program<br>
-`python sentinel.py`
+## Quick Start
 
-## Steps To Run Model:
-NOTE: First make sure you are within the current directory
+### Setup
 
-1. Create python environment:<br>
-`python3 -m venv .venv`
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
 
-2. Start python environment:<br>
-`source .venv/bin/activate`
+### Run the CLI
 
-3. Install packages<br>
-`pip install -r requirements.txt`
+```bash
+python sentinel.py
+```
 
-4. Run Program<br>
-- Note: --train, --eval, and --use-real-data are optional
-- Training is the default option and using real world data is disabled by default
-- Option 1 (Train the model):<br>
-`python app.py --train --use-real-data`
+This opens an interactive menu with all options: data collection, training, evaluation, attack simulation, and live monitoring.
 
-- Option 2 (Evaluate the model):<br>
-`python app.py --eval --use-real-data`
+![CLI Screenshot](./static/CLI.png)
 
-## Steps To Run NPM Data Crawlers:
-NOTE: First make sure you are within the current directory
+### Run the model directly
 
-1. Create python environment:<br>
-`python3 -m venv .venv`
+```bash
+# Train
+python app.py --train --use-real-data
 
-2. Start python environment:<br>
-`source .venv/bin/activate`
+# Evaluate
+python app.py --eval --use-real-data
+```
 
-3. Install packages<br>
-`pip install -r requirements.txt`
+`--use-real-data` pulls from the Neo4j database. Without it, the model uses local JSON sample files.
 
-4. Run Program<br>
-`python data_crawler.py --sample <samples_fle_name>`
+### Run data crawlers
 
-## Steps To Test Model
-1. Run tests:<br>
-`pytest -q --disable-warnings`
+```bash
+python data_crawler.py --samples <packages_file.txt>
+```
 
-## What Sentinel does
+### Run tests
 
-Sentinel uses the datasets within the current directory to help either train a new model or evaluate an existing model within the model directory.
-The model is named "gnn_model.pt" and is created/loaded within the model directory.
+```bash
+pytest -q --disable-warnings
+```
 
-Sentinel also currently has custom data crawlers that is located within the root directory.
-These crawlers may collect data straight from the NPM registry given the list of the top 1000 node packages within the `top1000packages.txt` file
+## How it works
 
-## CLI
-The main CLI has all 4 basic options: data collection, training, evaluation, and attack simulation. Steps to use are self explanatory and intuitive.
+1. **Data collection** - Crawls NPM registry packages and their full dependency trees, storing everything in Neo4j with Redis caching for visited nodes
+2. **Graph construction** - Converts package data into a PyTorch Geometric graph where packages are nodes and dependencies are edges
+3. **Training** - Feeds the graph into a 2-layer GCN with skip connections. Tracks loss to make sure the model is learning, not memorizing
+4. **Evaluation** - Tests the trained model on unseen data and reports accuracy, precision, recall, and F1
+5. **Monitoring** - Polls NPM for version changes in a dependency tree and runs the model against any updated packages
 
-![Model Diagram](./static/CLI.png)
+## Project structure
 
-## Model Output
+```
+sentinel.py        - Main CLI application
+app.py             - Direct model training/evaluation interface
+data_crawler.py    - NPM registry crawlers
+db.py              - Neo4j database layer
+cache.py           - Redis caching layer
+helpers.py         - Attack simulations and synthetic data generation
+model/
+  model.py         - GNN model (training, evaluation, save/load)
+  build_graph.py   - Graph construction and feature extraction
+samples/
+  benign/          - Benign package datasets
+  malicious/       - Malicious/attack simulation datasets
+  top*packages.txt - Package lists for data collection
+tests/             - Automated test suite
+static/            - Diagrams and screenshots
+```
 
-### Training
-<pre>
-Training model
-Epoch = 0, Loss = 0.7774453163146973
-Epoch = 10, Loss = 0.544178307056427
-Epoch = 20, Loss = 0.45122388005256653
-Epoch = 30, Loss = 0.4503107964992523
-Epoch = 40, Loss = 0.41077545285224915
-Epoch = 50, Loss = 0.4083067774772644
-Epoch = 60, Loss = 0.4220380485057831
-Epoch = 70, Loss = 0.40408775210380554
-Epoch = 80, Loss = 0.4153529405593872
-Epoch = 90, Loss = 0.40803200006484985
-Model trained and saved to 'gnn_model.pt'.
-</pre>
+## Tech stack
 
-This output represents the loss compute during each training pass. Decreasing loss compute means that the model is actually learning.<br>
-Model is then saved in the "gnn_model.pt" file within the current directory <br>
+* Python, PyTorch Geometric, Rich, Neo4j, Redis, Pytest
 
-### Model Evaluation
+## Diagrams
 
-<pre>
-Evaluating model
-Calculated accuracy: 0.972972972972973
-</pre>
+### Model
 
-The calculated accuracy is the representation of how many classifications the model was able to get right for each node when determining whether it was benign or malicious.
+![Model Diagram](./static/model.png)
 
-## How the GNN model works
-There are 5 main sections in how Sentinel works.
-1. Building the graph
-2. Create/Apply normalizer
-3. Train model
-4. Evaluate model
-5. Save/Load model
+### Data Crawler
 
-Building the graph means that we take in the sample json data and convert it into a graph with nodes and edges for the GNN to consume.
-I'm using pytorch since it's a well known AI/ML library to help with this. It let's us create a dictionary-like object that holds node-level,
-link-level, and graph-level attributes. It's useful for storing our newly created tensors (multi-dimensional array of values for efficient computing).
+![Data Crawler Diagram](./static/data-crawler.png)
 
-With the new data, I want to be able to normalize it. Normalizing data adds uniformity and normalization to the data. This helps make sure that when new data comes, they follow a consistent rule/format/data structure. "fit_normalizer" helps to determine how the data should be normalized and "normalize" helps to apply the normalizer to the data.
+### Graph Database
 
-Training the model is self explanatory. Based on the labels previously provided when building the initial graph of the 2 data samples (or real-world data), this function is where the model will learn to adjust and differentiate the difference between benign and malicious data. Important to note that we can watch the loss compute through each training pass to keep track of whether it’s actually learning or not. Loss compute is just the difference between the model prediction and the actual value. If the difference goes down overtime, it's a good indicator of proper training.
-
-Evaluating the model is also self explanatory. Here, the model is given new data samples and the model is tasked to identify malicious and benign packages. The data samples have also been normalized to the same extent as the training data as well within the evaluate function. It returns an accuracy score at the end that determines how accurate it was at classifying the different nodes as either benign or malicious.
-
-Save/Load model is just saving the model after training and loading it back when either training or evaluating. This is good for continued training on existing models so that we don't sped time having to retrain everything from scratch. It's also good for letting others evaluate data sets with your saved model.
-
-### Data Crawler Output
-<pre>
-lodash
-chalk
-request
-commander
-react
-express
-debug
-async
-fs-extra
-moment
-prop-types
-react-dom
-bluebird
-underscore
-vue
-axios
-tslib
-mkdirp
-glob
-yargs
-</pre>
-
-Output represents the packages that the data crawler has retrieved and collected package data for.
-
-### How the Data Crawlers work
-
-It takes a list of packages, traverses through each one and calls the API registry recusrively through each package's dependency network.
-If there is a dependency found, it will create a node-edge pair on the Neo4j graph database. If it's just a single node package, it will create
-just a single node. There is also a redis cache db set up to keep track of visited nodes. Eventually, the graph database will look similar to this:
-
-![Graph Database Screenshot](./static/graph_db.png)
-
-## Model Diagram
-
-![Model Diagram](./static/PrototypeDiagram.png)
-
-## Data Crawler Diagram
-
-![Model Diagram](./static/DataCrawlerDiagram.png)
+![Graph Database](./static/graph_db.png)
