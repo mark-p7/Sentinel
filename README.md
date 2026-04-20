@@ -89,11 +89,11 @@ static/            - Diagrams and screenshots
 
 ### Model
 
-![Model Diagram](./static/model.png)
+![Model Diagram](./static/model-diagram-updated.png)
 
 ### Data Crawler
 
-![Data Crawler Diagram](./static/data-crawler.png)
+![Data Crawler Diagram](./static/data-crawler-diagram-updated.png)
 
 ### Graph Database
 
